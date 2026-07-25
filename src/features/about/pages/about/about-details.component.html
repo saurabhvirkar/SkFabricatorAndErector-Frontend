@@ -1,0 +1,112 @@
+<div class="about-page min-w-full pt-12">
+  <header class="bg-gradient-to-r from-blue-800 to-blue-600 text-white pt-12 pb-6 relative overflow-hidden">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      <h1 class="text-5xl font-extrabold mb-4 animate-fade-in-down">About SK Fabricator and Erector</h1>
+      <p class="text-xl text-blue-100 max-w-3xl mx-auto animate-fade-in-up animation-delay-300">
+        Your trusted partner for industrial piping, structural fabrication, and equipment erection. Committed to quality, precision, and timely delivery.
+      </p>
+    </div>
+    <div class="absolute inset-0 z-0 opacity-20" style="background-image: url('https://via.placeholder.com/1500x500?text=About+Us+Background'); background-size: cover; background-position: center;"></div>
+  </header>
+
+  <main class="py-10 bg-gray-50">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="p-8 rounded-xl shadow-xl bg-white animate-fade-in-left border-l-4 border-blue-600">
+          <h2 class="text-md font-bold uppercase text-blue-600 tracking-wider mb-3">Welcome To</h2>
+          <h3 class="text-5xl font-extrabold text-gray-900 mb-6 leading-tight">SK Fabricator and Erector</h3>
+          <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+            We, SK FABRICATOR AND ERECTOR is one of the leading Engineering Contractor for Industrial Piping, Structure Fabrication, Storage Tanks, Equipment Erection, Ducting & Insulation Works for project & maintenance job, Committed towards quality services.
+          </p>
+          <p class="text-gray-700 leading-relaxed">
+            Our office & Store is fully equipped with all modern equipment's, tool and other infrastructures backed by our efficient team of Engineers, Supervisors and workers. We aim at perfection in Job that we are undertaking and complete in record time.
+          </p>
+        </div>
+
+        <div class="relative h-96 w-full overflow-hidden rounded-xl shadow-xl animate-fade-in-right border-l-4 border-blue-600">
+          @for (slide of sectionImages(); track slide.id; let i = $index) {
+            <img
+              [src]="slide.url"
+              alt="About us slide image"
+              class="absolute inset-0 w-full h-full object-contain transition-opacity duration-700 ease-in-out"
+              [class.opacity-100]="currentSlideIndex === i"
+              [class.opacity-0]="currentSlideIndex !== i"
+            />
+          }
+          <button (click)="changeSlide(-1)" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 transition-all duration-300 z-10">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button (click)="changeSlide(1)" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 transition-all duration-300 z-10">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+          <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
+            @for (slide of sectionImages(); track slide.id; let i = $index) {
+              <button (click)="goToSlide(i)" class="h-3 w-3 rounded-full transition-all duration-300" [ngClass]="{'bg-blue-600': currentSlideIndex === i, 'bg-white/50 hover:bg-white': currentSlideIndex !== i}"></button>
+            }
+          </div>
+        </div>
+      </div>
+
+      <section class="mt-6 py-6 bg-white rounded-xl shadow-lg border-t-4 border-blue-600">
+        <div class="text-center mb-4">
+          <h2 class="text-5xl font-extrabold text-blue-800 mb-4 animate-fade-in-down">Mission and Vision</h2>
+          <p class="text-xl text-gray-700 mt-2 animate-fade-in-up">Perfection Through Precision</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="advantage-card animate-fade-in-up">
+            <div class="advantage-icon"><i class="fas fa-bullseye"></i></div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">Our Focus</h3>
+            <p class="text-gray-600 text-center">To provide integrated solutions to requirements for all types of structural design and work, fabrication, piping, machine installation, machine maintenance and any modifications required to complete the work.</p>
+          </div>
+          <div class="advantage-card animate-fade-in-up animation-delay-200">
+            <div class="advantage-icon"><i class="fas fa-rocket"></i></div>
+            <h3 class="text-xl font-bold text-center">Our Goal</h3>
+            <p class="text-gray-600 text-center">To maximize the business value of your project through early contractor involvement and optimize the fabrication process with modularization.</p>
+          </div>
+          <div class="advantage-card animate-fade-in-up animation-delay-400">
+            <div class="advantage-icon"><i class="fas fa-gem"></i></div>
+            <h3 class="text-xl font-bold text-center">Our Mission</h3>
+            <p class="text-gray-600 text-center">Adding value to everything we do by creating better solutions.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-6 py-6 bg-gray-100 rounded-xl shadow-inner border-t-4 border-blue-600">
+        <div class="text-center mb-6">
+          <h2 class="text-5xl font-extrabold text-gray-900 mb-4 animate-fade-in-down">Our Commitment & Guaranteed Excellence</h2>
+          <p class="text-xl text-gray-600 mt-2 animate-fade-in-up">Four pillars that define our promise to every client.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="group bg-white rounded-xl shadow-lg overflow-hidden flex flex-col text-center transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl animate-fade-in-up">
+            <div class="h-40 bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/3184454/pexels-photo-3184454.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1')"></div>
+            <div class="p-6 flex-grow flex flex-col justify-center">
+              <h3 class="text-2xl font-bold text-gray-800 mb-2">Safety First</h3>
+              <p class="text-gray-600 text-base">At S K FABRICATOR AND ERECTOR, safety comes first in everything we do.Our goal is to have an incident and injury free workplace.</p>
+            </div>
+          </div>
+          <div class="group bg-white rounded-xl shadow-lg overflow-hidden flex flex-col text-center transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl animate-fade-in-up animation-delay-200">
+            <div class="h-40 bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1')"></div>
+            <div class="p-6 flex-grow flex flex-col justify-center">
+              <h3 class="text-2xl font-bold text-gray-800 mb-2">Guaranteed Quality</h3>
+              <p class="text-gray-600 text-base">Committed to top quality workmanship, professional certification & quality assurance.</p>
+            </div>
+          </div>
+          <div class="group bg-white rounded-xl shadow-lg overflow-hidden flex flex-col text-center transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl animate-fade-in-up animation-delay-400">
+            <div class="h-40 bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/159306/construction-site-build-construction-work-159306.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1')"></div>
+            <div class="p-6 flex-grow flex flex-col justify-center">
+              <h3 class="text-2xl font-bold text-gray-800 mb-2">Guaranteed Delivery</h3>
+              <p class="text-gray-600 text-base">We make no commitments we cannot keep and will not accept a project that we cannot deliver on time.</p>
+            </div>
+          </div>
+          <div class="group bg-white rounded-xl shadow-lg overflow-hidden flex flex-col text-center transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl animate-fade-in-up animation-delay-600">
+            <div class="h-40 bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/8346833/pexels-photo-8346833.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1')"></div>
+            <div class="p-6 flex-grow flex flex-col justify-center">
+              <h3 class="text-2xl font-bold text-gray-800 mb-2">Guaranteed Service</h3>
+              <p class="text-gray-600 text-base">Dedicated single point of contact throughout each project. Friendly, knowledgeable and professional staff.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
