@@ -1,0 +1,28 @@
+@use 'variables' as *;
+
+/* Material Theme Overrides & Global Component Styles */
+.mat-mdc-card {
+  border-radius: $radius-lg !important;
+  box-shadow: $shadow-md !important;
+  border: 1px solid $color-border !important;
+}
+
+.mat-mdc-button-base {
+  border-radius: $radius-md !important;
+  font-weight: 500 !important;
+}
+
+.mat-mdc-snack-bar-container {
+  &.snack-success .mdc-snackbar__surface {
+    background-color: $color-success !important;
+    color: #ffffff !important;
+  }
+  &.snack-error .mdc-snackbar__surface {
+    background-color: $color-error !important;
+    color: #ffffff !important;
+  }
+  &.snack-info .mdc-snackbar__surface {
+    background-color: $color-info !important;
+    color: #ffffff !important;
+  }
+}

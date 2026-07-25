@@ -1,0 +1,165 @@
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+  
+  <!-- Page Header -->
+  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-slate-200 pb-5">
+    <div>
+      <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 flex items-center gap-x-2">
+        <span class="material-symbols-outlined text-blue-700 text-3xl">dashboard</span>
+        Admin Overview Dashboard
+      </h1>
+      <p class="text-slate-600 text-sm mt-1">Real-time status metrics and quick management shortcuts for SK Fabricator & Erector.</p>
+    </div>
+    <div class="flex items-center space-x-3">
+      <a routerLink="/inquiries" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 transition-colors shadow-sm gap-x-1.5">
+        <span class="material-symbols-outlined text-sm">mail</span>
+        View Inquiries
+      </a>
+      <a routerLink="/projects" class="inline-flex items-center px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors shadow-sm gap-x-1.5">
+        <span class="material-symbols-outlined text-sm">engineering</span>
+        Manage Projects
+      </a>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  @if (isLoading()) {
+    <div class="flex flex-col items-center justify-center py-16 space-y-3">
+      <div class="w-10 h-10 border-4 border-blue-700 border-t-transparent rounded-full animate-spin"></div>
+      <p class="text-slate-600 font-medium">Loading live performance metrics...</p>
+    </div>
+  } @else {
+    <!-- KPI Summary Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <!-- Card 1: Total Projects -->
+      <mat-card class="p-6 hover-lift bg-white border border-slate-200">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Completed Portfolio</p>
+            <h2 class="text-3xl font-extrabold text-slate-900 mt-2">{{ stats()?.totalProjects || 0 }}</h2>
+            <p class="text-xs text-emerald-600 font-medium mt-1">Active Projects</p>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center">
+            <span class="material-symbols-outlined text-2xl">construction</span>
+          </div>
+        </div>
+      </mat-card>
+
+      <!-- Card 2: Total Inquiries -->
+      <mat-card class="p-6 hover-lift bg-white border border-slate-200">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Client Inquiries</p>
+            <h2 class="text-3xl font-extrabold text-slate-900 mt-2">{{ stats()?.totalInquiries || 0 }}</h2>
+            <p class="text-xs text-blue-600 font-medium mt-1">Received Submissions</p>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center">
+            <span class="material-symbols-outlined text-2xl">inbox</span>
+          </div>
+        </div>
+      </mat-card>
+
+      <!-- Card 3: Our Services -->
+      <mat-card class="p-6 hover-lift bg-white border border-slate-200">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Services Catalog</p>
+            <h2 class="text-3xl font-extrabold text-slate-900 mt-2">{{ stats()?.totalServices || 0 }}</h2>
+            <p class="text-xs text-indigo-600 font-medium mt-1">Industrial Services</p>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center">
+            <span class="material-symbols-outlined text-2xl">build</span>
+          </div>
+        </div>
+      </mat-card>
+
+      <!-- Card 4: Team Roster -->
+      <mat-card class="p-6 hover-lift bg-white border border-slate-200">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Engineering Staff</p>
+            <h2 class="text-3xl font-extrabold text-slate-900 mt-2">{{ stats()?.totalTeamMembers || 0 }}</h2>
+            <p class="text-xs text-sky-600 font-medium mt-1">Active Team</p>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center">
+            <span class="material-symbols-outlined text-2xl">group</span>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+
+    <!-- Quick Management & Recent Inquiries Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
+      
+      <!-- Management Shortcuts -->
+      <mat-card class="p-6 bg-white border border-slate-200 lg:col-span-1">
+        <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-x-2">
+          <span class="material-symbols-outlined text-blue-700">bolt</span>
+          Management Shortcuts
+        </h3>
+        <div class="space-y-3">
+          <a routerLink="/projects" class="flex items-center p-3 rounded-lg border border-slate-100 hover:bg-slate-50 transition-colors">
+            <span class="material-symbols-outlined text-blue-700 mr-3">engineering</span>
+            <div>
+              <p class="text-sm font-semibold text-slate-900">Manage Projects Portfolio</p>
+              <p class="text-xs text-slate-500">Add, edit or update completed structural works</p>
+            </div>
+          </a>
+          <a routerLink="/our-services" class="flex items-center p-3 rounded-lg border border-slate-100 hover:bg-slate-50 transition-colors">
+            <span class="material-symbols-outlined text-indigo-700 mr-3">handyman</span>
+            <div>
+              <p class="text-sm font-semibold text-slate-900">Services Catalog</p>
+              <p class="text-xs text-slate-500">Update fabrication & erection offerings</p>
+            </div>
+          </a>
+          <a routerLink="/gallery" class="flex items-center p-3 rounded-lg border border-slate-100 hover:bg-slate-50 transition-colors">
+            <span class="material-symbols-outlined text-emerald-700 mr-3">photo_library</span>
+            <div>
+              <p class="text-sm font-semibold text-slate-900">Photo Gallery</p>
+              <p class="text-xs text-slate-500">Upload site installation & workshop photos</p>
+            </div>
+          </a>
+          <a routerLink="/team" class="flex items-center p-3 rounded-lg border border-slate-100 hover:bg-slate-50 transition-colors">
+            <span class="material-symbols-outlined text-amber-700 mr-3">badge</span>
+            <div>
+              <p class="text-sm font-semibold text-slate-900">Team Roster</p>
+              <p class="text-xs text-slate-500">Manage leadership & engineering personnel</p>
+            </div>
+          </a>
+        </div>
+      </mat-card>
+
+      <!-- Recent Inquiries Preview -->
+      <mat-card class="p-6 bg-white border border-slate-200 lg:col-span-2">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-slate-900 flex items-center gap-x-2">
+            <span class="material-symbols-outlined text-blue-700">mark_email_unread</span>
+            Recent Customer Inquiries
+          </h3>
+          <a routerLink="/inquiries" class="text-xs font-semibold text-blue-700 hover:underline">View All →</a>
+        </div>
+
+        @if (recentInquiries().length === 0) {
+          <div class="py-12 text-center text-slate-500">
+            <span class="material-symbols-outlined text-4xl text-slate-300 mb-2">inbox</span>
+            <p class="text-sm font-medium">No recent inquiries recorded.</p>
+          </div>
+        } @else {
+          <div class="divide-y divide-slate-100">
+            @for (inquiry of recentInquiries(); track inquiry.id) {
+              <div class="py-3 flex items-center justify-between hover:bg-slate-50 px-2 rounded-lg transition-colors">
+                <div>
+                  <p class="text-sm font-semibold text-slate-900">{{ inquiry.name }}</p>
+                  <p class="text-xs text-slate-500">{{ inquiry.email }} • {{ inquiry.phone || 'N/A' }}</p>
+                  <p class="text-xs text-slate-600 line-clamp-1 mt-0.5">{{ inquiry.message }}</p>
+                </div>
+                <span class="badge-status status-info text-[10px]">New</span>
+              </div>
+            }
+          </div>
+        }
+      </mat-card>
+
+    </div>
+  }
+</div>
