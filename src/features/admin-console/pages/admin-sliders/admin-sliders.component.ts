@@ -45,7 +45,7 @@ export class AdminSlidersComponent implements OnInit {
   sortDirection = signal<'asc' | 'desc'>('asc');
 
   page = signal(1);
-  pageSize = signal(10);
+  pageSize = signal(5);
 
   filteredSliders = computed(() => {
     let result = [...this.sliders()];

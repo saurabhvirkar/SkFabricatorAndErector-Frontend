@@ -15,11 +15,11 @@ export class AdminPaginatorComponent {
   @Input() page = 1;
   @Output() pageChange = new EventEmitter<number>();
 
-  @Input() pageSize = 10;
+  @Input() pageSize = 5;
   @Output() pageSizeChange = new EventEmitter<number>();
 
   @Input() collectionSize = 0;
-  @Input() pageSizeOptions: number[] = [5, 10, 20, 50];
+  @Input() pageSizeOptions: number[] = [5, 10, 15];
 
   get startIndex(): number {
     if (this.collectionSize === 0) return 0;

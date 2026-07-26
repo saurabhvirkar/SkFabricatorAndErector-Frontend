@@ -46,7 +46,7 @@ export class AdminTeamComponent implements OnInit {
   sortDirection = signal<'asc' | 'desc'>('asc');
 
   page = signal(1);
-  pageSize = signal(10);
+  pageSize = signal(5);
 
   filteredTeam = computed(() => {
     let result = [...this.teamMembers()];

@@ -16,7 +16,7 @@
         @for (member of teamMembers(); track member.id) {
           <div class="group bg-white rounded-xl shadow-lg text-center transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl animate-team-card">
             <div class="relative h-36 bg-blue-200 rounded-t-xl">
-              <img [src]="member.imageUrl || 'assets/images/placeholder.jpg'" [alt]="member.name"
+              <img [src]="member.imageUrl || 'assets/images/placeholder.jpg'" [alt]="member.name" loading="lazy"
                     class="w-28 h-28 object-cover rounded-full mx-auto absolute -bottom-14 left-1/2 transform -translate-x-1/2 border-4 border-white shadow-lg">
             </div>
             <div class="pt-16 p-5">

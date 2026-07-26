@@ -1,4 +1,4 @@
-<div class="d-flex flex-column gap-4">
+<div class="d-flex flex-column gap-2.5">
   <!-- Shared Page Header -->
   <app-admin-page-header
     title="Customer Inquiries"
@@ -7,37 +7,37 @@
     description="Review contact requests submitted by website visitors and potential clients."
   ></app-admin-page-header>
 
-  <!-- Search & Filters Bar -->
-  <div class="bg-white p-3 rounded-4 border shadow-sm d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center justify-between gap-3">
+  <!-- Search & Filters Bar (Combined Toolbar Row) -->
+  <div class="bg-white p-2.5 rounded-3 border shadow-sm d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center justify-content-between gap-2.5">
     <div class="position-relative w-100 style-search-box" style="max-width: 320px;">
-      <mat-icon class="position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary fs-5 pointer-events-none">search</mat-icon>
+      <mat-icon class="position-absolute top-50 start-0 translate-middle-y ms-2.5 text-secondary fs-6 pointer-events-none">search</mat-icon>
       <input
         type="text"
         [value]="filterText()"
         (input)="applyFilter($event)"
         placeholder="Search inquiries..."
         aria-label="Search inquiries"
-        class="form-control form-control-sm ps-5 bg-light rounded-3"
+        class="form-control form-control-sm ps-5 bg-light rounded-2"
       />
     </div>
     <div class="d-flex align-items-center gap-2 align-self-end align-self-sm-center">
-      <button type="button" class="btn btn-outline-secondary btn-sm rounded-3 d-inline-flex align-items-center gap-1.5" (click)="loadInquiries()" [disabled]="isLoading()">
+      <button type="button" class="btn btn-outline-secondary btn-sm rounded-2 d-inline-flex align-items-center gap-1.5 py-1 px-2.5" (click)="loadInquiries()" [disabled]="isLoading()">
         <mat-icon class="fs-6" [class.animate-spin]="isLoading()">refresh</mat-icon>
-        <span>Refresh Data</span>
+        <span class="text-xs">Refresh Data</span>
       </button>
-      <span class="small text-secondary fw-medium">
+      <span class="text-xs text-secondary fw-medium">
         Showing <strong class="text-dark">{{ filteredInquiries().length }}</strong> inquiries
       </span>
     </div>
   </div>
 
   <!-- Loading State -->
-  <div class="bg-white p-4 rounded-4 border shadow-sm" *ngIf="isLoading()">
+  <div class="bg-white p-3 rounded-3 border shadow-sm" *ngIf="isLoading()">
     <app-loading-state message="Loading customer inquiries..."></app-loading-state>
   </div>
 
   <!-- Error State -->
-  <div class="bg-white p-4 rounded-4 border shadow-sm" *ngIf="hasError() && !isLoading()">
+  <div class="bg-white p-3 rounded-3 border shadow-sm" *ngIf="hasError() && !isLoading()">
     <app-error-state
       title="Failed to load inquiries"
       description="An error occurred while retrieving customer inquiry records."
@@ -46,7 +46,7 @@
   </div>
 
   <!-- Table Card Shell -->
-  <div *ngIf="!isLoading() && !hasError()" class="bg-white rounded-4 border shadow-sm overflow-hidden">
+  <div *ngIf="!isLoading() && !hasError()" class="bg-white rounded-3 border shadow-sm overflow-hidden">
     <app-empty-state
       *ngIf="filteredInquiries().length === 0"
       icon="mail"
@@ -58,38 +58,38 @@
       <table class="table table-hover table-striped align-middle mb-0">
         <thead class="table-light">
           <tr>
-            <th scope="col" class="py-3 px-3 fw-bold text-secondary text-uppercase small user-select-none cursor-pointer" (click)="onSort('name')">
+            <th scope="col" class="py-2.5 px-3 fw-bold text-secondary text-uppercase text-xs user-select-none cursor-pointer" (click)="onSort('name')">
               <div class="d-flex align-items-center gap-1">
                 <span>Name</span>
                 <mat-icon class="fs-6 text-primary" *ngIf="sortColumn() === 'name'">{{ sortDirection() === 'asc' ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
               </div>
             </th>
-            <th scope="col" class="py-3 px-3 fw-bold text-secondary text-uppercase small user-select-none cursor-pointer" (click)="onSort('email')">
+            <th scope="col" class="py-2.5 px-3 fw-bold text-secondary text-uppercase text-xs user-select-none cursor-pointer" (click)="onSort('email')">
               <div class="d-flex align-items-center gap-1">
                 <span>Email</span>
                 <mat-icon class="fs-6 text-primary" *ngIf="sortColumn() === 'email'">{{ sortDirection() === 'asc' ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
               </div>
             </th>
-            <th scope="col" class="py-3 px-3 fw-bold text-secondary text-uppercase small">Subject</th>
-            <th scope="col" class="py-3 px-3 fw-bold text-secondary text-uppercase small user-select-none cursor-pointer" (click)="onSort('submittedAt')">
+            <th scope="col" class="py-2.5 px-3 fw-bold text-secondary text-uppercase text-xs">Subject</th>
+            <th scope="col" class="py-2.5 px-3 fw-bold text-secondary text-uppercase text-xs user-select-none cursor-pointer" (click)="onSort('submittedAt')">
               <div class="d-flex align-items-center gap-1">
                 <span>Date</span>
                 <mat-icon class="fs-6 text-primary" *ngIf="sortColumn() === 'submittedAt'">{{ sortDirection() === 'asc' ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
               </div>
             </th>
-            <th scope="col" class="py-3 px-3 fw-bold text-secondary text-uppercase small text-end" style="width: 100px;">Actions</th>
+            <th scope="col" class="py-2.5 px-3 fw-bold text-secondary text-uppercase text-xs text-end" style="width: 100px;">Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let inquiry of paginatedInquiries()">
-            <td class="py-2 px-3 fw-semibold text-dark">{{ inquiry.name }}</td>
-            <td class="py-2 px-3 text-primary small">
+            <td class="py-2 px-3 fw-semibold text-dark text-sm">{{ inquiry.name }}</td>
+            <td class="py-2 px-3 text-primary text-xs">
               <a [href]="'mailto:' + inquiry.email" class="text-decoration-none">{{ inquiry.email }}</a>
             </td>
-            <td class="py-2 px-3 text-secondary small text-truncate" style="max-width: 250px;" [title]="inquiry.subject || ''">
+            <td class="py-2 px-3 text-secondary text-xs text-truncate" style="max-width: 250px;" [title]="inquiry.subject || ''">
               {{ inquiry.subject || 'N/A' }}
             </td>
-            <td class="py-2 px-3 text-secondary small whitespace-nowrap">
+            <td class="py-2 px-3 text-secondary text-xs text-nowrap">
               {{ inquiry.submittedAt ? (inquiry.submittedAt | date:'mediumDate') : 'N/A' }}
             </td>
             <td class="py-2 px-3 text-end">
@@ -114,6 +114,7 @@
       (pageChange)="page.set($event)"
       [pageSize]="pageSize()"
       (pageSizeChange)="pageSize.set($event)"
+      [pageSizeOptions]="[5, 10, 15]"
       [collectionSize]="filteredInquiries().length"
     ></app-admin-paginator>
   </div>

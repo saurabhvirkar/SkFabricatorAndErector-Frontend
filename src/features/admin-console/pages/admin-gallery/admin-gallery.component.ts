@@ -45,7 +45,7 @@ export class AdminGalleryComponent implements OnInit {
   selectedCategory = signal<string>('All');
 
   page = signal(1);
-  pageSize = signal(12);
+  pageSize = signal(5);
 
   filteredPhotos = computed(() => {
     const cat = this.selectedCategory();

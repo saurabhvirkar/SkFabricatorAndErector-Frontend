@@ -47,7 +47,7 @@ export class AdminInquiriesComponent implements OnInit {
   sortDirection = signal<'asc' | 'desc'>('desc');
 
   page = signal(1);
-  pageSize = signal(10);
+  pageSize = signal(5);
 
   filteredInquiries = computed(() => {
     let result = [...this.inquiries()];

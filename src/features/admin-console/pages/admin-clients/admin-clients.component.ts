@@ -46,7 +46,7 @@ export class AdminClientsComponent implements OnInit {
   sortDirection = signal<'asc' | 'desc'>('asc');
 
   page = signal(1);
-  pageSize = signal(10);
+  pageSize = signal(5);
 
   filteredClients = computed(() => {
     let result = [...this.clients()];

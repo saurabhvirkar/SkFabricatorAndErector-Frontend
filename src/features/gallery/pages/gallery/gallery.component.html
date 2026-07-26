@@ -32,7 +32,7 @@
         @for (image of images(); track image.id) {
           <div class="rounded-xl shadow-lg overflow-hidden relative group cursor-pointer hover:shadow-2xl transition duration-300 animate-gallery-item"
                (click)="openLightbox(image)">
-            <img [src]="image.url" alt="Gallery Image"
+            <img [src]="image.url" alt="Gallery Image" loading="lazy"
                  class="w-full h-64 object-cover transition duration-500 group-hover:scale-105">
             
             <div class="absolute inset-0 bg-gray-900/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">

@@ -15,7 +15,7 @@
           <div class="client-card group bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
             <a [href]="client.clientUrl || '#'" target="_blank" rel="noopener noreferrer" class="block p-5">
               <div class="flex justify-center items-center h-28">
-                <img [src]="client.imageUrl || 'assets/images/placeholder.jpg'" [alt]="client.name + ' Logo'" class="max-w-full max-h-20 object-contain transition-transform duration-500 group-hover:scale-105">
+                <img [src]="client.imageUrl || 'assets/images/placeholder.jpg'" [alt]="client.name + ' Logo'" loading="lazy" class="max-w-full max-h-20 object-contain transition-transform duration-500 group-hover:scale-105">
               </div>
               <div class="text-center mt-3">
                 <h3 class="text-base font-semibold text-gray-800">{{ client.name }}</h3>
