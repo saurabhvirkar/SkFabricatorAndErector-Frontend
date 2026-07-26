@@ -1,47 +1,45 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-
-export interface ConfirmationDialogData {
-  title: string;
-  message: string;
-  confirmText?: string;
-  cancelText?: string;
-  isDanger?: boolean;
-}
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-confirmation-dialog',
   standalone: true,
-  imports: [CommonModule, MatDialogModule, MatButtonModule],
+  imports: [CommonModule, MatIconModule],
   template: `
-    <h2 mat-dialog-title class="flex items-center gap-x-2 text-slate-900 font-bold">
-      <span class="material-symbols-outlined text-amber-600" [class.text-red-600]="data.isDanger">warning</span>
-      {{ data.title }}
-    </h2>
-    <mat-dialog-content class="py-3 text-slate-600">
-      <p class="text-sm">{{ data.message }}</p>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end" class="gap-x-2 pt-2">
-      <button mat-button (click)="onCancel()">{{ data.cancelText || 'Cancel' }}</button>
-      <button mat-raised-button [color]="data.isDanger ? 'warn' : 'primary'" (click)="onConfirm()">
-        {{ data.confirmText || 'Confirm' }}
+    <div class="modal-header border-0 pb-0">
+      <h5 class="modal-title fw-bold text-dark d-flex align-items-center gap-2">
+        <mat-icon [class.text-danger]="isDanger" [class.text-warning]="!isDanger">warning</mat-icon>
+        <span>{{ title }}</span>
+      </h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+    </div>
+    <div class="modal-body py-3 text-secondary">
+      <p class="mb-0 small leading-relaxed">{{ message }}</p>
+    </div>
+    <div class="modal-footer border-top-0 pt-0 gap-2">
+      <button type="button" class="btn btn-light rounded-3 px-3" (click)="onCancel()">{{ cancelText || 'Cancel' }}</button>
+      <button type="button" class="btn rounded-3 px-4" [class.btn-danger]="isDanger" [class.btn-primary]="!isDanger" (click)="onConfirm()">
+        {{ confirmText || 'Confirm' }}
       </button>
-    </mat-dialog-actions>
+    </div>
   `
 })
 export class ConfirmationDialogComponent {
-  constructor(
-    public dialogRef: MatDialogRef<ConfirmationDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ConfirmationDialogData
-  ) {}
+  public activeModal = inject(NgbActiveModal);
+
+  @Input() title = 'Confirm Action';
+  @Input() message = 'Are you sure you want to proceed?';
+  @Input() confirmText = 'Confirm';
+  @Input() cancelText = 'Cancel';
+  @Input() isDanger = false;
 
   onConfirm(): void {
-    this.dialogRef.close(true);
+    this.activeModal.close(true);
   }
 
   onCancel(): void {
-    this.dialogRef.close(false);
+    this.activeModal.close(false);
   }
 }

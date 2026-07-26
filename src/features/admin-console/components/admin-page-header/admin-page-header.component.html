@@ -1,0 +1,36 @@
+<div class="bg-white p-4 p-md-4 rounded-4 border shadow-sm d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3 mb-4">
+  <div class="d-flex flex-column gap-1">
+    <!-- Breadcrumb trail -->
+    <nav class="d-flex align-items-center gap-2 small text-secondary fw-medium">
+      <a routerLink="/ops/adminportal/dashboard" class="text-decoration-none text-secondary hover-primary d-flex align-items-center gap-1">
+        <mat-icon class="fs-6">admin_panel_settings</mat-icon>
+        <span>Admin Console</span>
+      </a>
+      <span class="text-muted fw-bold">/</span>
+      <span class="text-dark fw-semibold">{{ breadcrumb }}</span>
+    </nav>
+
+    <!-- Page Title & Icon -->
+    <div class="d-flex align-items-center gap-3 pt-1">
+      <div class="rounded-3 bg-primary-subtle text-primary d-flex align-items-center justify-center p-2 border border-primary-subtle shrink-0" style="width: 42px; height: 42px;">
+        <mat-icon>{{ icon }}</mat-icon>
+      </div>
+      <div>
+        <h1 class="h4 font-bold text-dark mb-0 tracking-tight leading-tight">{{ title }}</h1>
+        <p *ngIf="description" class="small text-secondary mb-0 mt-1">{{ description }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Primary Action Button -->
+  <div *ngIf="primaryActionLabel" class="d-flex align-items-center gap-2 align-self-start align-self-sm-center shrink-0">
+    <button
+      type="button"
+      class="btn btn-primary rounded-3 px-3 py-2 fw-semibold d-inline-flex align-items-center gap-2 shadow-sm"
+      (click)="onPrimaryClick()"
+    >
+      <mat-icon class="fs-5 flex-shrink-0 leading-none">{{ primaryActionIcon }}</mat-icon>
+      <span>{{ primaryActionLabel }}</span>
+    </button>
+  </div>
+</div>

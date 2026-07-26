@@ -21,7 +21,7 @@ export class TeamService {
     return this.apiService.delete<void>(`teammembers/${id}`);
   }
 
-  updateTeamMember(id: number, teamMemberData: TeamMember): Observable<TeamMember> {
+  updateTeamMember(id: number, teamMemberData: FormData | any): Observable<TeamMember> {
     return this.apiService.put<TeamMember>(`teammembers/${id}`, teamMemberData);
   }
 }

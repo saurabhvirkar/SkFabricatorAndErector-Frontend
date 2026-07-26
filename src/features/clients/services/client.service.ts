@@ -21,7 +21,7 @@ export class ClientService {
     return this.apiService.delete<void>(`clientdetails/${id}`);
   }
 
-  updateClient(id: number, clientData: ClientDetails): Observable<ClientDetails> {
+  updateClient(id: number, clientData: FormData | any): Observable<ClientDetails> {
     return this.apiService.put<ClientDetails>(`clientdetails/${id}`, clientData);
   }
 }

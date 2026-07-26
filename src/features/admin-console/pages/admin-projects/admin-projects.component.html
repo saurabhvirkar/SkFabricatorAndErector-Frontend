@@ -1,0 +1,116 @@
+<div class="d-flex flex-column gap-4">
+  <!-- Shared Page Header -->
+  <app-admin-page-header
+    title="Project Management"
+    breadcrumb="Projects"
+    icon="apartment"
+    description="Manage SK Fabricator & Erector showcase projects and categories."
+    primaryActionLabel="Add Project"
+    primaryActionIcon="add"
+    (primaryAction)="openAddDialog()"
+  ></app-admin-page-header>
+
+  <!-- Search & Filters Bar -->
+  <div class="bg-white p-3 rounded-4 border shadow-sm d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center justify-between gap-3">
+    <div class="position-relative w-100 style-search-box" style="max-width: 320px;">
+      <mat-icon class="position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary fs-5 pointer-events-none">search</mat-icon>
+      <input
+        type="text"
+        [value]="filterText()"
+        (input)="applyFilter($event)"
+        placeholder="Search projects..."
+        aria-label="Search projects"
+        class="form-control form-control-sm ps-5 bg-light rounded-3"
+      />
+    </div>
+    <span class="small text-secondary fw-medium align-self-end align-self-sm-center">
+      Showing <strong class="text-dark">{{ filteredProjects().length }}</strong> project records
+    </span>
+  </div>
+
+  <!-- Loading State -->
+  <div class="bg-white p-4 rounded-4 border shadow-sm" *ngIf="isLoading()">
+    <app-loading-state message="Loading project records..."></app-loading-state>
+  </div>
+
+  <!-- Error State -->
+  <div class="bg-white p-4 rounded-4 border shadow-sm" *ngIf="hasError() && !isLoading()">
+    <app-error-state
+      title="Failed to load projects"
+      description="An error occurred while retrieving projects."
+      (retry)="loadProjects()"
+    ></app-error-state>
+  </div>
+
+  <!-- Data Table Card Shell -->
+  <div *ngIf="!isLoading() && !hasError()" class="bg-white rounded-4 border shadow-sm overflow-hidden">
+    <app-empty-state
+      *ngIf="filteredProjects().length === 0"
+      icon="apartment"
+      title="No projects found"
+      description="Click 'Add Project' to create your first showcase project."
+      actionLabel="Add Project"
+      (action)="openAddDialog()"
+    ></app-empty-state>
+
+    <div *ngIf="filteredProjects().length > 0" class="table-responsive">
+      <table class="table table-hover table-striped align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th scope="col" class="py-3 px-3 fw-bold text-secondary text-uppercase small" style="width: 80px;">Image</th>
+            <th scope="col" class="py-3 px-3 fw-bold text-secondary text-uppercase small user-select-none cursor-pointer" (click)="onSort('title')">
+              <div class="d-flex align-items-center gap-1">
+                <span>Title</span>
+                <mat-icon class="fs-6 text-primary" *ngIf="sortColumn() === 'title'">{{ sortDirection() === 'asc' ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+              </div>
+            </th>
+            <th scope="col" class="py-3 px-3 fw-bold text-secondary text-uppercase small user-select-none cursor-pointer" (click)="onSort('category')">
+              <div class="d-flex align-items-center gap-1">
+                <span>Category</span>
+                <mat-icon class="fs-6 text-primary" *ngIf="sortColumn() === 'category'">{{ sortDirection() === 'asc' ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+              </div>
+            </th>
+            <th scope="col" class="py-3 px-3 fw-bold text-secondary text-uppercase small">Description</th>
+            <th scope="col" class="py-3 px-3 fw-bold text-secondary text-uppercase small text-end" style="width: 100px;">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let project of paginatedProjects()">
+            <td class="py-2 px-3">
+              <img [src]="project.image || 'assets/images/placeholder.jpg'" alt="Project" class="rounded-2 border" style="width: 48px; height: 36px; object-fit: cover;" />
+            </td>
+            <td class="py-2 px-3 fw-semibold text-dark">{{ project.title }}</td>
+            <td class="py-2 px-3">
+              <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-2.5 py-1">
+                {{ project.category }}
+              </span>
+            </td>
+            <td class="py-2 px-3 text-secondary small text-truncate" style="max-width: 250px;" [title]="project.description || ''">
+              {{ project.description || 'N/A' }}
+            </td>
+            <td class="py-2 px-3 text-end">
+              <div class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-outline-primary" (click)="openEditDialog(project)" title="Edit project" aria-label="Edit project">
+                  <mat-icon class="fs-6 align-middle">edit</mat-icon>
+                </button>
+                <button type="button" class="btn btn-outline-danger" (click)="deleteProject(project)" title="Delete project" aria-label="Delete project">
+                  <mat-icon class="fs-6 align-middle">delete_outline</mat-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Shared Bootstrap Paginator -->
+    <app-admin-paginator
+      *ngIf="filteredProjects().length > 0"
+      [page]="page()"
+      (pageChange)="page.set($event)"
+      [pageSize]="pageSize()"
+      (pageSizeChange)="pageSize.set($event)"
+      [collectionSize]="filteredProjects().length"
+    ></app-admin-paginator>
+  </div>
+</div>

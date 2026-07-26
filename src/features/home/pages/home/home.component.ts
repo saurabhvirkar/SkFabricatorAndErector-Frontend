@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, PLATFORM_ID, OnInit, signal, computed, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, inject, OnDestroy, PLATFORM_ID, OnInit, signal, AfterViewInit, ElementRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ContactUsComponent } from '../../../contact/pages/contact/contact-us.component';
 import { RouterLink } from '@angular/router';
@@ -7,9 +7,6 @@ import { ServiceService } from '../../../our-services/services/service.service';
 import { Service } from '../../../our-services/models/service.model';
 import { HomeSlider } from '../../models/home-slider.model';
 import { HomeSliderService } from '../../services/home-slider.service';
-import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../../../core/auth/auth.service';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { ScrollingClientsComponent } from '../../../../shared/components/scrolling-clients/scrolling-clients.component';
 
 @Component({
@@ -20,7 +17,6 @@ import { ScrollingClientsComponent } from '../../../../shared/components/scrolli
     ContactUsComponent,
     RouterLink,
     AboutDetailsComponent,
-    FormsModule,
     ScrollingClientsComponent,
   ],
   templateUrl: './home.component.html',
@@ -29,25 +25,16 @@ import { ScrollingClientsComponent } from '../../../../shared/components/scrolli
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   private readonly serviceService = inject(ServiceService);
   private readonly homeSliderService = inject(HomeSliderService);
-  private readonly authService = inject(AuthService);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly elementRef = inject(ElementRef);
-
-  isLoggedIn = toSignal(this.authService.isLoggedIn$, { initialValue: false });
-  currentUserRole = toSignal(this.authService.currentUserRole$, { initialValue: null });
-
-  isAdminOrManager = computed(() => {
-    const role = this.currentUserRole()?.toLowerCase();
-    return role === 'admin' || role === 'manager';
-  });
 
   featuredServices = signal<Service[]>([]);
   backgroundSlides = signal<HomeSlider[]>([]);
   currentSlideIndex = 0;
   private intervalId: ReturnType<typeof setInterval> | null = null;
 
-  heroTitle = signal<string>('');
-  heroDescription = signal<string>('');
+  heroTitle = signal<string>('SK Fabricator & Erector');
+  heroDescription = signal<string>('Perfection Through Precision in Structural Steel Fabrication & Erection.');
 
   ngOnInit(): void {
     this.loadBackgroundSlides();
@@ -105,69 +92,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
         console.error('Failed to load home slider items', err);
       }
     });
-  }
-
-  onAddHomeSlider(title: string, description: string, file: FileList | null): void {
-    if (!title || !description) {
-      console.error('Title and Description are required.');
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('description', description);
-    if (file && file.length > 0) {
-      formData.append('file', file[0]);
-    }
-
-    this.homeSliderService.addHomeSlider(formData).subscribe({
-      next: (newSlider: HomeSlider) => {
-        this.backgroundSlides.update(sliders => [...sliders, newSlider]);
-        if (this.backgroundSlides().length === 1) {
-          this.heroTitle.set(newSlider.title);
-          this.heroDescription.set(newSlider.description);
-        }
-      },
-      error: (err: unknown) => {
-        console.error('Failed to add home slider item', err);
-      }
-    });
-  }
-
-  onUpdateHomeSlider(id: number, title: string, description: string): void {
-    // Legacy template method fallback
-    console.log('Update home slider requested:', id, title, description);
-  }
-
-  onAddHomeSliderImage(homeSliderId: number, file: FileList | null): void {
-    if (!file || file.length === 0) return;
-    const formData = new FormData();
-    formData.append('file', file[0]);
-    formData.append('homeSliderId', homeSliderId.toString());
-    this.homeSliderService.addHomeSlider(formData).subscribe({
-      next: () => this.loadBackgroundSlides(),
-      error: (err) => console.error('Failed to upload image', err)
-    });
-  }
-
-  onDeleteHomeSlider(id: number): void {
-    if (confirm('Are you sure you want to delete this home slider item?')) {
-      this.homeSliderService.deleteHomeSlider(id).subscribe({
-        next: () => {
-          this.backgroundSlides.update(sliders => sliders.filter(s => s.id !== id));
-          if (this.backgroundSlides().length > 0) {
-            this.heroTitle.set(this.backgroundSlides()[0].title);
-            this.heroDescription.set(this.backgroundSlides()[0].description);
-          } else {
-            this.heroTitle.set('');
-            this.heroDescription.set('');
-          }
-        },
-        error: (err: unknown) => {
-          console.error('Failed to delete home slider item', err);
-        }
-      });
-    }
   }
 
   startAutoSlide(): void {

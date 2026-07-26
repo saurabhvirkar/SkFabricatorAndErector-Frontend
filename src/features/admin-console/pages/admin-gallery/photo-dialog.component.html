@@ -1,0 +1,74 @@
+<div class="modal-header border-bottom">
+  <h5 class="modal-title fw-bold text-dark d-flex align-items-center gap-2">
+    <mat-icon class="text-primary">cloud_upload</mat-icon>
+    <span>Upload Gallery Photo</span>
+  </h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="onCancel()"></button>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="modal-body py-3" style="max-height: 75vh; overflow-y: auto;">
+    <!-- Category -->
+    <div class="mb-3">
+      <label for="photoCategory" class="form-label fw-semibold small text-secondary">Category <span class="text-danger">*</span></label>
+      <select
+        id="photoCategory"
+        formControlName="category"
+        class="form-select"
+        [class.is-invalid]="form.get('category')?.touched && form.get('category')?.invalid"
+      >
+        <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="form.get('category')?.hasError('required')">Category is required</div>
+    </div>
+
+    <!-- Is About Slider -->
+    <div class="form-check mb-3">
+      <input
+        type="checkbox"
+        id="isAboutSlider"
+        formControlName="isAboutSlider"
+        class="form-check-input"
+      />
+      <label for="isAboutSlider" class="form-check-label small fw-medium text-dark">
+        Show on 'About Us' section slider
+      </label>
+    </div>
+
+    <!-- Photo Upload -->
+    <div class="mb-3">
+      <label for="photoFile" class="form-label fw-semibold small text-secondary">
+        Photo File <span class="text-danger">*</span>
+      </label>
+      <div class="d-flex align-items-center gap-2">
+        <input
+          id="photoFile"
+          type="file"
+          accept="image/*"
+          (change)="onFileSelected($event)"
+          class="form-control form-control-sm"
+        />
+        <button *ngIf="selectedFile" type="button" class="btn btn-outline-danger btn-sm" (click)="clearFile()" title="Clear selected file">
+          <mat-icon class="fs-6 align-middle">close</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="previewUrl()" class="mt-3">
+        <span class="form-text d-block mb-1">Photo Preview:</span>
+        <img [src]="previewUrl()" alt="Preview" class="img-thumbnail rounded-3 shadow-sm" style="max-height: 140px; object-fit: cover;" />
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer border-top pt-2 gap-2">
+    <button type="button" class="btn btn-light rounded-3 px-3" (click)="onCancel()" [disabled]="isSubmitting()">Cancel</button>
+    <button type="submit" class="btn btn-primary rounded-3 px-4" [disabled]="form.invalid || !selectedFile || isSubmitting()">
+      <span *ngIf="!isSubmitting()" class="d-inline-flex align-items-center gap-1.5">
+        <mat-icon class="fs-6">cloud_upload</mat-icon>
+        Upload Photo
+      </span>
+      <span *ngIf="isSubmitting()" class="d-inline-flex align-items-center gap-1.5">
+        <mat-icon class="fs-6 animate-spin">refresh</mat-icon> Uploading...
+      </span>
+    </button>
+  </div>
+</form>

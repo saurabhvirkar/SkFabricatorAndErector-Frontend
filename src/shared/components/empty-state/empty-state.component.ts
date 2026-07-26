@@ -1,20 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-empty-state',
   standalone: true,
-  imports: [CommonModule],
-  template: `
-    <div class="text-center py-12 px-4 bg-white rounded-xl border border-slate-200 shadow-sm">
-      <span class="material-symbols-outlined text-4xl text-slate-300 mb-2">{{ icon || 'inbox' }}</span>
-      <h3 class="text-base font-bold text-slate-800">{{ title || 'No items found' }}</h3>
-      <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">{{ description || 'There is no information to display right now.' }}</p>
-    </div>
-  `
+  imports: [CommonModule, MatButtonModule, MatIconModule],
+  templateUrl: './empty-state.component.html',
+  styleUrls: ['./empty-state.component.scss']
 })
 export class EmptyStateComponent {
   @Input() icon?: string;
   @Input() title?: string;
   @Input() description?: string;
+  @Input() actionLabel?: string;
+  @Output() action = new EventEmitter<void>();
 }

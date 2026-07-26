@@ -13,17 +13,21 @@ export class GalleryService {
     return this.apiService.get<GalleryImage[]>('photos');
   }
 
-  getImages(filter: string): Observable<GalleryImage[]> {
+  getImages(filter: string = 'All'): Observable<GalleryImage[]> {
     let url = 'photos';
-    if (filter !== 'All') {
+    if (filter && filter !== 'All') {
       url += `?category=${filter}`;
     }
     return this.apiService.get<GalleryImage[]>(url);
   }
 
-  uploadImage(formData: FormData, category: string, isAboutSlider: boolean): Observable<GalleryImage> {
-    formData.append('category', category);
-    formData.append('isAboutSlider', isAboutSlider.toString());
+  uploadImage(formData: FormData, category?: string, isAboutSlider?: boolean): Observable<GalleryImage> {
+    if (category) {
+      formData.append('category', category);
+    }
+    if (isAboutSlider !== undefined) {
+      formData.append('isAboutSlider', isAboutSlider.toString());
+    }
     return this.apiService.post<GalleryImage>('photos', formData, true);
   }
 

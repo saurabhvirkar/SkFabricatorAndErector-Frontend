@@ -17,7 +17,7 @@ export class ServiceService {
     return this.apiService.post<Service>('ourservices', serviceData, true);
   }
 
-  updateService(serviceId: number, serviceData: unknown): Observable<Service> {
+  updateService(serviceId: number, serviceData: FormData | any): Observable<Service> {
     return this.apiService.put<Service>(`ourservices/${serviceId}`, serviceData);
   }
 

@@ -1,0 +1,97 @@
+<div class="d-flex flex-column gap-4">
+  <!-- Shared Page Header -->
+  <app-admin-page-header
+    title="Gallery & Photos Management"
+    breadcrumb="Gallery"
+    icon="photo_library"
+    description="Upload and organize portfolio media and about-us sliders."
+    primaryActionLabel="Upload Photo"
+    primaryActionIcon="add"
+    (primaryAction)="openUploadDialog()"
+  ></app-admin-page-header>
+
+  <!-- Category Filters Bar -->
+  <div class="bg-white p-3 rounded-4 border shadow-sm d-flex flex-wrap align-items-center justify-between gap-3">
+    <div class="d-flex flex-wrap align-items-center gap-2">
+      <span class="small fw-bold text-secondary text-uppercase tracking-wider d-flex align-items-center gap-1 me-1">
+        <mat-icon class="fs-6">filter_list</mat-icon> Category:
+      </span>
+      <button
+        *ngFor="let cat of categories"
+        type="button"
+        (click)="setCategory(cat)"
+        class="btn btn-sm rounded-3 px-3 py-1 fw-semibold transition-all border"
+        [ngClass]="selectedCategory() === cat ? 'btn-primary shadow-sm' : 'btn-light text-secondary border-secondary-subtle'"
+      >
+        {{ cat }}
+      </button>
+    </div>
+    <span class="small text-secondary fw-medium">
+      Showing <strong class="text-dark">{{ filteredPhotos().length }}</strong> gallery photos
+    </span>
+  </div>
+
+  <!-- Loading State -->
+  <div class="bg-white p-4 rounded-4 border shadow-sm" *ngIf="isLoading()">
+    <app-loading-state message="Loading gallery photos..."></app-loading-state>
+  </div>
+
+  <!-- Error State -->
+  <div class="bg-white p-4 rounded-4 border shadow-sm" *ngIf="hasError() && !isLoading()">
+    <app-error-state
+      title="Failed to load gallery"
+      description="An error occurred while retrieving photo records."
+      (retry)="loadPhotos()"
+    ></app-error-state>
+  </div>
+
+  <!-- Photos Grid Card Shell -->
+  <div *ngIf="!isLoading() && !hasError()" class="bg-white rounded-4 border shadow-sm overflow-hidden">
+    <app-empty-state
+      *ngIf="filteredPhotos().length === 0"
+      icon="photo_library"
+      title="No gallery photos found"
+      description="Click 'Upload Photo' to add high quality imagery to the portfolio."
+      actionLabel="Upload Photo"
+      (action)="openUploadDialog()"
+    ></app-empty-state>
+
+    <div *ngIf="filteredPhotos().length > 0" class="p-3">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3">
+        <div *ngFor="let photo of paginatedPhotos()" class="col">
+          <div class="card h-100 border rounded-3 shadow-sm overflow-hidden group">
+            <div class="position-relative bg-dark" style="height: 180px;">
+              <img [src]="photo.url" [alt]="photo.category" class="w-100 h-100 object-fit-cover" />
+              <div class="position-absolute top-0 start-0 p-2 d-flex flex-wrap gap-1">
+                <span class="badge bg-dark bg-opacity-75 text-white shadow-sm">
+                  {{ photo.category }}
+                </span>
+                <span *ngIf="photo.isAboutSlider" class="badge bg-warning text-dark shadow-sm">
+                  About Slider
+                </span>
+              </div>
+            </div>
+
+            <div class="card-footer bg-light border-top p-2 d-flex align-items-center justify-content-between">
+              <span class="text-muted small font-monospace truncate" style="max-width: 140px;">ID: {{ photo.id }}</span>
+              <button type="button" class="btn btn-outline-danger btn-sm" (click)="deletePhoto(photo)" title="Delete photo" aria-label="Delete photo">
+                <mat-icon class="fs-6 align-middle">delete_outline</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shared Bootstrap Paginator -->
+    <app-admin-paginator
+      *ngIf="filteredPhotos().length > 0"
+      [page]="page()"
+      (pageChange)="page.set($event)"
+      [pageSize]="pageSize()"
+      (pageSizeChange)="pageSize.set($event)"
+      [pageSizeOptions]="[12, 24, 36, 48]"
+      [collectionSize]="filteredPhotos().length"
+    ></app-admin-paginator>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="text-center py-12 px-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+  <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3">
+    <mat-icon class="text-2xl">{{ icon || 'inbox' }}</mat-icon>
+  </div>
+  <h3 class="text-base font-bold text-slate-800">{{ title || 'No items found' }}</h3>
+  <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto mb-4">{{ description || 'There is no information to display right now.' }}</p>
+  
+  <button
+    *ngIf="actionLabel"
+    mat-raised-button
+    color="primary"
+    class="!rounded-xl !px-4 !py-2 text-xs font-semibold inline-flex items-center gap-1.5"
+    (click)="action.emit()"
+  >
+    <mat-icon class="text-sm">add</mat-icon>
+    <span>{{ actionLabel }}</span>
+  </button>
+</div>

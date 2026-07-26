@@ -21,7 +21,7 @@ export class ProjectService {
     return this.apiService.delete<void>(`project/${projectId}`);
   }
 
-  updateProject(projectId: number, projectData: unknown): Observable<Project> {
+  updateProject(projectId: number, projectData: FormData | any): Observable<Project> {
     return this.apiService.put<Project>(`project/${projectId}`, projectData);
   }
 }

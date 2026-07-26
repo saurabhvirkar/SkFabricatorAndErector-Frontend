@@ -36,7 +36,7 @@ export class AdminLoginComponent {
 
     this.authService.login(credentials).subscribe({
       next: () => {
-        this.router.navigate(['/inquiries']);
+        this.router.navigate(['/ops/adminportal']);
       },
       error: (err) => {
         this.responseMessage.set('Login failed. Please check your credentials.');

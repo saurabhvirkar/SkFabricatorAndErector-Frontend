@@ -1,0 +1,114 @@
+<div class="modal-header border-bottom">
+  <h5 class="modal-title fw-bold text-dark d-flex align-items-center gap-2">
+    <mat-icon class="text-primary">{{ isEdit ? 'edit' : 'add' }}</mat-icon>
+    <span>{{ isEdit ? 'Edit Team Member' : 'Add New Team Member' }}</span>
+  </h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="onCancel()"></button>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="modal-body py-3" style="max-height: 75vh; overflow-y: auto;">
+    <!-- Full Name -->
+    <div class="mb-3">
+      <label for="memberName" class="form-label fw-semibold small text-secondary">Full Name <span class="text-danger">*</span></label>
+      <input
+        id="memberName"
+        type="text"
+        formControlName="name"
+        placeholder="e.g. Saurabh Shinde"
+        class="form-control"
+        [class.is-invalid]="form.get('name')?.touched && form.get('name')?.invalid"
+      />
+      <div class="invalid-feedback" *ngIf="form.get('name')?.hasError('required')">Full name is required</div>
+      <div class="invalid-feedback" *ngIf="form.get('name')?.hasError('minlength')">Name must be at least 2 characters</div>
+    </div>
+
+    <!-- Role -->
+    <div class="mb-3">
+      <label for="memberRole" class="form-label fw-semibold small text-secondary">Designation / Role <span class="text-danger">*</span></label>
+      <input
+        id="memberRole"
+        type="text"
+        formControlName="role"
+        placeholder="e.g. Senior Piping Engineer"
+        class="form-control"
+        [class.is-invalid]="form.get('role')?.touched && form.get('role')?.invalid"
+      />
+      <div class="invalid-feedback" *ngIf="form.get('role')?.hasError('required')">Role is required</div>
+    </div>
+
+    <!-- Email -->
+    <div class="mb-3">
+      <label for="memberEmail" class="form-label fw-semibold small text-secondary">Email Address</label>
+      <input
+        id="memberEmail"
+        type="email"
+        formControlName="email"
+        placeholder="e.g. info@skfabricator.com"
+        class="form-control"
+        [class.is-invalid]="form.get('email')?.touched && form.get('email')?.invalid"
+      />
+      <div class="invalid-feedback" *ngIf="form.get('email')?.hasError('email')">Please enter a valid email address</div>
+    </div>
+
+    <!-- Details -->
+    <div class="mb-3">
+      <label for="memberDetails" class="form-label fw-semibold small text-secondary">Professional Bio / Details</label>
+      <textarea
+        id="memberDetails"
+        formControlName="details"
+        rows="2"
+        placeholder="Brief background & expertise..."
+        class="form-control"
+      ></textarea>
+    </div>
+
+    <!-- LinkedIn URL -->
+    <div class="mb-3">
+      <label for="memberLinkedIn" class="form-label fw-semibold small text-secondary">LinkedIn Profile URL</label>
+      <input
+        id="memberLinkedIn"
+        type="url"
+        formControlName="linkedInUrl"
+        placeholder="https://linkedin.com/in/..."
+        class="form-control"
+      />
+    </div>
+
+    <!-- Image Upload -->
+    <div class="mb-3">
+      <label for="memberPhoto" class="form-label fw-semibold small text-secondary">
+        Profile Photo {{ isEdit ? '(Leave blank to keep existing photo)' : '*' }}
+      </label>
+      <div class="d-flex align-items-center gap-2">
+        <input
+          id="memberPhoto"
+          type="file"
+          accept="image/*"
+          (change)="onFileSelected($event)"
+          class="form-control form-control-sm"
+        />
+        <button *ngIf="selectedFile" type="button" class="btn btn-outline-danger btn-sm" (click)="clearFile()" title="Clear selected file">
+          <mat-icon class="fs-6 align-middle">close</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="previewUrl()" class="mt-3">
+        <span class="form-text d-block mb-1">Photo Preview:</span>
+        <img [src]="previewUrl()" alt="Preview" class="rounded-circle border shadow-sm" style="width: 72px; height: 72px; object-fit: cover;" />
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer border-top pt-2 gap-2">
+    <button type="button" class="btn btn-light rounded-3 px-3" (click)="onCancel()" [disabled]="isSubmitting()">Cancel</button>
+    <button type="submit" class="btn btn-primary rounded-3 px-4" [disabled]="form.invalid || (!isEdit && !selectedFile) || isSubmitting()">
+      <span *ngIf="!isSubmitting()" class="d-inline-flex align-items-center gap-1.5">
+        <mat-icon class="fs-6">{{ isEdit ? 'save' : 'add' }}</mat-icon>
+        {{ isEdit ? 'Save Changes' : 'Create Profile' }}
+      </span>
+      <span *ngIf="isSubmitting()" class="d-inline-flex align-items-center gap-1.5">
+        <mat-icon class="fs-6 animate-spin">refresh</mat-icon> Saving...
+      </span>
+    </button>
+  </div>
+</form>

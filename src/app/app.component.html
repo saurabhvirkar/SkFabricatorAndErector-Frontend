@@ -1,15 +1,16 @@
 <div class="min-h-screen flex flex-col">
-<!-- Header Component -->
-<app-header></app-header>
+  <!-- Public Header (Rendered only on non-admin routes) -->
+  @if (!isAdminRoute()) {
+    <app-header></app-header>
+  }
 
-<!-- Main Content Area with Router Outlet -->
+  <!-- Main Content Area with Router Outlet -->
+  <main class="flex-grow">
+    <router-outlet></router-outlet>
+  </main>
 
-<main class="flex-grow">
-<router-outlet></router-outlet>
-</main>
-
-<!-- Footer Component -->
-
-<app-footer></app-footer>
-
+  <!-- Public Footer (Rendered only on non-admin routes) -->
+  @if (!isAdminRoute()) {
+    <app-footer></app-footer>
+  }
 </div>

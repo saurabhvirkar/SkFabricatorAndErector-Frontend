@@ -1,0 +1,74 @@
+<div class="modal-header border-bottom">
+  <h5 class="modal-title fw-bold text-dark d-flex align-items-center gap-2">
+    <mat-icon class="text-primary">{{ isEdit ? 'edit' : 'add' }}</mat-icon>
+    <span>{{ isEdit ? 'Edit Client Partner' : 'Add New Client Partner' }}</span>
+  </h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="onCancel()"></button>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="modal-body py-3" style="max-height: 75vh; overflow-y: auto;">
+    <!-- Client Name -->
+    <div class="mb-3">
+      <label for="clientName" class="form-label fw-semibold small text-secondary">Client Name <span class="text-danger">*</span></label>
+      <input
+        id="clientName"
+        type="text"
+        formControlName="name"
+        placeholder="e.g. Reliance Industries Limited"
+        class="form-control"
+        [class.is-invalid]="form.get('name')?.touched && form.get('name')?.invalid"
+      />
+      <div class="invalid-feedback" *ngIf="form.get('name')?.hasError('required')">Client name is required</div>
+      <div class="invalid-feedback" *ngIf="form.get('name')?.hasError('minlength')">Name must be at least 2 characters</div>
+    </div>
+
+    <!-- Client Website URL -->
+    <div class="mb-3">
+      <label for="clientUrl" class="form-label fw-semibold small text-secondary">Client Website URL</label>
+      <input
+        id="clientUrl"
+        type="url"
+        formControlName="clientUrl"
+        placeholder="https://..."
+        class="form-control"
+      />
+    </div>
+
+    <!-- Logo Upload -->
+    <div class="mb-3">
+      <label for="clientLogo" class="form-label fw-semibold small text-secondary">
+        Client Logo {{ isEdit ? '(Leave blank to keep existing logo)' : '*' }}
+      </label>
+      <div class="d-flex align-items-center gap-2">
+        <input
+          id="clientLogo"
+          type="file"
+          accept="image/*"
+          (change)="onFileSelected($event)"
+          class="form-control form-control-sm"
+        />
+        <button *ngIf="selectedFile" type="button" class="btn btn-outline-danger btn-sm" (click)="clearFile()" title="Clear selected file">
+          <mat-icon class="fs-6 align-middle">close</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="previewUrl()" class="mt-3">
+        <span class="form-text d-block mb-1">Logo Preview:</span>
+        <img [src]="previewUrl()" alt="Preview" class="img-thumbnail rounded-3 shadow-sm p-1 bg-light" style="max-height: 80px; max-width: 180px; object-fit: contain;" />
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer border-top pt-2 gap-2">
+    <button type="button" class="btn btn-light rounded-3 px-3" (click)="onCancel()" [disabled]="isSubmitting()">Cancel</button>
+    <button type="submit" class="btn btn-primary rounded-3 px-4" [disabled]="form.invalid || (!isEdit && !selectedFile) || isSubmitting()">
+      <span *ngIf="!isSubmitting()" class="d-inline-flex align-items-center gap-1.5">
+        <mat-icon class="fs-6">{{ isEdit ? 'save' : 'add' }}</mat-icon>
+        {{ isEdit ? 'Save Changes' : 'Create Client' }}
+      </span>
+      <span *ngIf="isSubmitting()" class="d-inline-flex align-items-center gap-1.5">
+        <mat-icon class="fs-6 animate-spin">refresh</mat-icon> Saving...
+      </span>
+    </button>
+  </div>
+</form>

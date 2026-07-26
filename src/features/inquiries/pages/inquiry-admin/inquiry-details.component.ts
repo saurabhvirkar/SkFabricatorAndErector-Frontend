@@ -2,19 +2,25 @@ import { Component, computed, signal, ChangeDetectionStrategy, inject, OnInit } 
 import { CommonModule, DatePipe } from '@angular/common';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Inquiry } from '../../models/inquiry.model';
 import { InquiryService } from '../../services/inquiry.service';
+import { ConfirmationDialogComponent } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-inquiry-details',
   standalone: true,
-  imports: [CommonModule, DatePipe],
+  imports: [CommonModule, DatePipe, MatDialogModule, MatSnackBarModule],
   changeDetection: ChangeDetectionStrategy.OnPush, 
   templateUrl: './inquiry-details.component.html',
   styleUrls: ['./inquiry-details.component.scss']
 })
 export class InquiryDetailsComponent implements OnInit {
   private readonly inquiryService = inject(InquiryService);
+  private readonly dialog = inject(MatDialog);
+  private readonly snackBar = inject(MatSnackBar);
+
   isFetching = signal(true);
   totalInquiries = signal<Inquiry[]>([]);
 
@@ -102,16 +108,31 @@ export class InquiryDetailsComponent implements OnInit {
   deleteInquiry(id: number | undefined): void {
     if (id === undefined) return;
 
-    if (confirm('Are you sure you want to delete this inquiry? This action cannot be undone.')) {
-      this.inquiryService.deleteInquiry(id).subscribe({
-        next: () => {
-          this.totalInquiries.update(currentInquiries => 
-            currentInquiries.filter(inq => inq.id !== id)
-          );
-        },
-        error: (err) => console.error(`Failed to delete inquiry ${id}`, err),
-      });
-    }
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: {
+        title: 'Delete Inquiry',
+        message: 'Are you sure you want to delete this inquiry? This action cannot be undone.',
+        confirmText: 'Delete',
+        isDanger: true
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.inquiryService.deleteInquiry(id).subscribe({
+          next: () => {
+            this.snackBar.open('Inquiry deleted successfully', 'Close', { duration: 3000 });
+            this.totalInquiries.update(currentInquiries => 
+              currentInquiries.filter(inq => inq.id !== id)
+            );
+          },
+          error: (err) => {
+            this.snackBar.open(err.message || 'Failed to delete inquiry', 'Close', { duration: 4000 });
+          }
+        });
+      }
+    });
   }
 
   isModalOpen = signal(false);

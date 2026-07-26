@@ -42,11 +42,11 @@ export class ApiClientService {
       .pipe(catchError(this.handleError));
   }
 
-  put<T>(endpoint: string, data: unknown): Observable<T> {
+  put<T>(endpoint: string, data: unknown, isFormData?: boolean): Observable<T> {
+    const isForm = isFormData !== undefined ? isFormData : (data instanceof FormData);
+    const options = isForm ? {} : { headers: { 'Content-Type': 'application/json' } };
     return this.http
-      .put<T>(`${this.baseUrl}/${endpoint}`, data, {
-        headers: { 'Content-Type': 'application/json' },
-      })
+      .put<T>(`${this.baseUrl}/${endpoint}`, data, options)
       .pipe(catchError(this.handleError));
   }
 

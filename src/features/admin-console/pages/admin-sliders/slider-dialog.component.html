@@ -1,0 +1,76 @@
+<div class="modal-header border-bottom">
+  <h5 class="modal-title fw-bold text-dark d-flex align-items-center gap-2">
+    <mat-icon class="text-primary">view_carousel</mat-icon>
+    <span>Add New Home Slider</span>
+  </h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="onCancel()"></button>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="modal-body py-3" style="max-height: 75vh; overflow-y: auto;">
+    <!-- Title -->
+    <div class="mb-3">
+      <label for="sliderTitle" class="form-label fw-semibold small text-secondary">Slider Title Tagline <span class="text-danger">*</span></label>
+      <input
+        id="sliderTitle"
+        type="text"
+        formControlName="title"
+        placeholder="e.g. Perfection Through Precision"
+        class="form-control"
+        [class.is-invalid]="form.get('title')?.touched && form.get('title')?.invalid"
+      />
+      <div class="invalid-feedback" *ngIf="form.get('title')?.hasError('required')">Slider title is required</div>
+      <div class="invalid-feedback" *ngIf="form.get('title')?.hasError('minlength')">Title must be at least 2 characters</div>
+    </div>
+
+    <!-- Description -->
+    <div class="mb-3">
+      <label for="sliderDescription" class="form-label fw-semibold small text-secondary">Sub-heading / Description <span class="text-danger">*</span></label>
+      <textarea
+        id="sliderDescription"
+        formControlName="description"
+        rows="2"
+        placeholder="e.g. Industrial piping & structural fabrication specialists..."
+        class="form-control"
+        [class.is-invalid]="form.get('description')?.touched && form.get('description')?.invalid"
+      ></textarea>
+      <div class="invalid-feedback" *ngIf="form.get('description')?.hasError('required')">Description is required</div>
+    </div>
+
+    <!-- Hero Image Upload -->
+    <div class="mb-3">
+      <label for="sliderImage" class="form-label fw-semibold small text-secondary">
+        Hero Slider Image <span class="text-danger">*</span>
+      </label>
+      <div class="d-flex align-items-center gap-2">
+        <input
+          id="sliderImage"
+          type="file"
+          accept="image/*"
+          (change)="onFileSelected($event)"
+          class="form-control form-control-sm"
+        />
+        <button *ngIf="selectedFile" type="button" class="btn btn-outline-danger btn-sm" (click)="clearFile()" title="Clear selected file">
+          <mat-icon class="fs-6 align-middle">close</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="previewUrl()" class="mt-3">
+        <span class="form-text d-block mb-1">Image Preview:</span>
+        <img [src]="previewUrl()" alt="Preview" class="img-thumbnail rounded-3 shadow-sm" style="max-height: 120px; max-width: 240px; object-fit: cover;" />
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer border-top pt-2 gap-2">
+    <button type="button" class="btn btn-light rounded-3 px-3" (click)="onCancel()" [disabled]="isSubmitting()">Cancel</button>
+    <button type="submit" class="btn btn-primary rounded-3 px-4" [disabled]="form.invalid || !selectedFile || isSubmitting()">
+      <span *ngIf="!isSubmitting()" class="d-inline-flex align-items-center gap-1.5">
+        <mat-icon class="fs-6">add</mat-icon>
+        Create Home Slider
+      </span>
+      <span *ngIf="isSubmitting()" class="d-inline-flex align-items-center gap-1.5">
+        <mat-icon class="fs-6 animate-spin">refresh</mat-icon> Saving...
+      </span>
+    </button>
+  </div>
+</form>

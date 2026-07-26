@@ -1,0 +1,86 @@
+<div class="modal-header border-bottom">
+  <h5 class="modal-title fw-bold text-dark d-flex align-items-center gap-2">
+    <mat-icon class="text-primary">{{ isEdit ? 'edit' : 'add' }}</mat-icon>
+    <span>{{ isEdit ? 'Edit Service' : 'Add New Service' }}</span>
+  </h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="onCancel()"></button>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="modal-body py-3" style="max-height: 75vh; overflow-y: auto;">
+    <!-- Service Name -->
+    <div class="mb-3">
+      <label for="serviceName" class="form-label fw-semibold small text-secondary">Service Name <span class="text-danger">*</span></label>
+      <input
+        id="serviceName"
+        type="text"
+        formControlName="name"
+        placeholder="e.g. Industrial Piping Fabrication"
+        class="form-control"
+        [class.is-invalid]="form.get('name')?.touched && form.get('name')?.invalid"
+      />
+      <div class="invalid-feedback" *ngIf="form.get('name')?.hasError('required')">Service name is required</div>
+      <div class="invalid-feedback" *ngIf="form.get('name')?.hasError('minlength')">Name must be at least 2 characters</div>
+    </div>
+
+    <!-- Summary -->
+    <div class="mb-3">
+      <label for="serviceSummary" class="form-label fw-semibold small text-secondary">Summary Tagline</label>
+      <input
+        id="serviceSummary"
+        type="text"
+        formControlName="summary"
+        placeholder="e.g. High-pressure alloy piping systems"
+        class="form-control"
+      />
+    </div>
+
+    <!-- Detailed Description -->
+    <div class="mb-3">
+      <label for="serviceDescription" class="form-label fw-semibold small text-secondary">Detailed Description</label>
+      <textarea
+        id="serviceDescription"
+        formControlName="description"
+        rows="3"
+        placeholder="Enter comprehensive service description..."
+        class="form-control"
+      ></textarea>
+    </div>
+
+    <!-- Image Upload -->
+    <div class="mb-3">
+      <label for="serviceImage" class="form-label fw-semibold small text-secondary">
+        Service Image {{ isEdit ? '(Leave blank to keep existing image)' : '*' }}
+      </label>
+      <div class="d-flex align-items-center gap-2">
+        <input
+          id="serviceImage"
+          type="file"
+          accept="image/*"
+          (change)="onFileSelected($event)"
+          class="form-control form-control-sm"
+        />
+        <button *ngIf="selectedFile" type="button" class="btn btn-outline-danger btn-sm" (click)="clearFile()" title="Clear selected file">
+          <mat-icon class="fs-6 align-middle">close</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="previewUrl()" class="mt-3">
+        <span class="form-text d-block mb-1">Image Preview:</span>
+        <img [src]="previewUrl()" alt="Preview" class="img-thumbnail rounded-3 shadow-sm" style="max-height: 120px; object-fit: cover;" />
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer border-top pt-2 gap-2">
+    <button type="button" class="btn btn-light rounded-3 px-3" (click)="onCancel()" [disabled]="isSubmitting()">Cancel</button>
+    <button type="submit" class="btn btn-primary rounded-3 px-4" [disabled]="form.invalid || (!isEdit && !selectedFile) || isSubmitting()">
+      <span *ngIf="!isSubmitting()" class="d-inline-flex align-items-center gap-1.5">
+        <mat-icon class="fs-6">{{ isEdit ? 'save' : 'add' }}</mat-icon>
+        {{ isEdit ? 'Save Changes' : 'Create Service' }}
+      </span>
+      <span *ngIf="isSubmitting()" class="d-inline-flex align-items-center gap-1.5">
+        <mat-icon class="fs-6 animate-spin">refresh</mat-icon> Saving...
+      </span>
+    </button>
+  </div>
+</form>

@@ -1,0 +1,57 @@
+<div class="space-y-6">
+  <!-- Shared Page Header -->
+  <app-admin-page-header
+    title="Admin Session Profile"
+    breadcrumb="Admin Session"
+    icon="person"
+    description="Review active authenticated identity and backend authority permissions."
+  ></app-admin-page-header>
+
+  <!-- Active User Card Shell -->
+  <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6 max-w-2xl">
+    <div class="flex items-center space-x-4">
+      <div class="w-16 h-16 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-2xl font-bold shadow-md shadow-blue-500/20">
+        <mat-icon class="text-3xl">person</mat-icon>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold text-slate-900">Authenticated Administrator</h2>
+        <div class="flex items-center gap-2 mt-1.5">
+          <span class="px-3 py-0.5 text-xs font-semibold rounded-full bg-blue-100 text-blue-800 border border-blue-200">
+            Role: {{ userRole() || 'Admin / Manager' }}
+          </span>
+          <span class="px-3 py-0.5 text-xs font-semibold rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-1">
+            <mat-icon class="text-xs">check_circle</mat-icon> Session Active
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t border-slate-100 pt-5 space-y-3">
+      <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Security & Permissions Overview</h3>
+      
+      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2.5 text-sm">
+        <div class="flex items-center justify-between">
+          <span class="text-slate-600 font-medium">JWT Token Interception</span>
+          <span class="text-emerald-700 font-semibold flex items-center gap-1">
+            <mat-icon class="text-sm">verified</mat-icon> Active (AuthInterceptor)
+          </span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-slate-600 font-medium">Write Operations Enforcement</span>
+          <span class="text-slate-900 font-semibold font-mono text-xs bg-slate-200 px-2 py-0.5 rounded">[Authorize(Roles = "Admin,Manager")]</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-slate-600 font-medium">Route Guard Access Control</span>
+          <span class="text-slate-900 font-semibold">authGuard (Role Checked)</span>
+        </div>
+      </div>
+
+      <div class="p-4 bg-amber-50 rounded-xl border border-amber-200 text-amber-900 text-xs leading-relaxed flex items-start gap-2.5">
+        <mat-icon class="text-amber-600 text-base mt-0.5">info</mat-icon>
+        <div>
+          <strong>System Information:</strong> User management operations (such as creating new admin credentials or changing passwords) require custom user-management API endpoints. The backend AccountController currently provides authentication and token refresh operations.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

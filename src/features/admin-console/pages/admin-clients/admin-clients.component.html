@@ -1,0 +1,109 @@
+<div class="d-flex flex-column gap-4">
+  <!-- Shared Page Header -->
+  <app-admin-page-header
+    title="Client Management"
+    breadcrumb="Clients"
+    icon="business_center"
+    description="Manage SK Fabricator & Erector client partners and corporate URLs."
+    primaryActionLabel="Add Client"
+    primaryActionIcon="add"
+    (primaryAction)="openAddDialog()"
+  ></app-admin-page-header>
+
+  <!-- Search & Filters Bar -->
+  <div class="bg-white p-3 rounded-4 border shadow-sm d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center justify-between gap-3">
+    <div class="position-relative w-100 style-search-box" style="max-width: 320px;">
+      <mat-icon class="position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary fs-5 pointer-events-none">search</mat-icon>
+      <input
+        type="text"
+        [value]="filterText()"
+        (input)="applyFilter($event)"
+        placeholder="Search clients..."
+        aria-label="Search clients"
+        class="form-control form-control-sm ps-5 bg-light rounded-3"
+      />
+    </div>
+    <span class="small text-secondary fw-medium align-self-end align-self-sm-center">
+      Showing <strong class="text-dark">{{ filteredClients().length }}</strong> client partners
+    </span>
+  </div>
+
+  <!-- Loading State -->
+  <div class="bg-white p-4 rounded-4 border shadow-sm" *ngIf="isLoading()">
+    <app-loading-state message="Loading client logos & data..."></app-loading-state>
+  </div>
+
+  <!-- Error State -->
+  <div class="bg-white p-4 rounded-4 border shadow-sm" *ngIf="hasError() && !isLoading()">
+    <app-error-state
+      title="Failed to load clients"
+      description="An error occurred while retrieving client partner records."
+      (retry)="loadClients()"
+    ></app-error-state>
+  </div>
+
+  <!-- Table Card Shell -->
+  <div *ngIf="!isLoading() && !hasError()" class="bg-white rounded-4 border shadow-sm overflow-hidden">
+    <app-empty-state
+      *ngIf="filteredClients().length === 0"
+      icon="business_center"
+      title="No client partners found"
+      description="Click 'Add Client' to create a client record."
+      actionLabel="Add Client"
+      (action)="openAddDialog()"
+    ></app-empty-state>
+
+    <div *ngIf="filteredClients().length > 0" class="table-responsive">
+      <table class="table table-hover table-striped align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th scope="col" class="py-3 px-3 fw-bold text-secondary text-uppercase small" style="width: 100px;">Logo</th>
+            <th scope="col" class="py-3 px-3 fw-bold text-secondary text-uppercase small user-select-none cursor-pointer" (click)="onSort('name')">
+              <div class="d-flex align-items-center gap-1">
+                <span>Name</span>
+                <mat-icon class="fs-6 text-primary" *ngIf="sortColumn() === 'name'">{{ sortDirection() === 'asc' ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+              </div>
+            </th>
+            <th scope="col" class="py-3 px-3 fw-bold text-secondary text-uppercase small">Website</th>
+            <th scope="col" class="py-3 px-3 fw-bold text-secondary text-uppercase small text-end" style="width: 100px;">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let client of paginatedClients()">
+            <td class="py-2 px-3">
+              <img [src]="client.imageUrl || 'assets/images/placeholder.jpg'" alt="Client" class="rounded-2 border bg-light p-1" style="max-width: 80px; max-height: 36px; object-fit: contain;" />
+            </td>
+            <td class="py-2 px-3 fw-semibold text-dark">{{ client.name }}</td>
+            <td class="py-2 px-3 text-secondary small">
+              <a *ngIf="client.clientUrl" [href]="client.clientUrl" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-primary d-inline-flex align-items-center gap-1">
+                <span>{{ client.clientUrl }}</span>
+                <mat-icon class="fs-6">open_in_new</mat-icon>
+              </a>
+              <span *ngIf="!client.clientUrl" class="text-muted">N/A</span>
+            </td>
+            <td class="py-2 px-3 text-end">
+              <div class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-outline-primary" (click)="openEditDialog(client)" title="Edit client" aria-label="Edit client">
+                  <mat-icon class="fs-6 align-middle">edit</mat-icon>
+                </button>
+                <button type="button" class="btn btn-outline-danger" (click)="deleteClient(client)" title="Delete client" aria-label="Delete client">
+                  <mat-icon class="fs-6 align-middle">delete_outline</mat-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Shared Bootstrap Paginator -->
+    <app-admin-paginator
+      *ngIf="filteredClients().length > 0"
+      [page]="page()"
+      (pageChange)="page.set($event)"
+      [pageSize]="pageSize()"
+      (pageSizeChange)="pageSize.set($event)"
+      [collectionSize]="filteredClients().length"
+    ></app-admin-paginator>
+  </div>
+</div>

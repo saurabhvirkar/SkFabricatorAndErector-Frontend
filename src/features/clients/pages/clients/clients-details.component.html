@@ -1,100 +1,36 @@
-<div class="client-details-page min-w-full pt-10 bg-gray-50">
-  <header class="header-bg text-white pt-20 pb-12">
+<div class="client-details-page min-w-full pt-14 bg-gray-50">
+  <header class="header-bg text-white py-10 bg-gray-900">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="text-5xl font-extrabold mb-4 tracking-tight">Our Valued Clients</h1>
-      <p class="text-xl text-gray-200 max-w-3xl mx-auto">
+      <h1 class="text-3xl sm:text-4xl font-extrabold mb-3 tracking-tight">SK Fabricator & Erector — Our Valued Clients</h1>
+      <p class="text-sm sm:text-base text-gray-200 max-w-2xl mx-auto">
         We are proud to partner with industry leaders, delivering excellence and innovation in every project.
       </p>
     </div>
   </header>
 
-  <main class="py-16">
+  <main class="py-12">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         @for (client of clients(); track client.id) {
-          <div class="client-card group bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
-            <a [href]="client.clientUrl" target="_blank" rel="noopener noreferrer" class="block p-6">
-              <div class="flex justify-center items-center h-32">
-                <img [src]="client.imageUrl" [alt]="client.name + ' Logo'" class="max-w-full max-h-24 object-contain transition-transform duration-500 group-hover:scale-110">
+          <div class="client-card group bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+            <a [href]="client.clientUrl || '#'" target="_blank" rel="noopener noreferrer" class="block p-5">
+              <div class="flex justify-center items-center h-28">
+                <img [src]="client.imageUrl || 'assets/images/placeholder.jpg'" [alt]="client.name + ' Logo'" class="max-w-full max-h-20 object-contain transition-transform duration-500 group-hover:scale-105">
               </div>
-              <div class="text-center mt-4">
-                <h3 class="text-lg font-semibold text-gray-800">{{ client.name }}</h3>
+              <div class="text-center mt-3">
+                <h3 class="text-base font-semibold text-gray-800">{{ client.name }}</h3>
               </div>
             </a>
-            @if (isLoggedIn() && isAdminOrManager()) {
-              <div class="absolute top-3 right-3 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <button (click)="startEdit(client)" class="edit-btn">
-                  <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" /><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" /></svg>
-                </button>
-                <button (click)="onDeleteClient(client.id)" class="delete-btn">
-                  <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm4 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd" /></svg>
-                </button>
-              </div>
-            }
           </div>
         }
       </div>
 
-      @if (isLoggedIn() && isAdminOrManager()) {
-        <div class="mt-20 p-8 bg-white rounded-2xl shadow-xl">
-          <h2 class="text-3xl font-bold text-gray-800 mb-6">Manage Clients</h2>
-          <button (click)="toggleAddClientForm()" class="toggle-form-btn">
-            {{ showAddClientForm() ? 'Cancel' : 'Add New Client' }}
-          </button>
-
-          @if (showAddClientForm()) {
-            <form #addClientForm="ngForm" (ngSubmit)="onAddClient(addClientForm, fileInput.files)" class="form-container mt-6">
-              <div class="form-field">
-                <label for="add-name">Client Name</label>
-                <input type="text" id="add-name" name="name" [(ngModel)]="newClient.name" required>
-              </div>
-              <div class="form-field">
-                <label for="add-clientUrl">Client URL (Optional)</label>
-                <input type="url" id="add-clientUrl" name="clientUrl" [(ngModel)]="newClient.clientUrl">
-              </div>
-              <div class="form-field">
-                <label for="add-file">Client Image</label>
-                <input type="file" #fileInput id="add-file" name="file" accept="image/*" required class="file-input">
-              </div>
-              <button type="submit" [disabled]="addClientForm.invalid" class="submit-btn">
-                Add Client
-              </button>
-            </form>
-          }
-
-          @if (editClient()) {
-            <div class="edit-form-overlay">
-              <form #editClientForm="ngForm" (ngSubmit)="onUpdateClient()" class="form-container p-8 rounded-lg shadow-2xl bg-white">
-                <h4 class="text-2xl font-bold text-gray-800 mb-6">Edit: {{ editClient()!.name }}</h4>
-                <div class="form-field">
-                  <label for="edit-name">Client Name</label>
-                  <input type="text" id="edit-name" name="name" [(ngModel)]="editClient()!.name" required>
-                </div>
-                <div class="form-field">
-                  <label for="edit-clientUrl">Client URL (Optional)</label>
-                  <input type="url" id="edit-clientUrl" name="clientUrl" [(ngModel)]="editClient()!.clientUrl">
-                </div>
-                <div class="form-field">
-                  <label for="edit-file">New Image (Optional)</label>
-                  <input type="file" #editFileInput id="edit-file" name="file" accept="image/*"
-                         (change)="onImageUpload(editClient()!.id, editFileInput.files)" class="file-input">
-                </div>
-                <div class="flex space-x-4 mt-6">
-                  <button type="submit" class="submit-btn">Save Changes</button>
-                  <button type="button" (click)="cancelEdit()" class="cancel-btn">Cancel</button>
-                </div>
-              </form>
-            </div>
-          }
-        </div>
-      }
-
-      <section class="mt-24 text-center">
-        <h3 class="text-3xl font-extrabold text-gray-800 mb-4">Ready to Join Our Partners?</h3>
-        <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+      <section class="mt-16 text-center">
+        <h3 class="text-2xl font-extrabold text-gray-800 mb-3">Ready to Join Our Partners?</h3>
+        <p class="text-sm text-gray-600 mb-6 max-w-xl mx-auto">
           Let's build the future together. We're always looking for new opportunities to innovate and excel.
         </p>
-        <a href="/contact-us" class="contact-us-link">
+        <a href="/contact-us" class="inline-block px-6 py-2.5 text-sm font-semibold text-white bg-blue-600 rounded-full hover:bg-blue-700 transition-colors shadow-md">
           Get in Touch
         </a>
       </section>

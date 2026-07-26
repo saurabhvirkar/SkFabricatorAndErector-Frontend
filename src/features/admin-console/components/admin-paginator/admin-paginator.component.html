@@ -1,0 +1,27 @@
+<div class="d-flex flex-column flex-sm-row align-items-center justify-content-between gap-3 p-3 bg-white border-top rounded-bottom-4">
+  <!-- Showing Range Label -->
+  <div class="text-secondary small fw-medium">
+    Showing <strong class="text-dark">{{ startIndex }}–{{ endIndex }}</strong> of <strong class="text-dark">{{ collectionSize }}</strong> items
+  </div>
+
+  <!-- Pagination Controls & Items per page picker -->
+  <div class="d-flex align-items-center gap-3">
+    <div class="d-flex align-items-center gap-2">
+      <label for="pageSizeSelect" class="form-label mb-0 small text-secondary fw-semibold text-nowrap">Per page:</label>
+      <select id="pageSizeSelect" class="form-select form-select-sm" [value]="pageSize" (change)="onPageSizeChange($event)">
+        <option *ngFor="let opt of pageSizeOptions" [value]="opt">{{ opt }}</option>
+      </select>
+    </div>
+
+    <ngb-pagination
+      [collectionSize]="collectionSize"
+      [page]="page"
+      [pageSize]="pageSize"
+      [maxSize]="3"
+      [rotate]="true"
+      [boundaryLinks]="true"
+      (pageChange)="onPageChange($event)"
+      class="mb-0"
+    ></ngb-pagination>
+  </div>
+</div>
