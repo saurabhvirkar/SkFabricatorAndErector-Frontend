@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, Injector } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
@@ -13,12 +13,17 @@ import { AuthService } from './auth.service';
 /**
  * Attaches the JWT Bearer token to every outgoing request.
  * On 401 responses, attempts a single token refresh before failing.
+ * Uses Injector to lazily resolve AuthService and break circular DI dependency.
  */
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  private readonly authService = inject(AuthService);
+  private readonly injector = inject(Injector);
   private isRefreshing = false;
   private readonly refreshSubject = new BehaviorSubject<string | null>(null);
+
+  private get authService(): AuthService {
+    return this.injector.get(AuthService);
+  }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const token = this.authService.getToken();
@@ -47,9 +52,13 @@ export class AuthInterceptor implements HttpInterceptor {
       return this.authService.refreshToken().pipe(
         switchMap(response => {
           this.isRefreshing = false;
-          const newToken = response.data.token;
-          this.refreshSubject.next(newToken);
-          return next.handle(this.attachToken(request, newToken));
+          const newToken = response.data?.token;
+          if (newToken) {
+            this.refreshSubject.next(newToken);
+            return next.handle(this.attachToken(request, newToken));
+          }
+          this.authService.logout();
+          return throwError(() => new Error('Refresh token invalid'));
         }),
         catchError(err => {
           this.isRefreshing = false;

@@ -4,8 +4,9 @@ import { AuthService } from './auth.service';
 import { map } from 'rxjs/operators';
 
 /**
- * Route guard that checks the user's role against the required roles
- * declared in route data: { roles: ['Admin', 'Manager'] }
+ * Route guard that checks the user's role against required roles.
+ * Allows access to any authenticated user if no specific roles are declared.
+ * SuperAdmin always has access to all protected portal routes.
  */
 export const authGuard: CanActivateFn = (route) => {
   const authService = inject(AuthService);
@@ -14,7 +15,14 @@ export const authGuard: CanActivateFn = (route) => {
 
   return authService.currentUserRole$.pipe(
     map(role => {
-      if (role && expectedRoles.some(r => r.toLowerCase() === role.toLowerCase())) {
+      if (!role) {
+        return router.createUrlTree(['/login']);
+      }
+      if (
+        expectedRoles.length === 0 ||
+        role.toLowerCase() === 'superadmin' ||
+        expectedRoles.some(r => r.toLowerCase() === role.toLowerCase())
+      ) {
         return true;
       }
       return router.createUrlTree(['/login']);

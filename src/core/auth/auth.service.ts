@@ -1,6 +1,6 @@
 import { Injectable, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { BehaviorSubject, Observable, throwError, of } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ApiClientService, ApiResponse } from '../api/api-client.service';
@@ -10,11 +10,19 @@ export interface LoginRequest {
   password: string;
 }
 
+export interface ChangePasswordRequestPayload {
+  currentPassword: string;
+  newPassword: string;
+  confirmNewPassword: string;
+  otpCode?: string;
+}
+
 export interface AuthTokens {
   token: string;
   refreshToken: string;
   email: string;
   role: string;
+  passwordChangeRequired?: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -33,10 +41,10 @@ export class AuthService {
 
   constructor() {
     if (this.inBrowser()) {
-      // Clear legacy raw tokens from localStorage if present
       localStorage.removeItem('jwt_token');
       localStorage.removeItem('refresh_token');
-      this.initSilentRefresh();
+      // Defer silent refresh so Angular DI finishes constructor execution
+      setTimeout(() => this.initSilentRefresh(), 0);
     }
   }
 
@@ -71,8 +79,12 @@ export class AuthService {
   }
 
   refreshToken(): Observable<ApiResponse<AuthTokens>> {
+    if (!this.inMemoryToken) {
+      return throwError(() => new Error('No in-memory access token present for refresh.'));
+    }
+
     return this.api.post<ApiResponse<AuthTokens>>('account/refresh-token', {
-      accessToken: this.inMemoryToken ?? ''
+      accessToken: this.inMemoryToken
     }, { withCredentials: true }).pipe(
       tap(response => {
         if (response.data?.token) {
@@ -87,10 +99,22 @@ export class AuthService {
         }
       }),
       catchError(error => {
-        this.logout();
+        this.inMemoryToken = null;
+        this.isLoggedInSubject.next(false);
+        if (this.inBrowser()) {
+          localStorage.removeItem('user_role');
+        }
         return throwError(() => error);
       })
     );
+  }
+
+  changePassword(payload: ChangePasswordRequestPayload): Observable<ApiResponse<null>> {
+    return this.api.post<ApiResponse<null>>('account/change-password', payload, { withCredentials: true });
+  }
+
+  requestOtp(purpose: string = 'ChangePasswordStepUp', channel: string = 'Email'): Observable<ApiResponse<{ otpId: string }>> {
+    return this.api.post<ApiResponse<{ otpId: string }>>('otp/request', { purpose, channel }, { withCredentials: true });
   }
 
   logout(): void {
@@ -107,7 +131,7 @@ export class AuthService {
   }
 
   private initSilentRefresh(): void {
-    if (this.getStoredRole()) {
+    if (this.inBrowser() && this.inMemoryToken) {
       this.refreshToken().subscribe({ error: () => {} });
     }
   }

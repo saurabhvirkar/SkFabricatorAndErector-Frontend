@@ -41,6 +41,7 @@ export class AdminLayoutComponent {
 
   navItems: NavItem[] = [
     { label: 'Dashboard', icon: 'dashboard', route: '/ops/adminportal/dashboard' },
+    { label: 'Change Password', icon: 'lock_reset', route: '/ops/adminportal/change-password' },
     { label: 'Projects', icon: 'apartment', route: '/ops/adminportal/projects' },
     { label: 'Our Services', icon: 'design_services', route: '/ops/adminportal/services' },
     { label: 'Team Members', icon: 'groups', route: '/ops/adminportal/team' },

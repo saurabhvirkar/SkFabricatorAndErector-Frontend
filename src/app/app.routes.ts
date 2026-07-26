@@ -17,7 +17,7 @@ export const routes: Routes = [
         (m) => m.AdminLayoutComponent
       ),
     canActivate: [authGuard],
-    data: { roles: ['Admin', 'Manager'] },
+    data: { roles: ['SuperAdmin', 'Admin', 'Manager', 'Employee'] },
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
@@ -25,6 +25,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('../features/admin-console/pages/admin-dashboard/admin-dashboard.component').then(
             (m) => m.AdminDashboardComponent
+          )
+      },
+      {
+        path: 'change-password',
+        loadComponent: () =>
+          import('../features/account/pages/change-password/change-password.component').then(
+            (m) => m.AdminChangePasswordComponent
           )
       },
       {
