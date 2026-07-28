@@ -2,7 +2,7 @@
 
 [![Frontend CI](https://github.com/saurabhvirkar/SkFabricatorAndErector-Frontend/actions/workflows/ci.yml/badge.svg)](https://github.com/saurabhvirkar/SkFabricatorAndErector-Frontend/actions)
 
-Standalone modern frontend application for **SK Fabricator & Erector**. Built with Angular 19 (Standalone Components, Signals, RxJS) and styled with SCSS and Tailwind CSS.
+Standalone modern frontend application for **SK Fabricator & Erector**. Built with Angular 21 LTS (Standalone Architecture, Signals, RxJS) and styled with SCSS and Tailwind CSS.
 
 ---
 
@@ -10,7 +10,7 @@ Standalone modern frontend application for **SK Fabricator & Erector**. Built wi
 
 The frontend is completely decoupled from the backend and communicates exclusively via HTTPS API calls to `SkFabricatorAndErector-Backend`.
 
-- **Framework**: Angular 19.2 (Standalone Architecture)
+- **Framework**: Angular 21 LTS (Standalone Architecture, `@angular/build` system)
 - **State Management**: Signals (`signal`, `computed`, `toSignal`) + RxJS `BehaviorSubject`
 - **HTTP Layer**: Centralized `ApiClientService` with `AuthInterceptor` for automatic JWT Bearer token injection and 401 refresh handling
 - **Routing**: Angular Router with functional `authGuard`

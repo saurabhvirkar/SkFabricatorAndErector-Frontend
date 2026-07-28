@@ -1,9 +1,9 @@
 # ── Stage 1: Build ─────────────────────────────────────────────
-FROM node:20-alpine AS build
+FROM node:22-alpine AS build
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm ci
+RUN npm ci --legacy-peer-deps || npm install --legacy-peer-deps
 
 COPY . ./
 RUN npm run build
