@@ -1,0 +1,28 @@
+name: Deploy Frontend to Render (Production)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy-prod:
+    name: Trigger Render Production Frontend Deployment
+    runs-on: ubuntu-latest
+    environment: Production # Enforces Manual Approval Gate on GitHub Environment 'Production'
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Trigger Render Production UI Deploy Webhook
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_PROD_UI_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$RENDER_DEPLOY_HOOK" ]; then
+            echo "::warning ::RENDER_PROD_UI_DEPLOY_HOOK is not set in GitHub Secrets. Skipping webhook trigger."
+          else
+            echo "Triggering Render Production UI Deployment..."
+            curl -s -X POST "$RENDER_DEPLOY_HOOK"
+            echo "Render Production UI Deployment Triggered Successfully."
+          fi

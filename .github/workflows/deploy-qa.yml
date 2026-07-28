@@ -1,0 +1,28 @@
+name: Deploy Frontend to Render (QA)
+
+on:
+  push:
+    branches: [ develop ]
+  workflow_dispatch:
+
+jobs:
+  deploy-qa:
+    name: Trigger Render QA Frontend Deployment
+    runs-on: ubuntu-latest
+    environment: QA
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Trigger Render QA UI Deploy Webhook
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_QA_UI_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$RENDER_DEPLOY_HOOK" ]; then
+            echo "::warning ::RENDER_QA_UI_DEPLOY_HOOK is not set in GitHub Secrets. Skipping webhook trigger."
+          else
+            echo "Triggering Render QA UI Deployment..."
+            curl -s -X POST "$RENDER_DEPLOY_HOOK"
+            echo "Render QA UI Deployment Triggered Successfully."
+          fi
