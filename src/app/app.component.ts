@@ -31,7 +31,8 @@ export class AppComponent implements OnInit {
   }
 
   private checkRoute(url: string): void {
-    const isAdmin = url.startsWith('/ops/adminportal') || url.startsWith('/login');
-    this.isAdminRoute.set(isAdmin);
+    const cleanUrl = url.toLowerCase();
+    const isHidden = cleanUrl.includes('/login') || cleanUrl.includes('/ops') || cleanUrl.includes('/admin');
+    this.isAdminRoute.set(isHidden);
   }
 }
