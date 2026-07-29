@@ -127,7 +127,7 @@ export class AuthService {
   }
 
   private initSilentRefresh(): void {
-    if (this.inBrowser()) {
+    if (this.inBrowser() && (this.getStoredRole() || this.inMemoryToken)) {
       this.refreshToken().subscribe({ error: () => {} });
     }
   }

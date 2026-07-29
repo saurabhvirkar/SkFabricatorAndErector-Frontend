@@ -88,7 +88,9 @@ export class ApiClientService {
       message = 'A server error occurred. Please try again later.';
     }
 
-    console.error(`API Error [${error.status}]:`, error);
+    if (!error.url?.includes('account/refresh-token')) {
+      console.error(`API Error [${error.status}]:`, error);
+    }
     return throwError(() => new Error(message));
   }
 }
