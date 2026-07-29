@@ -79,13 +79,9 @@ export class AuthService {
   }
 
   refreshToken(): Observable<ApiResponse<AuthTokens>> {
-    if (!this.inMemoryToken) {
-      return throwError(() => new Error('No in-memory access token present for refresh.'));
-    }
+    const payload = this.inMemoryToken ? { accessToken: this.inMemoryToken } : {};
 
-    return this.api.post<ApiResponse<AuthTokens>>('account/refresh-token', {
-      accessToken: this.inMemoryToken
-    }, { withCredentials: true }).pipe(
+    return this.api.post<ApiResponse<AuthTokens>>('account/refresh-token', payload, { withCredentials: true }).pipe(
       tap(response => {
         if (response.data?.token) {
           this.inMemoryToken = response.data.token;
@@ -131,7 +127,7 @@ export class AuthService {
   }
 
   private initSilentRefresh(): void {
-    if (this.inBrowser() && this.inMemoryToken) {
+    if (this.inBrowser()) {
       this.refreshToken().subscribe({ error: () => {} });
     }
   }
