@@ -1,38 +1,45 @@
-// ── Brand & Theme Color Tokens ──────────────────────────────────
-$color-primary: #1d4ed8;
-$color-primary-hover: #1e40af;
-$color-primary-light: #eff6ff;
+// ── Industrial Brand & Theme Tokens (SK Fabricator & Erector) ────
+$color-primary: #0B4C8C;         // Deep Industrial Blue
+$color-primary-dark: #073563;    // Dark Navy Steel
+$color-primary-light: #EBF3FA;   // Soft Industrial Blue Tint
 
-$color-dark: #0f172a;
-$color-accent: #0284c7;
+$color-accent: #F5A623;          // Signature Swoosh Amber
+$color-accent-amber: #E8871E;    // Deep Amber Gradient End
+$color-accent-hover: #D97706;
+
+// ── Industrial Neutral Tokens ─────────────────────────────────────
+$color-ink: #101820;             // High-contrast Near-Black Body Text
+$color-surface: #F6F8FA;         // Soft Off-white Section Background
+$color-surface-white: #FFFFFF;
+$color-steel-grey: #5A6B78;      // Industrial Secondary Text & Dividers
+$color-steel-light: #E2E8F0;     // Subdued Borders
 
 // ── State Color Tokens ─────────────────────────────────────────
-$color-success: #16a34a;
-$color-success-bg: #f0fdf4;
+$color-success: #10B981;
+$color-success-bg: #ECFDF5;
 
-$color-warning: #d97706;
-$color-warning-bg: #fffbeb;
+$color-warning: #F59E0B;
+$color-warning-bg: #FFFBEB;
 
-$color-error: #dc2626;
-$color-error-bg: #fef2f2;
+$color-error: #EF4444;
+$color-error-bg: #FEF2F2;
 
-$color-info: #2563eb;
-$color-info-bg: #eff6ff;
-
-// ── Neutral Surface Tokens ──────────────────────────────────────
-$color-bg: #f8fafc;
-$color-surface: #ffffff;
-$color-border: #e2e8f0;
-$color-text-main: #0f172a;
-$color-text-muted: #64748b;
+$color-info: #0B4C8C;
+$color-info-bg: #EBF3FA;
 
 // ── Shadows & Elevation ─────────────────────────────────────────
-$shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-$shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-$shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+$shadow-sm: 0 1px 3px rgba(16, 24, 32, 0.08);
+$shadow-md: 0 4px 12px rgba(11, 76, 140, 0.08);
+$shadow-lg: 0 12px 24px -4px rgba(11, 76, 140, 0.15);
+$shadow-amber: 0 4px 14px rgba(245, 166, 35, 0.35);
+
+// ── Typography Families ─────────────────────────────────────────
+$font-display: 'Barlow Condensed', 'Oswald', sans-serif;
+$font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
 // ── Border Radius Tokens ────────────────────────────────────────
 $radius-sm: 0.375rem; // 6px
 $radius-md: 0.5rem;   // 8px
 $radius-lg: 0.75rem;  // 12px
 $radius-xl: 1rem;     // 16px
+

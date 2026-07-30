@@ -113,6 +113,10 @@ export const routes: Routes = [
     loadComponent: () => import('../features/our-services/pages/our-services/our-services.component').then(m => m.OurServicesComponent)
   },
   {
+    path: 'our-services/:slug',
+    loadComponent: () => import('../features/our-services/pages/our-services/our-services.component').then(m => m.OurServicesComponent)
+  },
+  {
     path: 'contact-us',
     loadComponent: () => import('../features/contact/pages/contact/contact-us.component').then(m => m.ContactUsComponent)
   },

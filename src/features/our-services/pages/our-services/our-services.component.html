@@ -1,46 +1,199 @@
-<div class="services-page min-w-full pt-14">
-  <header class="bg-gradient-to-r from-blue-800 to-blue-600 text-white py-10 relative overflow-hidden">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-3 animate-fade-in-down">SK Fabricator & Erector — Integrated Engineering Solutions</h1>
-      <p class="text-sm sm:text-base text-blue-100 max-w-2xl mx-auto animate-fade-in-up animation-delay-300">
-        We offer a comprehensive range of high-quality services for industrial projects, ensuring perfection through precision and safety.
+<main class="min-h-screen pt-24 bg-[#F6F8FA] pb-20">
+
+  <!-- Header Banner -->
+  <section class="bg-[#101820] text-white py-16 border-b border-slate-800 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10" appReveal>
+      <div class="font-display font-bold text-xs uppercase tracking-widest text-[#F5A623] mb-2">
+        Integrated Engineering Solutions
+      </div>
+      <h1 class="font-display font-extrabold text-3xl sm:text-5xl uppercase tracking-wider text-white">
+        {{ selectedService() ? selectedService()?.title : 'OUR AREAS OF EXCELLENCE' }}
+      </h1>
+      <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto mt-3 font-sans">
+        {{ selectedService() ? selectedService()?.subtitle : 'Precision engineering contractors for industrial piping, structural steel erection, pressure vessels & plant shutdown execution.' }}
       </p>
     </div>
-  </header>
-  
-  <main class="py-8 bg-gray-50">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-10">
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-3">Our Expertise, Your Success</h2>
-        <p class="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto">
-          At SK Fabricator & Erector, we combine cutting-edge technology with seasoned expertise to deliver unparalleled results across various industrial sectors. Explore our core services designed to meet your most demanding project requirements.
-        </p>
+  </section>
+
+  <!-- Weld Seam Divider -->
+  <app-weld-seam-divider></app-weld-seam-divider>
+
+  <!-- IF SINGLE SERVICE DETAIL VIEW ACTIVE -->
+  @if (selectedService(); as svc) {
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      
+      <!-- Back Navigation Breadcrumb -->
+      <div class="mb-8 flex items-center justify-between">
+        <a routerLink="/our-services" class="inline-flex items-center gap-2 font-display font-bold text-xs uppercase tracking-wider text-[#0B4C8C] hover:text-[#F5A623] transition-colors">
+          <span class="material-symbols-outlined text-sm">arrow_back</span>
+          <span>Back to All Solutions</span>
+        </a>
+        <span class="text-xs text-slate-400">Section: Areas of Excellence</span>
       </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        
+        <!-- Main Detail Body (8 cols) -->
+        <div class="lg:col-span-8 space-y-8">
+          
+          <!-- Asset Placeholder Image Banner -->
+          <div class="relative h-80 bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 flex items-center justify-center shadow-lg">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent z-10"></div>
+            <span class="material-symbols-outlined text-8xl text-slate-700">
+              {{ svc.iconName }}
+            </span>
+            
+            <div class="absolute top-4 right-4 z-20">
+              <span class="photo-placeholder-tag">
+                <span class="material-symbols-outlined text-xs">photo_camera</span>
+                <span>{{ svc.photoPlaceholder }}</span>
+              </span>
+            </div>
+
+            <div class="absolute bottom-6 left-6 right-6 z-20 text-white">
+              <div class="font-display font-bold text-[#F5A623] text-sm uppercase tracking-widest mb-1">
+                Engineering Specification
+              </div>
+              <h2 class="font-display font-extrabold text-2xl sm:text-3xl uppercase">
+                {{ svc.title }}
+              </h2>
+            </div>
+          </div>
+
+          <!-- Description Text -->
+          <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm space-y-6">
+            <h3 class="font-display font-bold text-xl text-[#101820] border-b border-slate-100 pb-3 uppercase">
+              Service Scope & Capabilities
+            </h3>
+            <p class="text-slate-700 text-sm sm:text-base leading-relaxed font-sans">
+              {{ svc.description }}
+            </p>
+
+            <!-- Bullet Checklist -->
+            @if (svc.bullets && svc.bullets.length > 0) {
+              <div class="pt-4 border-t border-slate-100 space-y-4">
+                <h4 class="font-display font-bold text-sm uppercase text-[#0B4C8C] tracking-wider">
+                  {{ svc.bulletTitle || 'WE HAVE EXPERTISE IN' }}
+                </h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  @for (b of svc.bullets; track b) {
+                    <div class="flex items-start gap-2.5 bg-slate-50 p-3.5 rounded-xl border border-slate-200/80">
+                      <span class="material-symbols-outlined text-[#F5A623] text-base shrink-0 mt-0.5">check_circle</span>
+                      <span class="text-xs font-semibold text-slate-800 leading-snug">{{ b }}</span>
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+
+          <!-- Quote Callout CTA -->
+          <div class="bg-gradient-to-r from-[#0B4C8C] to-[#073563] rounded-2xl p-8 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
+            <div class="space-y-1 text-center sm:text-left">
+              <h4 class="font-display font-bold text-xl uppercase tracking-wider text-white">Need {{ svc.title }}?</h4>
+              <p class="text-xs text-slate-300">Request a technical consultation or line-item bill of quantities quote today.</p>
+            </div>
+            <a routerLink="/contact-us" class="btn-amber shrink-0">
+              <span class="material-symbols-outlined">request_quote</span>
+              <span>Get A Quote</span>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Sidebar Navigation (4 cols) -->
+        <div class="lg:col-span-4 space-y-6">
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+            <h4 class="font-display font-bold text-sm uppercase text-[#101820] border-b border-slate-100 pb-3 tracking-wider">
+              All 7 Industrial Solutions
+            </h4>
+            <div class="space-y-2">
+              @for (item of services(); track item.slug) {
+                <a
+                  [routerLink]="['/our-services', item.slug]"
+                  class="flex items-center gap-3 p-3 rounded-xl border transition-all text-xs font-display font-bold uppercase tracking-wider group"
+                  [class.bg-[#0B4C8C]]="item.slug === svc.slug"
+                  [class.text-white]="item.slug === svc.slug"
+                  [class.border-[#0B4C8C]]="item.slug === svc.slug"
+                  [class.bg-slate-50]="item.slug !== svc.slug"
+                  [class.text-slate-700]="item.slug !== svc.slug"
+                  [class.border-slate-200]="item.slug !== svc.slug"
+                  [class.hover:border-[#F5A623]]="item.slug !== svc.slug"
+                >
+                  <span
+                    class="material-symbols-outlined text-base"
+                    [class.text-[#F5A623]]="item.slug === svc.slug"
+                    [class.text-[#0B4C8C]]="item.slug !== svc.slug"
+                  >
+                    {{ item.iconName }}
+                  </span>
+                  <span class="truncate flex-1">{{ item.title }}</span>
+                  <span class="material-symbols-outlined text-sm opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+                </a>
+              }
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  } @else {
+    <!-- OVERVIEW GRID FOR ALL 7 SERVICES -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        @for (service of services(); track service.id) {
-          <div class="relative bg-white p-6 sm:p-8 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 overflow-hidden group bg-cover bg-center animate-service-card border-b-4 border-blue-600"
-               [style.backgroundImage]="'url(' + service.imageUrl + ')'">
-            <!-- Overlay for text readability -->
-            <div class="absolute inset-0 bg-black/75 group-hover:bg-black/85 transition-all duration-300"></div>
-            <div class="relative z-10 text-white">
-              <h3 class="text-xl font-bold mb-2 group-hover:text-blue-300 transition-colors duration-300">{{ service.name }}</h3>
-              <p class="text-gray-200 text-sm mb-3">{{ service.summary }}</p>
-              <p class="text-xs text-gray-300 leading-relaxed">{{ service.description }}</p>
+        @for (svc of services(); track svc.slug; let i = $index) {
+          <div
+            class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+            appReveal
+            [delayMs]="i * 70"
+          >
+            <div>
+              <div class="relative h-48 bg-slate-900 flex items-center justify-center overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent z-10"></div>
+                <span class="material-symbols-outlined text-6xl text-slate-700 group-hover:scale-110 group-hover:text-[#F5A623] transition-all duration-500">
+                  {{ svc.iconName }}
+                </span>
+                
+                <div class="absolute top-3 right-3 z-20">
+                  <span class="photo-placeholder-tag">
+                    <span class="material-symbols-outlined text-[10px]">photo</span>
+                    <span>PHOTO NEEDED</span>
+                  </span>
+                </div>
+
+                <div class="absolute bottom-3 left-4 right-4 z-20">
+                  <span class="text-[10px] font-display font-bold uppercase text-[#F5A623] tracking-widest">
+                    {{ svc.subtitle }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="p-6 space-y-3">
+                <h3 class="font-display font-bold text-xl text-[#101820] group-hover:text-[#0B4C8C] transition-colors">
+                  {{ svc.title }}
+                </h3>
+                <p class="text-xs text-slate-600 leading-relaxed font-sans line-clamp-3">
+                  {{ svc.teaser }}
+                </p>
+              </div>
+            </div>
+
+            <div class="px-6 pb-6 pt-2 border-t border-slate-100 flex items-center justify-between">
+              <a
+                [routerLink]="['/our-services', svc.slug]"
+                class="font-display font-bold text-xs uppercase text-[#0B4C8C] group-hover:text-[#F5A623] transition-colors flex items-center gap-1 tracking-wider"
+              >
+                <span>Read Full Service Spec</span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </a>
             </div>
           </div>
         }
-        
-        <div class="relative z-10 bg-white p-6 rounded-xl shadow-xl border-4 border-dashed border-blue-400 flex flex-col justify-center items-center text-center transition duration-300 hover:shadow-2xl animate-service-card">
-          <h3 class="text-xl font-bold text-blue-700 mb-2">Have a Custom Requirement?</h3>
-          <p class="text-gray-600 text-sm mb-4">If your specific need isn't listed, our team is ready to craft a tailored solution just for you. Contact us to discuss your project.</p>
-          <div class="w-full">
-            <button (click)="navigateToContactUs()" class="w-full px-6 py-2.5 text-sm font-bold text-white bg-blue-600 rounded-full hover:bg-blue-700 transition duration-300 shadow-md transform hover:scale-105 active:scale-95">
-              Inquire Now
-            </button>
-          </div>
-        </div>
       </div>
+
     </div>
-  </main>
-</div>
+  }
+
+</main>

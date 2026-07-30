@@ -1,39 +1,39 @@
-import { Component, inject, ChangeDetectionStrategy, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ServiceService } from '../../services/service.service';
-import { Service } from '../../models/service.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { CORE_SERVICES, ServiceItem, COMPANY_DETAILS } from '../../../../app/core/data/company-content';
+import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reveal.directive';
+import { WeldSeamDividerComponent } from '../../../../shared/components/weld-seam-divider/weld-seam-divider.component';
 
 @Component({
-  selector: 'app-services',
+  selector: 'app-our-services',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink, ScrollRevealDirective, WeldSeamDividerComponent],
   templateUrl: './our-services.component.html',
-  styleUrls: ['./our-services.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['./our-services.component.scss']
 })
 export class OurServicesComponent implements OnInit {
-  private readonly serviceService = inject(ServiceService);
-  private readonly router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
 
-  services = signal<Service[]>([]);
+  company = COMPANY_DETAILS;
+  services = signal<ServiceItem[]>(CORE_SERVICES);
+  activeSlug = signal<string | null>(null);
+
+  selectedService = computed(() => {
+    const slug = this.activeSlug();
+    if (!slug) return null;
+    return this.services().find(s => s.slug === slug) || null;
+  });
 
   ngOnInit(): void {
-    this.loadServices();
-  }
-
-  loadServices(): void {
-    this.serviceService.getServices().subscribe({
-      next: (services) => {
-        this.services.set(services);
-      },
-      error: (err) => {
-        console.error('Failed to load services', err);
-      }
+    this.route.paramMap.subscribe(params => {
+      const slug = params.get('slug');
+      this.activeSlug.set(slug);
     });
   }
 
-  navigateToContactUs(): void {
-    this.router.navigate(['/contact-us']);
+  selectService(slug: string): void {
+    this.router.navigate(['/our-services', slug]);
   }
 }

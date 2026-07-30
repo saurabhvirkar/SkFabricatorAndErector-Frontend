@@ -1,75 +1,183 @@
-<div class="projects-page min-w-full pt-14">
+<main class="min-h-screen pt-24 bg-[#F6F8FA] pb-24">
+
   <!-- Page Header -->
-  <header class="relative bg-gray-900 text-white py-10 bg-cover bg-center animate-bg-pan">
-    <div class="absolute inset-0 bg-indigo-950/80"></div>
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-3 animate-fade-in-down">
-        SK Fabricator & Erector — Our Completed Projects
+  <section class="bg-[#101820] text-white py-16 border-b border-slate-800 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10" appReveal>
+      <div class="font-display font-bold text-xs uppercase tracking-widest text-[#F5A623] mb-2">
+        Project Execution Portfolio
+      </div>
+      <h1 class="font-display font-extrabold text-3xl sm:text-5xl uppercase tracking-wider text-white">
+        OUR RECENT PROJECTS & JOBSITE GALLERY
       </h1>
-      <p class="text-sm sm:text-base text-gray-300 max-w-2xl mx-auto animate-fade-in-up animation-delay-300">
-        A showcase of our commitment to quality, speed, and precision across various industrial sectors.
+      <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto mt-3 font-sans">
+        Browse completed piping spools, structural steel frame erections, storage vessel installations, and plant maintenance turnarounds.
       </p>
     </div>
-  </header>
+  </section>
 
-  <!-- Main Content -->
-  <main class="py-8 bg-gray-50">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Filter Buttons -->
-      <div class="flex justify-center flex-wrap gap-2.5 mb-10 animate-fade-in-up animation-delay-500" role="tablist" aria-label="Project Category Filters">
-        @for (category of categories; track category) {
-          <button
-            type="button"
-            role="tab"
-            [attr.aria-selected]="activeFilter() === category"
-            (click)="setFilter(category)"
-            [class]="
-              'px-5 py-2 rounded-full font-semibold text-xs transition-all duration-200 border-2 ' +
-              (activeFilter() === category
-                ? 'bg-blue-600 text-white border-blue-600 shadow-md'
-                : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-100 hover:border-gray-300')
-            "
-          >
-            {{ category }}
-          </button>
-        }
-      </div>
+  <!-- Weld Seam Divider -->
+  <app-weld-seam-divider></app-weld-seam-divider>
 
-      <!-- Projects Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        @for (project of filteredProjects(); track project.id) {
-          <div
-            class="group bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2 border-b-4 border-blue-600 animate-project-card"
-          >
-            <div class="h-56 overflow-hidden">
-              <img
-                [src]="project.image"
-                [alt]="project.title"
-                loading="lazy"
-                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-            </div>
-            <div class="p-6">
-              <span
-                class="inline-block text-xs font-semibold uppercase tracking-wider text-blue-600 mb-3 px-3 py-1 rounded-full bg-blue-100"
-              >
-                {{ project.category }}
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    
+    <!-- Category Filter Chips Bar -->
+    <div class="flex items-center justify-center flex-wrap gap-2.5 mb-12">
+      @for (cat of categories; track cat.key) {
+        <button
+          (click)="setCategory(cat.key)"
+          type="button"
+          class="px-5 py-2.5 rounded-full font-display font-bold text-xs uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-sm"
+          [class.bg-[#0B4C8C]]="activeCategory() === cat.key"
+          [class.text-white]="activeCategory() === cat.key"
+          [class.shadow-md]="activeCategory() === cat.key"
+          [class.bg-white]="activeCategory() !== cat.key"
+          [class.text-slate-700]="activeCategory() !== cat.key"
+          [class.border]="activeCategory() !== cat.key"
+          [class.border-slate-200]="activeCategory() !== cat.key"
+          [class.hover:border-[#F5A623]]="activeCategory() !== cat.key"
+          [class.hover:text-[#0B4C8C]]="activeCategory() !== cat.key"
+        >
+          {{ cat.label }}
+        </button>
+      }
+    </div>
+
+    <!-- Filterable FLIP Masonry Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      @for (proj of filteredProjects(); track proj.id; let i = $index) {
+        <div
+          (click)="openLightbox(i)"
+          class="group bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 cursor-pointer flex flex-col justify-between"
+          appReveal
+          [delayMs]="i * 50"
+        >
+          <!-- Image Box & Photo Badge -->
+          <div class="relative h-64 bg-slate-900 overflow-hidden flex items-center justify-center">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent z-10 group-hover:opacity-75 transition-opacity"></div>
+            
+            <span class="material-symbols-outlined text-7xl text-slate-700 group-hover:scale-110 transition-transform duration-500">
+              precision_manufacturing
+            </span>
+
+            <!-- Photo Needed Badge -->
+            <div class="absolute top-3 right-3 z-20">
+              <span class="photo-placeholder-tag">
+                <span class="material-symbols-outlined text-[10px]">photo_camera</span>
+                <span>PHOTO NEEDED</span>
               </span>
-              <h2 class="text-xl font-bold text-gray-900 mb-2">
-                {{ project.title }}
-              </h2>
-              <p class="text-gray-600 text-sm leading-relaxed">
-                {{ project.description }}
-              </p>
+            </div>
+
+            <!-- Hover Zoom Icon -->
+            <div class="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <div class="w-12 h-12 rounded-full bg-[#F5A623] text-[#101820] flex items-center justify-center shadow-lg transform scale-75 group-hover:scale-100 transition-transform">
+                <span class="material-symbols-outlined text-2xl">zoom_in</span>
+              </div>
+            </div>
+
+            <!-- Category Tag -->
+            <div class="absolute bottom-3 left-4 z-20">
+              <span class="px-2.5 py-1 rounded bg-[#0B4C8C] text-[#F5A623] text-[10px] font-display font-bold uppercase tracking-wider">
+                {{ proj.categoryLabel }}
+              </span>
             </div>
           </div>
-        } @empty {
-          <div class="col-span-full text-center py-16 text-gray-500">
-            <p class="text-xl font-semibold">No projects found.</p>
-            <p class="mt-2 text-sm">Please try another category.</p>
+
+          <!-- Project Metadata -->
+          <div class="p-6 space-y-2">
+            <h3 class="font-display font-bold text-lg text-[#101820] group-hover:text-[#0B4C8C] transition-colors">
+              {{ proj.title }}
+            </h3>
+            <p class="text-xs text-slate-600 font-sans line-clamp-2 leading-relaxed">
+              {{ proj.description }}
+            </p>
           </div>
-        }
+        </div>
+      }
+    </div>
+
+  </div>
+
+  <!-- LIGHTBOX / MODAL OVERLAY -->
+  @if (selectedProject(); as proj) {
+    <div
+      class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 animate-fade-in-up"
+      (click)="closeLightbox()"
+    >
+      <!-- Modal Box (Prevents click bubbling) -->
+      <div
+        class="bg-[#101820] border border-slate-700 rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl relative flex flex-col md:flex-row text-white"
+        (click)="$event.stopPropagation()"
+      >
+        <!-- Close Button -->
+        <button
+          (click)="closeLightbox()"
+          type="button"
+          class="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-slate-800 text-slate-300 hover:text-[#F5A623] flex items-center justify-center focus:outline-none"
+          aria-label="Close Lightbox"
+        >
+          <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+
+        <!-- Left Image Stage -->
+        <div class="md:w-3/5 bg-slate-950 p-8 flex flex-col items-center justify-center relative min-h-[320px]">
+          <div class="w-full h-full flex flex-col items-center justify-center text-center space-y-4 border border-dashed border-slate-800 p-6 rounded-xl">
+            <span class="material-symbols-outlined text-6xl text-[#F5A623]">photo_library</span>
+            <div class="text-xs text-slate-400 font-mono">
+              {{ proj.photoPlaceholder }}
+            </div>
+            <span class="text-[10px] text-slate-500 uppercase tracking-widest">High-Res Site Photography Pending</span>
+          </div>
+
+          <!-- Carousel Controls -->
+          <div class="absolute inset-y-0 left-2 flex items-center">
+            <button
+              (click)="prevProject()"
+              type="button"
+              class="w-10 h-10 rounded-full bg-slate-900/80 border border-slate-700 text-white hover:text-[#F5A623] flex items-center justify-center"
+              aria-label="Previous Project"
+            >
+              <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+          </div>
+          <div class="absolute inset-y-0 right-2 flex items-center">
+            <button
+              (click)="nextProject()"
+              type="button"
+              class="w-10 h-10 rounded-full bg-slate-900/80 border border-slate-700 text-white hover:text-[#F5A623] flex items-center justify-center"
+              aria-label="Next Project"
+            >
+              <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Info Panel -->
+        <div class="md:w-2/5 p-8 flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="inline-block px-3 py-1 rounded bg-[#0B4C8C] text-[#F5A623] text-xs font-display font-bold uppercase tracking-wider">
+              {{ proj.categoryLabel }}
+            </div>
+            <h3 class="font-display font-bold text-2xl text-white uppercase leading-tight">
+              {{ proj.title }}
+            </h3>
+            <p class="text-xs text-slate-300 font-sans leading-relaxed">
+              {{ proj.description }}
+            </p>
+          </div>
+
+          <div class="space-y-4 border-t border-slate-800 pt-4">
+            <div class="text-[11px] text-slate-400">
+              Use <kbd class="px-1.5 py-0.5 bg-slate-800 rounded">←</kbd> <kbd class="px-1.5 py-0.5 bg-slate-800 rounded">→</kbd> keys to navigate or <kbd class="px-1.5 py-0.5 bg-slate-800 rounded">ESC</kbd> to exit.
+            </div>
+
+            <a routerLink="/contact-us" (click)="closeLightbox()" class="btn-amber w-full justify-center">
+              <span>Inquire About Similar Job</span>
+            </a>
+          </div>
+        </div>
+
       </div>
     </div>
-  </main>
-</div>
+  }
+
+</main>

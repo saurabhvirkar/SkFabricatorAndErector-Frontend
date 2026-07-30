@@ -1,95 +1,11 @@
-$primary-color: #2563eb;
-$secondary-color: #1e40af;
-$accent-color: #38bdf8;
-
-/* Header logo sizing */
-.logo {
-  height: 2.75rem;
+:host {
+  display: block;
+  z-index: 50;
 }
 
-/* Mobile Menu Animation */
-.mobile-menu {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease-in-out;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-}
-
-.mobile-menu.open {
-  max-height: 28rem;
-}
-
-/* Responsive breakpoint styling */
-@media (max-width: 768px) {
-  .logo-text {
-    display: none;
-  }
-
-  .main-nav {
-    display: none;
-  }
-
-  .mobile-menu-toggle {
-    display: block;
-  }
-}
-
-.bg-sk-primary {
-  background-color: $primary-color;
-}
-
-.text-sk-primary {
-  color: $primary-color;
-}
-
-/* Top Bar Styles */
 .top-bar {
-  min-height: 2rem;
-  overflow: hidden;
-  transition: all 0.3s ease-in-out;
-
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   &.hidden {
-    min-height: 0;
-    height: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    opacity: 0;
-  }
-}
-
-/* Header Container Smooth Transition */
-header {
-  transition: all 0.3s ease-in-out;
-
-  .container > .flex {
-    transition: min-height 0.3s ease-in-out, height 0.3s ease-in-out;
-  }
-
-  .logo-icon, .logo-text-main, .logo-text-sub {
-    transition: all 0.3s ease-in-out;
-  }
-  
-  &.scrolled {
-    background-color: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    @supports (backdrop-filter: blur(8px)) {
-      backdrop-filter: blur(8px);
-    }
-
-    .container > .flex {
-      min-height: 3.5rem;
-    }
-
-    .logo-icon {
-      width: 2rem;
-      height: 2rem;
-      font-size: 1rem;
-    }
-
-    .logo-text-group {
-      .logo-text-main {
-        font-size: 0.95rem;
-      }
-    }
+    display: none !important;
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ClientDetails } from '../../../features/clients/models/client-details.model';
+import { CLIENT_LOGOS, ClientItem } from '../../../app/core/data/company-content';
 import { ClientService } from '../../../features/clients/services/client.service';
 
 @Component({
@@ -12,12 +12,24 @@ import { ClientService } from '../../../features/clients/services/client.service
 })
 export class ScrollingClientsComponent implements OnInit {
   private readonly clientService = inject(ClientService);
-  clients = signal<ClientDetails[]>([]);
+  clients = signal<ClientItem[]>(CLIENT_LOGOS);
 
   ngOnInit(): void {
     this.clientService.getClientDetails().subscribe({
-      next: (clients) => this.clients.set(clients),
-      error: (err) => console.error('Failed to load clients for scrolling component', err)
+      next: (apiClients) => {
+        if (apiClients && apiClients.length > 0) {
+          const mapped = apiClients.map(c => ({
+            id: String(c.id),
+            name: c.name,
+            tagline: c.clientUrl || '',
+            category: 'Partner Client'
+          }));
+          this.clients.set(mapped);
+        }
+      },
+      error: () => {
+        // Retain default CLIENT_LOGOS from PDF company profile
+      }
     });
   }
 }

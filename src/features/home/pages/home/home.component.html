@@ -1,80 +1,114 @@
-<div class="home-page min-w-full pt-16">
-  <section class="relative text-white overflow-hidden">
-    @for (slide of backgroundSlides(); track slide.id; let i = $index) {
-      <img [src]="slide.imageUrl" [alt]="'Hero background image ' + (i + 1)"
-        class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
-        [class.opacity-100]="currentSlideIndex === i" [class.opacity-0]="currentSlideIndex !== i" />
-    }
+<main class="w-full overflow-hidden">
 
-    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+  <!-- 1. HERO SECTION -->
+  <section class="relative min-h-[90vh] flex items-center justify-center pt-28 pb-20 bg-[#101820] text-white overflow-hidden">
+    <!-- Dark Industrial Backdrop Overlay -->
     <div
-      class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col justify-center items-center text-center py-32 md:py-48">
-      <div class="max-w-4xl">
-        <p class="text-xl md:text-2xl text-blue-300 font-semibold mb-4 animate-fade-in-up animation-delay-100">
-          SK Fabricator & Erector — Innovate. Fabricate. Elevate.
-        </p>
-        <h1
-          class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-6 animate-fade-in-up animation-delay-200">
-          {{ heroTitle() }}
+      class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-25 scale-105 transition-transform duration-1000"
+      style="background-image: linear-gradient(120deg, rgba(11,76,140,0.85), rgba(16,24,32,0.75)), url('assets/hero-bg.jpg');"
+    ></div>
+
+    <!-- Photo Needed Badge -->
+    <div class="absolute top-28 right-6 z-20 hidden md:block">
+      <span class="photo-placeholder-tag">
+        <span class="material-symbols-outlined text-xs">photo_camera</span>
+        <span>[PHOTO NEEDED: Fabrication Yard / Drone Jobsite Shot]</span>
+      </span>
+    </div>
+
+    <!-- Subtle Structural Grid Lines -->
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#5A6B78_1px,transparent_1px),linear-gradient(to_bottom,#5A6B78_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-15"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center md:text-left grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <div class="lg:col-span-8 space-y-6" appReveal>
+        <!-- Eyebrow Tag -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0B4C8C]/80 border border-[#F5A623]/40 text-[#F5A623] text-xs font-display font-bold uppercase tracking-widest shadow-md">
+          <span class="w-2 h-2 rounded-full bg-[#F5A623] animate-ping"></span>
+          <span>{{ company.tagline }}</span>
+        </div>
+
+        <!-- Main Industrial Headline -->
+        <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl text-white uppercase tracking-tight leading-[1.1]">
+          Industrial Piping, Structural Fabrication & Plant Maintenance <span class="text-[#F5A623]">— Built to Run.</span>
         </h1>
-        <p class="text-lg md:text-xl text-gray-200 mb-10 animate-fade-in-up animation-delay-400">
-          {{ heroDescription() }}
-        </p>
-        <a routerLink="/projects"
-          class="inline-block px-10 py-4 text-xl font-bold bg-blue-600 rounded-full hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-xl animate-fade-in-up animation-delay-600">
-          Explore Our Projects
-        </a>
-      </div>
-    </div>
-  </section>
 
-  <section class="py-6 bg-gray-50 counter-section">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-        <div class="p-8 counter-item">
-          <div class="text-blue-600 text-5xl mb-3"><i class="fas fa-trophy"></i></div>
-          <h3 class="text-4xl font-bold text-blue-600">15</h3>
-          <p class="text-gray-600">Years of Service</p>
-        </div>
-        <div class="p-8 counter-item">
-          <div class="text-blue-600 text-5xl mb-3"><i class="fas fa-hard-hat"></i></div>
-          <h3 class="text-4xl font-bold text-blue-600">500</h3>
-          <p class="text-gray-600">Projects Completed</p>
-        </div>
-        <div class="p-8 counter-item">
-          <div class="text-blue-600 text-5xl mb-3"><i class="fas fa-star"></i></div>
-          <h3 class="text-4xl font-bold text-blue-600">98</h3>
-          <p class="text-gray-600">% Client Satisfaction</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="py-12 bg-white">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-3 animate-fade-in-down animation-delay-100">
-          Our Core Services
-        </h2>
-        <p class="text-base sm:text-lg text-gray-600 mt-2 animate-fade-in-up animation-delay-200">
-          Committed to quality services with top-notch equipment and specialized teams.
+        <!-- Executive Subtitle -->
+        <p class="text-slate-300 text-base sm:text-lg max-w-2xl font-sans leading-relaxed">
+          {{ company.introText }}
         </p>
+
+        <!-- CTA Action Pair -->
+        <div class="pt-4 flex flex-wrap items-center gap-4 justify-center md:justify-start">
+          <a routerLink="/projects" class="btn-amber">
+            <span class="material-symbols-outlined">dataset</span>
+            <span>View Our Work</span>
+          </a>
+          <a routerLink="/contact-us" class="btn-outline-steel">
+            <span class="material-symbols-outlined">request_quote</span>
+            <span>Get A Quote</span>
+          </a>
+        </div>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        @for (service of featuredServices(); track service.id) {
-          <div
-            class="group bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-b-4 border-blue-600 hover:bg-blue-50 overflow-hidden flex flex-col">
-            <div class="h-56 overflow-hidden">
-              <img [src]="service.imageUrl || 'assets/images/placeholder.jpg'" [alt]="service.name"
-                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+
+      <!-- Quick Trust Card -->
+      <div class="lg:col-span-4" appReveal [delayMs]="200">
+        <div class="bg-slate-900/90 border border-slate-700/80 rounded-2xl p-6 shadow-2xl backdrop-blur-md space-y-4">
+          <div class="flex items-center gap-3 border-b border-slate-800 pb-4">
+            <div class="w-10 h-10 rounded-lg bg-[#0B4C8C] flex items-center justify-center text-[#F5A623]">
+              <span class="material-symbols-outlined text-2xl">verified_user</span>
             </div>
-            <div class="p-6 flex flex-col flex-grow">
-              <h3 class="text-xl font-bold text-gray-800 mb-2">{{ service.name }}</h3>
-              <p class="text-gray-600 text-sm mb-3 leading-relaxed">{{ service.summary }}</p>
-              <a routerLink="/our-services"
-                class="inline-block text-blue-600 hover:text-blue-800 font-semibold text-sm transition-colors duration-300 mt-auto">
-                Learn More <span class="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
-              </a>
+            <div>
+              <div class="font-display font-bold text-base text-white">ISO Compliant Contractor</div>
+              <div class="text-xs text-slate-400">Pune / Wakad Headquartered</div>
+            </div>
+          </div>
+
+          <div class="space-y-2 text-xs text-slate-300">
+            <div class="flex items-center justify-between">
+              <span class="text-slate-400">Direct Contact:</span>
+              <span class="font-semibold text-white">{{ company.phonePrimary }}</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-slate-400">Secondary Line:</span>
+              <span class="font-semibold text-white">{{ company.phoneSecondary }}</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-slate-400">Email Inquiry:</span>
+              <span class="font-semibold text-[#F5A623]">{{ company.email }}</span>
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-slate-800">
+            <a routerLink="/about" class="text-xs font-display font-bold text-[#F5A623] hover:underline flex items-center gap-1 uppercase tracking-wider">
+              <span>Read Safety Policy & Credentials</span>
+              <span class="material-symbols-outlined text-xs">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 2. LIVE STAT COUNTER STRIP -->
+  <section class="bg-[#0B4C8C] text-white py-10 border-y border-[#F5A623]/30 shadow-inner relative z-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
+        @for (st of stats; track st.label) {
+          <div class="pt-4 md:pt-0 px-2 space-y-1" appReveal>
+            <div class="flex items-center justify-center gap-2 text-[#F5A623] mb-1">
+              <span class="material-symbols-outlined text-2xl">{{ st.icon }}</span>
+            </div>
+            <div
+              class="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight"
+              [appCountUp]="st.value"
+              [suffix]="st.suffix"
+            >
+              0
+            </div>
+            <div class="font-display font-bold text-xs uppercase tracking-widest text-slate-200">
+              {{ st.label }}
             </div>
           </div>
         }
@@ -82,8 +116,132 @@
     </div>
   </section>
 
+  <!-- WELD SEAM DIVIDER -->
+  <app-weld-seam-divider></app-weld-seam-divider>
+
+  <!-- 3. SERVICES SHOWCASE GRID (PDF Areas of Excellence) -->
+  <section class="py-20 bg-[#F6F8FA]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3" appReveal>
+        <div class="font-display font-bold text-xs uppercase tracking-widest text-[#0B4C8C]">
+          Areas of Excellence
+        </div>
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-[#101820] uppercase tracking-wider">
+          INDUSTRIAL FABRICATION & ERECTION SERVICES
+        </h2>
+        <p class="text-slate-600 text-sm sm:text-base">
+          Catering to Automotive, Pharma, Chemical, Power, Dairy & Food industries across Maharashtra and nationwide.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        @for (svc of services; track svc.slug; let i = $index) {
+          <div
+            class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+            appReveal
+            [delayMs]="i * 80"
+          >
+            <div>
+              <!-- Visual Header / Photo Tag -->
+              <div class="relative h-48 bg-slate-800 flex items-center justify-center overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent z-10"></div>
+                <span class="material-symbols-outlined text-6xl text-slate-600 group-hover:scale-110 group-hover:text-[#F5A623] transition-all duration-500">
+                  {{ svc.iconName }}
+                </span>
+                
+                <div class="absolute top-3 right-3 z-20">
+                  <span class="photo-placeholder-tag">
+                    <span class="material-symbols-outlined text-[10px]">photo</span>
+                    <span>PHOTO NEEDED</span>
+                  </span>
+                </div>
+
+                <div class="absolute bottom-3 left-4 right-4 z-20">
+                  <span class="text-[10px] font-display font-bold uppercase text-[#F5A623] tracking-widest">
+                    {{ svc.subtitle }}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Card Content -->
+              <div class="p-6 space-y-3">
+                <h3 class="font-display font-bold text-xl text-[#101820] group-hover:text-[#0B4C8C] transition-colors">
+                  {{ svc.title }}
+                </h3>
+                <p class="text-xs text-slate-600 leading-relaxed font-sans line-clamp-3">
+                  {{ svc.teaser }}
+                </p>
+              </div>
+            </div>
+
+            <!-- Card Footer Link -->
+            <div class="px-6 pb-6 pt-2 border-t border-slate-100">
+              <a
+                [routerLink]="['/our-services', svc.slug]"
+                class="font-display font-bold text-xs uppercase text-[#0B4C8C] group-hover:text-[#F5A623] transition-colors flex items-center gap-1 tracking-wider"
+              >
+                <span>Read Full Service Spec</span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="mt-12 text-center">
+        <a routerLink="/our-services" class="btn-amber">
+          <span>Explore All 7 Services</span>
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WELD SEAM DIVIDER -->
+  <app-weld-seam-divider></app-weld-seam-divider>
+
+  <!-- 4. WHY CHOOSE US (PDF Safety + Features) -->
+  <section class="py-20 bg-[#101820] text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3" appReveal>
+        <div class="font-display font-bold text-xs uppercase tracking-widest text-[#F5A623]">
+          Engineering Advantages
+        </div>
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white uppercase tracking-wider">
+          WHY HIRING SK FABRICATOR & ERECTOR MAKES THE DIFFERENCE
+        </h2>
+        <p class="text-slate-400 text-sm">
+          Built on precision workmanship, guaranteed safety standards, and faster record project completion times.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        @for (item of whyUs; track item.title; let i = $index) {
+          <div
+            class="bg-slate-900/90 border border-slate-800 rounded-xl p-6 space-y-3 hover:border-[#F5A623]/50 transition-all group"
+            appReveal
+            [delayMs]="i * 60"
+          >
+            <div class="w-12 h-12 rounded-lg bg-[#0B4C8C]/50 border border-[#0B4C8C] flex items-center justify-center text-[#F5A623] group-hover:bg-[#F5A623] group-hover:text-[#101820] transition-colors">
+              <span class="material-symbols-outlined text-2xl">{{ item.icon }}</span>
+            </div>
+            <h3 class="font-display font-bold text-lg text-white group-hover:text-[#F5A623] transition-colors">
+              {{ item.title }}
+            </h3>
+            <p class="text-xs text-slate-400 font-sans leading-relaxed">
+              {{ item.desc }}
+            </p>
+          </div>
+        }
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 5. CLIENT MARQUEE -->
   <app-scrolling-clients></app-scrolling-clients>
 
-  <app-about-details class="bg-gray-50"></app-about-details>
-  <app-contact-us></app-contact-us>
-</div>
+</main>

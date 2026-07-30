@@ -1,30 +1,53 @@
-<div class="scrolling-clients-container bg-gray-50 py-10">
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-6">
-      <h2 class="text-4xl font-extrabold text-gray-900 mb-3 animate-fade-in-down animation-delay-100">
-        Our Esteemed Clients
-      </h2>
-      <p class="text-lg text-gray-600 mt-2 animate-fade-in-up animation-delay-200">
-        We are proud to have partnered with a diverse range of leading companies.
-      </p>
+<div class="w-full bg-[#101820] py-14 border-y border-slate-800 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 text-center">
+    <div class="font-display font-bold text-xs uppercase tracking-widest text-[#F5A623] mb-1">
+      Trusted By Industry Leaders
     </div>
-    <div class="scrolling-clients">
-      <div class="scrolling-wrapper">
-        @for (client of clients(); track client.id) {
-          <div class="client-logo">
-            <a [href]="client.clientUrl" target="_blank" rel="noopener noreferrer" [title]="client.name + ' Website'">
-              <img [src]="client.imageUrl" [alt]="client.name + ' Logo'" class="max-h-20 max-w-40 object-contain">
-            </a>
+    <h2 class="font-display font-extrabold text-2xl md:text-3xl text-white uppercase tracking-wider">
+      ESTEEMED CLIENTELE & EPC PARTNERS
+    </h2>
+  </div>
+
+  <!-- Marquee Container -->
+  <div class="relative w-full overflow-hidden flex [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+    <div class="marquee-track flex items-center gap-8 py-4 whitespace-nowrap">
+      <!-- First Copy -->
+      @for (client of clients(); track client.id) {
+        <div class="client-badge flex-shrink-0 bg-slate-900/90 border border-slate-800 hover:border-[#F5A623]/60 rounded-xl px-6 py-4 flex items-center gap-3 shadow-md hover:shadow-[0_4px_16px_rgba(245,166,35,0.15)] transition-all duration-300 group cursor-pointer">
+          <div class="w-9 h-9 rounded-lg bg-[#0B4C8C]/40 border border-[#0B4C8C] flex items-center justify-center text-[#F5A623] font-display font-extrabold text-base group-hover:bg-[#F5A623] group-hover:text-[#101820] transition-colors">
+            {{ client.name.substring(0, 2).toUpperCase() }}
           </div>
-        }
-        @for (client of clients(); track client.id) {
-          <div class="client-logo" aria-hidden="true">
-            <a [href]="client.clientUrl" target="_blank" rel="noopener noreferrer" [title]="client.name + ' Website'">
-              <img [src]="client.imageUrl" [alt]="client.name + ' Logo'" class="max-h-20 max-w-40 object-contain">
-            </a>
+          <div class="flex flex-col text-left">
+            <span class="font-display font-bold text-base text-slate-200 group-hover:text-[#F5A623] transition-colors tracking-wide">
+              {{ client.name }}
+            </span>
+            @if (client.tagline) {
+              <span class="text-[10px] text-slate-400 group-hover:text-slate-300 font-sans">
+                {{ client.tagline }}
+              </span>
+            }
           </div>
-        }
-      </div>
+        </div>
+      }
+
+      <!-- Duplicate Copy for Seamless Infinite Loop -->
+      @for (client of clients(); track 'dup-' + client.id) {
+        <div class="client-badge flex-shrink-0 bg-slate-900/90 border border-slate-800 hover:border-[#F5A623]/60 rounded-xl px-6 py-4 flex items-center gap-3 shadow-md hover:shadow-[0_4px_16px_rgba(245,166,35,0.15)] transition-all duration-300 group cursor-pointer" aria-hidden="true">
+          <div class="w-9 h-9 rounded-lg bg-[#0B4C8C]/40 border border-[#0B4C8C] flex items-center justify-center text-[#F5A623] font-display font-extrabold text-base group-hover:bg-[#F5A623] group-hover:text-[#101820] transition-colors">
+            {{ client.name.substring(0, 2).toUpperCase() }}
+          </div>
+          <div class="flex flex-col text-left">
+            <span class="font-display font-bold text-base text-slate-200 group-hover:text-[#F5A623] transition-colors tracking-wide">
+              {{ client.name }}
+            </span>
+            @if (client.tagline) {
+              <span class="text-[10px] text-slate-400 group-hover:text-slate-300 font-sans">
+                {{ client.tagline }}
+              </span>
+            }
+          </div>
+        </div>
+      }
     </div>
   </div>
 </div>
