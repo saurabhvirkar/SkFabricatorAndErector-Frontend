@@ -18,18 +18,16 @@ export class ScrollingClientsComponent implements OnInit {
     this.clientService.getClientDetails().subscribe({
       next: (apiClients) => {
         if (apiClients && apiClients.length > 0) {
-          const mapped = apiClients.map(c => ({
+          const mapped: ClientItem[] = apiClients.map(c => ({
             id: String(c.id),
             name: c.name,
-            tagline: c.clientUrl || '',
-            category: 'Partner Client'
+            tagline: (c as any).tagline || c.clientUrl || undefined,
+            category: (c as any).category || 'Industrial Partner'
           }));
           this.clients.set(mapped);
         }
       },
-      error: () => {
-        // Retain default CLIENT_LOGOS from PDF company profile
-      }
+      error: () => {}
     });
   }
 }

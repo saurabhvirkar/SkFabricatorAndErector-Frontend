@@ -55,14 +55,36 @@ export class OurServicesComponent implements OnInit {
     this.serviceService.getServices().subscribe({
       next: (apiServices) => {
         if (apiServices && apiServices.length > 0) {
-          const updated = CORE_SERVICES.map(coreSvc => {
-            const match = apiServices.find(s => s.name?.toLowerCase().includes(coreSvc.title.toLowerCase()) || coreSvc.title.toLowerCase().includes(s.name?.toLowerCase()));
+          const mapped: ExtendedServiceItem[] = apiServices.map(apiSvc => {
+            const fallback = CORE_SERVICES.find(cs => cs.slug === apiSvc.slug || cs.title.toLowerCase() === apiSvc.name?.toLowerCase()) || CORE_SERVICES[0];
+            
+            let parsedBullets: string[] = [];
+            if (apiSvc.bulletsJson) {
+              try {
+                parsedBullets = JSON.parse(apiSvc.bulletsJson);
+              } catch {
+                parsedBullets = fallback.bullets;
+              }
+            } else {
+              parsedBullets = fallback.bullets;
+            }
+
             return {
-              ...coreSvc,
-              imageUrl: match?.imageUrl || coreSvc.imageUrl
+              slug: apiSvc.slug || fallback.slug,
+              title: apiSvc.name || fallback.title,
+              subtitle: apiSvc.subtitle || fallback.subtitle,
+              teaser: apiSvc.teaser || apiSvc.summary || fallback.teaser,
+              description: apiSvc.description || fallback.description,
+              iconName: apiSvc.iconName || fallback.iconName,
+              bulletTitle: apiSvc.bulletTitle || fallback.bulletTitle,
+              bullets: parsedBullets.length > 0 ? parsedBullets : fallback.bullets,
+              photoPlaceholder: apiSvc.photoPlaceholder || fallback.photoPlaceholder,
+              featured: apiSvc.featured ?? fallback.featured,
+              imageUrl: apiSvc.imageUrl || fallback.imageUrl
             };
           });
-          this.services.set(updated);
+
+          this.services.set(mapped);
         }
       },
       error: () => {}

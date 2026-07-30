@@ -30,7 +30,7 @@
 
         <!-- Executive Subtitle -->
         <p class="text-slate-300 text-base sm:text-lg max-w-2xl font-sans leading-relaxed">
-          {{ company.introText }}
+          {{ company.heroHeadline }}
         </p>
 
         <!-- CTA Action Pair -->
@@ -39,9 +39,14 @@
             <span class="material-symbols-outlined">dataset</span>
             <span>View Our Work</span>
           </a>
-          <a routerLink="/contact-us" class="btn-outline-steel">
-            <span class="material-symbols-outlined">request_quote</span>
-            <span>Get A Quote</span>
+          <a
+            href="/api/company-profile/download-pdf"
+            download="SK-Fabricator-Company-Profile.pdf"
+            target="_blank"
+            class="btn-outline-steel flex items-center gap-2"
+          >
+            <span class="material-symbols-outlined text-[#F5A623]">download</span>
+            <span>Download Company Profile (PDF)</span>
           </a>
         </div>
       </div>
@@ -62,22 +67,31 @@
           <div class="space-y-2 text-xs text-slate-300">
             <div class="flex items-center justify-between">
               <span class="text-slate-400">Direct Contact:</span>
-              <span class="font-semibold text-white">{{ company.phonePrimary }}</span>
+              <span class="font-semibold text-white">+91 9130 01 2070</span>
             </div>
             <div class="flex items-center justify-between">
               <span class="text-slate-400">Secondary Line:</span>
-              <span class="font-semibold text-white">{{ company.phoneSecondary }}</span>
+              <span class="font-semibold text-white">+91 9552 03 4884</span>
             </div>
             <div class="flex items-center justify-between">
               <span class="text-slate-400">Email Inquiry:</span>
-              <span class="font-semibold text-[#F5A623]">{{ company.email }}</span>
+              <span class="font-semibold text-[#F5A623]">skfabricator2070@gmail.com</span>
             </div>
           </div>
 
-          <div class="pt-2 border-t border-slate-800">
+          <div class="pt-2 border-t border-slate-800 flex items-center justify-between">
             <a routerLink="/about" class="text-xs font-display font-bold text-[#F5A623] hover:underline flex items-center gap-1 uppercase tracking-wider">
-              <span>Read Safety Policy & Credentials</span>
+              <span>Read Safety Policy</span>
               <span class="material-symbols-outlined text-xs">arrow_forward</span>
+            </a>
+            <a
+              href="/assets/pdf/sk-company-profile.pdf"
+              download="SK-Fabricator-Company-Profile.pdf"
+              target="_blank"
+              class="text-xs font-display font-bold text-slate-300 hover:text-white flex items-center gap-1"
+            >
+              <span class="material-symbols-outlined text-xs text-[#F5A623]">picture_as_pdf</span>
+              <span>PDF</span>
             </a>
           </div>
         </div>
@@ -214,7 +228,7 @@
             [delayMs]="i * 60"
           >
             <div class="w-full h-32 rounded-lg bg-slate-950 overflow-hidden relative">
-              <app-slot-image [slotKey]="item.slotKey"></app-slot-image>
+              <app-slot-image [slotKey]="whyUsSlots[i] || 'home.whyus.icon.customize-service'"></app-slot-image>
             </div>
             <div>
               <h3 class="font-display font-bold text-lg text-white group-hover:text-[#F5A623] transition-colors">
@@ -231,7 +245,36 @@
     </div>
   </section>
 
-  <!-- 5. CLIENT MARQUEE -->
-  <app-scrolling-clients></app-scrolling-clients>
+  <!-- 5. COMPANY PROFILE PDF DOWNLOAD BANNER -->
+  <section class="py-16 bg-gradient-to-r from-[#0B4C8C] via-[#073563] to-[#101820] text-white border-t border-[#F5A623]/30 shadow-2xl relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      
+      <div class="lg:col-span-8 space-y-4 text-center md:text-left">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F5A623]/20 border border-[#F5A623]/40 text-[#F5A623] text-xs font-display font-bold uppercase tracking-widest">
+          <span class="material-symbols-outlined text-sm">picture_as_pdf</span>
+          <span>Official Corporate Documentation</span>
+        </div>
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white uppercase tracking-wider">
+          DOWNLOAD OUR COMPLETE COMPANY PROFILE
+        </h2>
+        <p class="text-slate-200 text-sm sm:text-base font-sans max-w-2xl">
+          Get instant access to SK Fabricator & Erector's complete technical capabilities, machine inventory, safety credentials, areas of excellence, and completed project reference portfolio in one high-resolution PDF document.
+        </p>
+      </div>
+
+      <div class="lg:col-span-4 flex justify-center lg:justify-end">
+        <a
+          href="/api/company-profile/download-pdf"
+          download="SK-Fabricator-Company-Profile.pdf"
+          target="_blank"
+          class="btn-amber !py-3.5 !px-7 !text-base shadow-xl flex items-center gap-3 group"
+        >
+          <span class="material-symbols-outlined text-2xl group-hover:translate-y-0.5 transition-transform">download</span>
+          <span>Download PDF Profile</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
 
 </main>

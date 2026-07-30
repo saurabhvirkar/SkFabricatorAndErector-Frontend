@@ -82,23 +82,21 @@ export class ProjectsComponent implements OnInit {
             const category: ValidCategory = validCategories.includes(catLower) ? catLower : 'piping';
 
             return {
-              id: String(p.id || idx),
-              title: p.title,
+              id: p.id ? `proj-${p.id}` : `proj-${idx + 1}`,
+              title: p.title || 'Untitled Project',
               category,
-              categoryLabel: p.category || 'Piping',
+              categoryLabel: p.categoryLabel || p.category || 'Piping',
               description: p.description || '',
-              photoPlaceholder: `Uploaded Photo ID: ${p.id}`,
-              imageUrl: p.image
+              photoPlaceholder: p.photoPlaceholder || `PHOTO NEEDED: ${p.title}`,
+              imageUrl: p.image || undefined,
+              client: p.client || undefined
             };
           });
 
-          // Merge live uploaded projects with default PDF gallery
-          this.projects.set([...mapped, ...PROJECT_GALLERY]);
+          this.projects.set(mapped);
         }
       },
-      error: () => {
-        // Fallback to default company content gallery
-      }
+      error: () => {}
     });
   }
 

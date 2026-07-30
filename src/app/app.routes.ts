@@ -127,9 +127,5 @@ export const routes: Routes = [
     path: 'contact-us',
     loadComponent: () => import('../features/contact/pages/contact/contact-us.component').then(m => m.ContactUsComponent)
   },
-  {
-    path: 'clients',
-    loadComponent: () => import('../features/clients/pages/clients/clients-details.component').then(m => m.ClientsDetailsComponent)
-  },
   { path: '**', redirectTo: '' }
 ];

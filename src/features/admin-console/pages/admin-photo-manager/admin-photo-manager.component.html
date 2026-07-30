@@ -2,9 +2,88 @@
 
   <!-- Header -->
   <app-admin-page-header
-    title="Page Image Manager"
-    subtitle="Upload, replace, and manage layout photos for every section of the SK Fabricator UI"
+    title="Page Assets & PDF Manager"
+    subtitle="Manage official Company Profile PDF downloads and image layout placeholders for SK Fabricator UI"
   ></app-admin-page-header>
+
+  <!-- 1. COMPANY PROFILE PDF CONTROL CARD (ADMIN ONLY) -->
+  <div class="bg-[#101820] text-white rounded-xl p-6 border border-slate-800 shadow-xl space-y-4">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-xl bg-[#0B4C8C] text-[#F5A623] flex items-center justify-center border border-[#F5A623]/30 shadow-md">
+          <span class="material-symbols-outlined text-2xl">picture_as_pdf</span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 class="font-display font-bold text-lg text-white uppercase tracking-wider">
+              Official Company Profile PDF
+            </h3>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
+              Admin Protected
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 font-sans mt-0.5">
+            This document is served to website visitors when clicking "Download Profile PDF" buttons.
+          </p>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3 flex-wrap">
+        <!-- Download Current PDF -->
+        <a
+          href="/api/company-profile/download-pdf"
+          download="SK-Fabricator-Company-Profile.pdf"
+          target="_blank"
+          class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold uppercase tracking-wider transition-colors flex items-center gap-1.5"
+        >
+          <span class="material-symbols-outlined text-sm text-[#F5A623]">download</span>
+          <span>Download PDF</span>
+        </a>
+
+        <!-- Upload / Replace PDF -->
+        <label class="cursor-pointer">
+          <input
+            type="file"
+            accept="application/pdf"
+            class="hidden"
+            (change)="onPdfFileSelected($event)"
+          />
+          <span class="px-4 py-2 rounded-lg bg-[#0B4C8C] hover:bg-[#073563] text-white text-xs font-bold uppercase tracking-wider transition-colors flex items-center gap-1.5 shadow-md">
+            @if (isUploadingPdf()) {
+              <span class="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+              <span>Uploading...</span>
+            } @else {
+              <span class="material-symbols-outlined text-sm">cloud_upload</span>
+              <span>Upload / Replace PDF</span>
+            }
+          </span>
+        </label>
+
+        <!-- Delete PDF -->
+        <button
+          (click)="deletePdf()"
+          type="button"
+          class="px-3.5 py-2 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-400 hover:bg-rose-500/20 text-xs font-bold uppercase tracking-wider transition-colors flex items-center gap-1"
+          title="Delete or reset PDF on server"
+        >
+          <span class="material-symbols-outlined text-sm">delete</span>
+          <span>Delete PDF</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- PDF Status Metadata Strip -->
+    @if (pdfService.pdfInfo(); as info) {
+      <div class="flex items-center gap-6 text-xs text-slate-400 font-sans pt-1">
+        <div><span class="text-slate-500">Filename:</span> <span class="text-slate-200 font-mono">{{ info.fileName }}</span></div>
+        <div><span class="text-slate-500">Size:</span> <span class="text-slate-200 font-mono">{{ info.fileSizeMb }} MB</span></div>
+        @if (info.updatedAtUtc) {
+          <div><span class="text-slate-500">Last Updated:</span> <span class="text-slate-200 font-mono">{{ info.updatedAtUtc | date:'medium' }}</span></div>
+        }
+      </div>
+    }
+  </div>
 
   <!-- Filter & Tab Navigation Bar -->
   <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">

@@ -23,7 +23,6 @@ export class HeaderComponent {
     { label: 'About Us', link: '/about' },
     { label: 'Solutions', link: '/our-services', hasDropdown: true },
     { label: 'Projects', link: '/projects' },
-    { label: 'Clients', link: '/clients' },
     { label: 'Contact Us', link: '/contact-us' }
   ];
 
