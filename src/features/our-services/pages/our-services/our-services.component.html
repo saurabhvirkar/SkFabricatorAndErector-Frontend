@@ -36,19 +36,15 @@
         <!-- Main Detail Body (8 cols) -->
         <div class="lg:col-span-8 space-y-8">
           
-          <!-- Asset Placeholder Image Banner -->
+          <!-- Dynamic Slot Image Banner -->
           <div class="relative h-80 bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 flex items-center justify-center shadow-lg">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent z-10"></div>
-            <span class="material-symbols-outlined text-8xl text-slate-700">
-              {{ svc.iconName }}
-            </span>
             
-            <div class="absolute top-4 right-4 z-20">
-              <span class="photo-placeholder-tag">
-                <span class="material-symbols-outlined text-xs">photo_camera</span>
-                <span>{{ svc.photoPlaceholder }}</span>
-              </span>
-            </div>
+            <app-slot-image
+              [slotKey]="'services.' + svc.slug + '.hero'"
+              [fallbackUrl]="svc.imageUrl"
+              imgClass="w-full h-full object-cover relative z-0"
+            ></app-slot-image>
 
             <div class="absolute bottom-6 left-6 right-6 z-20 text-white">
               <div class="font-display font-bold text-[#F5A623] text-sm uppercase tracking-widest mb-1">
@@ -151,20 +147,14 @@
           >
             <div>
               <div class="relative h-48 bg-slate-900 flex items-center justify-center overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent z-10"></div>
-                <span class="material-symbols-outlined text-6xl text-slate-700 group-hover:scale-110 group-hover:text-[#F5A623] transition-all duration-500">
-                  {{ svc.iconName }}
-                </span>
-                
-                <div class="absolute top-3 right-3 z-20">
-                  <span class="photo-placeholder-tag">
-                    <span class="material-symbols-outlined text-[10px]">photo</span>
-                    <span>PHOTO NEEDED</span>
-                  </span>
-                </div>
+                <app-slot-image
+                  [slotKey]="'services.' + svc.slug + '.card'"
+                  [fallbackUrl]="svc.imageUrl"
+                  imgClass="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 relative z-0"
+                ></app-slot-image>
 
                 <div class="absolute bottom-3 left-4 right-4 z-20">
-                  <span class="text-[10px] font-display font-bold uppercase text-[#F5A623] tracking-widest">
+                  <span class="text-[10px] font-display font-bold uppercase text-[#F5A623] tracking-widest drop-shadow-md">
                     {{ svc.subtitle }}
                   </span>
                 </div>

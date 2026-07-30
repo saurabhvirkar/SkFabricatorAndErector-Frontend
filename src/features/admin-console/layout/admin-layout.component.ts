@@ -46,6 +46,7 @@ export class AdminLayoutComponent {
     { label: 'Our Services', icon: 'design_services', route: '/ops/adminportal/services' },
     { label: 'Team Members', icon: 'groups', route: '/ops/adminportal/team' },
     { label: 'Gallery / Photos', icon: 'photo_library', route: '/ops/adminportal/gallery' },
+    { label: 'Page Photo Manager', icon: 'collections', route: '/ops/adminportal/photos' },
     { label: 'Clients', icon: 'business_center', route: '/ops/adminportal/clients' },
     { label: 'Home Sliders', icon: 'view_carousel', route: '/ops/adminportal/sliders' },
     { label: 'Inquiries', icon: 'mail', route: '/ops/adminportal/inquiries' },

@@ -1,19 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { COMPANY_DETAILS } from '../../../../app/core/data/company-content';
+import { GalleryService } from '../../../gallery/services/gallery.service';
+import { GalleryImage } from '../../../gallery/models/gallery-image.model';
 import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reveal.directive';
 import { WeldSeamDividerComponent } from '../../../../shared/components/weld-seam-divider/weld-seam-divider.component';
+import { SlotImageComponent } from '../../../../shared/components/slot-image/slot-image.component';
+import { PageImageService } from '../../../../app/core/services/page-image.service';
 
 @Component({
   selector: 'app-about-details',
   standalone: true,
-  imports: [CommonModule, RouterLink, ScrollRevealDirective, WeldSeamDividerComponent],
+  imports: [
+    CommonModule,
+    RouterLink,
+    ScrollRevealDirective,
+    WeldSeamDividerComponent,
+    SlotImageComponent
+  ],
   templateUrl: './about-details.component.html',
   styleUrls: ['./about-details.component.scss']
 })
-export class AboutDetailsComponent {
+export class AboutDetailsComponent implements OnInit {
+  private readonly galleryService = inject(GalleryService);
+  private readonly pageImageService = inject(PageImageService);
+
   company = COMPANY_DETAILS;
+  infrastructurePhotos = signal<GalleryImage[]>([]);
 
   focusGoalMission = [
     {
@@ -65,4 +79,18 @@ export class AboutDetailsComponent {
       ]
     }
   ];
+
+  ngOnInit(): void {
+    this.pageImageService.loadAllSlots().subscribe();
+
+    this.galleryService.getPhotos().subscribe({
+      next: (photos) => {
+        const sliderPhotos = photos.filter(p => p.isAboutSlider);
+        if (sliderPhotos.length > 0) {
+          this.infrastructurePhotos.set(sliderPhotos);
+        }
+      },
+      error: () => {}
+    });
+  }
 }

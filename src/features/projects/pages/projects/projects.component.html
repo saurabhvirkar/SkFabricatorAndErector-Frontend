@@ -55,17 +55,11 @@
           <div class="relative h-64 bg-slate-900 overflow-hidden flex items-center justify-center">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent z-10 group-hover:opacity-75 transition-opacity"></div>
             
-            <span class="material-symbols-outlined text-7xl text-slate-700 group-hover:scale-110 transition-transform duration-500">
-              precision_manufacturing
-            </span>
-
-            <!-- Photo Needed Badge -->
-            <div class="absolute top-3 right-3 z-20">
-              <span class="photo-placeholder-tag">
-                <span class="material-symbols-outlined text-[10px]">photo_camera</span>
-                <span>PHOTO NEEDED</span>
-              </span>
-            </div>
+            <app-slot-image
+              [slotKey]="'project.' + proj.id"
+              [fallbackUrl]="proj.imageUrl"
+              imgClass="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 relative z-0"
+            ></app-slot-image>
 
             <!-- Hover Zoom Icon -->
             <div class="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
@@ -103,7 +97,7 @@
       class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 animate-fade-in-up"
       (click)="closeLightbox()"
     >
-      <!-- Modal Box (Prevents click bubbling) -->
+      <!-- Modal Box -->
       <div
         class="bg-[#101820] border border-slate-700 rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl relative flex flex-col md:flex-row text-white"
         (click)="$event.stopPropagation()"
@@ -120,13 +114,11 @@
 
         <!-- Left Image Stage -->
         <div class="md:w-3/5 bg-slate-950 p-8 flex flex-col items-center justify-center relative min-h-[320px]">
-          <div class="w-full h-full flex flex-col items-center justify-center text-center space-y-4 border border-dashed border-slate-800 p-6 rounded-xl">
-            <span class="material-symbols-outlined text-6xl text-[#F5A623]">photo_library</span>
-            <div class="text-xs text-slate-400 font-mono">
-              {{ proj.photoPlaceholder }}
-            </div>
-            <span class="text-[10px] text-slate-500 uppercase tracking-widest">High-Res Site Photography Pending</span>
-          </div>
+          <app-slot-image
+            [slotKey]="'project.' + proj.id"
+            [fallbackUrl]="proj.imageUrl"
+            imgClass="w-full h-full object-contain max-h-[400px] rounded-lg shadow-xl"
+          ></app-slot-image>
 
           <!-- Carousel Controls -->
           <div class="absolute inset-y-0 left-2 flex items-center">

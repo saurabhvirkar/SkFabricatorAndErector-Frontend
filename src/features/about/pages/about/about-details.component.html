@@ -54,21 +54,14 @@
         </div>
       </div>
 
-      <!-- Infrastructure Placeholder Box -->
+      <!-- Infrastructure Box -->
       <div class="lg:col-span-5" appReveal [delayMs]="200">
-        <div class="relative h-96 bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden flex flex-col items-center justify-center p-8 text-center text-white shadow-xl">
-          <div class="absolute top-4 right-4 z-20">
-            <span class="photo-placeholder-tag">
-              <span class="material-symbols-outlined text-xs">photo_camera</span>
-              <span>[PHOTO NEEDED: Pune Office & Shop Floor Infrastructure]</span>
-            </span>
-          </div>
-          
-          <span class="material-symbols-outlined text-7xl text-[#F5A623] mb-4">factory</span>
-          <div class="font-display font-bold text-xl uppercase tracking-wider">Fully Equipped Shop Floor</div>
-          <p class="text-xs text-slate-400 max-w-xs mt-2 font-sans">
-            Equipped with modern welding stations, cranes, pipe rotators, and NDT inspection bays.
-          </p>
+        <div class="relative h-96 bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden shadow-xl">
+          <app-slot-image
+            slotKey="about.intro.photo"
+            [fallbackUrl]="infrastructurePhotos().length > 0 ? infrastructurePhotos()[0].url : undefined"
+            imgClass="w-full h-full object-cover"
+          ></app-slot-image>
         </div>
       </div>
 

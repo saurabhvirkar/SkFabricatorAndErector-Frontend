@@ -89,6 +89,13 @@ export const routes: Routes = [
           import('../features/admin-console/pages/admin-users/admin-users.component').then(
             (m) => m.AdminUsersComponent
           )
+      },
+      {
+        path: 'photos',
+        loadComponent: () =>
+          import('../features/admin-console/pages/admin-photo-manager/admin-photo-manager.component').then(
+            (m) => m.AdminPhotoManagerComponent
+          )
       }
     ]
   },

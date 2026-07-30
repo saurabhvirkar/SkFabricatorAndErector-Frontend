@@ -9,6 +9,7 @@ export interface ServiceItem {
   bullets: string[];
   photoPlaceholder: string;
   featured: boolean;
+  imageUrl?: string;
 }
 
 export interface ClientItem {
@@ -50,9 +51,9 @@ export const COMPANY_DETAILS = {
 };
 
 export const COMPANY_STATS: CompanyStat[] = [
-  { label: 'Years Active', value: 15, suffix: '+', icon: 'history_edu' },
-  { label: 'Projects Completed', value: 250, suffix: '+', icon: 'task_alt' },
-  { label: 'Tonnage Fabricated', value: 10000, suffix: ' MT+', icon: 'precision_manufacturing' },
+  { label: 'Years Active', value: 8, suffix: '+', icon: 'history_edu' },
+  { label: 'Projects Completed', value: 90, suffix: '+', icon: 'task_alt' },
+  { label: 'Tonnage Fabricated', value: 9500, suffix: ' MT+', icon: 'precision_manufacturing' },
   { label: 'Zero-Incident Safety', value: 100, suffix: '%', icon: 'shield' },
 ];
 

@@ -1,0 +1,140 @@
+<div class="p-6 space-y-6">
+
+  <!-- Header -->
+  <app-admin-page-header
+    title="Page Image Manager"
+    subtitle="Upload, replace, and manage layout photos for every section of the SK Fabricator UI"
+  ></app-admin-page-header>
+
+  <!-- Filter & Tab Navigation Bar -->
+  <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+    
+    <!-- Page Tabs -->
+    <div class="flex items-center gap-2 flex-wrap">
+      @for (tab of pages; track tab) {
+        <button
+          (click)="setTab(tab)"
+          type="button"
+          class="px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all"
+          [class.bg-[#0B4C8C]]="activeTab() === tab"
+          [class.text-white]="activeTab() === tab"
+          [class.bg-slate-100]="activeTab() !== tab"
+          [class.text-slate-700]="activeTab() !== tab"
+          [class.hover:bg-slate-200]="activeTab() !== tab"
+        >
+          {{ tab }}
+        </button>
+      }
+    </div>
+
+    <!-- Search Box -->
+    <div class="relative w-full sm:w-72">
+      <input
+        type="text"
+        [(ngModel)]="filterQuery"
+        placeholder="Filter by section or label..."
+        class="w-full pl-9 pr-4 py-2 rounded-lg border border-slate-300 text-xs text-slate-800 focus:outline-none focus:border-[#0B4C8C]"
+      />
+      <span class="material-symbols-outlined absolute left-2.5 top-2.5 text-slate-400 text-base">search</span>
+    </div>
+
+  </div>
+
+  <!-- Loading State -->
+  @if (isLoading()) {
+    <app-loading-state message="Loading page image registry slots..."></app-loading-state>
+  } @else {
+
+    <!-- Slots Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      @for (slot of filteredSlots(); track slot.slotKey) {
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+          
+          <div>
+            <!-- Header Tag -->
+            <div class="px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded bg-[#0B4C8C]/10 text-[#0B4C8C] text-[10px] font-bold uppercase tracking-wider">
+                {{ slot.pageName }} • {{ slot.sectionName }}
+              </span>
+              
+              <span
+                class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider"
+                [class.bg-emerald-100]="slot.hasImage"
+                [class.text-emerald-700]="slot.hasImage"
+                [class.bg-amber-100]="!slot.hasImage"
+                [class.text-amber-700]="!slot.hasImage"
+              >
+                {{ slot.hasImage ? 'Custom Photo' : 'Placeholder' }}
+              </span>
+            </div>
+
+            <!-- Thumbnail Container -->
+            <div class="relative h-44 bg-slate-900 flex items-center justify-center overflow-hidden border-b border-slate-100">
+              @if (slot.imageUrl) {
+                <img [src]="slot.imageUrl" [alt]="slot.label" class="w-full h-full object-cover" />
+              } @else {
+                <div class="text-center p-4 space-y-2">
+                  <span class="material-symbols-outlined text-4xl text-slate-600">photo_library</span>
+                  <div class="text-xs text-amber-400 font-semibold uppercase tracking-wider">
+                    [PHOTO NEEDED]
+                  </div>
+                  <div class="text-[10px] text-slate-400">Click below to upload photo</div>
+                </div>
+              }
+
+              <!-- Uploading Spinner Overlay -->
+              @if (uploadingSlotKey() === slot.slotKey) {
+                <div class="absolute inset-0 bg-slate-950/80 flex items-center justify-center text-white z-20">
+                  <div class="flex items-center gap-2 text-xs font-bold uppercase">
+                    <span class="w-4 h-4 border-2 border-[#F5A623] border-t-transparent rounded-full animate-spin"></span>
+                    <span>Uploading...</span>
+                  </div>
+                </div>
+              }
+            </div>
+
+            <!-- Metadata Info -->
+            <div class="p-4 space-y-2">
+              <h4 class="font-bold text-sm text-slate-900 leading-snug">
+                {{ slot.label }}
+              </h4>
+              <div class="text-[11px] font-mono text-slate-400 truncate">
+                Key: {{ slot.slotKey }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Controls -->
+          <div class="p-4 pt-0 flex items-center gap-2 border-t border-slate-100 mt-2">
+            <label class="flex-1 cursor-pointer">
+              <input
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                class="hidden"
+                (change)="onFileSelected($event, slot)"
+              />
+              <span class="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-[#0B4C8C] text-white text-xs font-bold hover:bg-[#073563] transition-colors">
+                <span class="material-symbols-outlined text-sm">cloud_upload</span>
+                <span>{{ slot.hasImage ? 'Replace Photo' : 'Upload Photo' }}</span>
+              </span>
+            </label>
+
+            @if (slot.hasImage) {
+              <button
+                (click)="deleteImage(slot)"
+                type="button"
+                class="px-3 py-2 rounded-lg bg-rose-50 border border-rose-200 text-rose-600 hover:bg-rose-100 transition-colors text-xs font-bold"
+                title="Remove photo & revert to placeholder"
+              >
+                <span class="material-symbols-outlined text-sm">delete</span>
+              </button>
+            }
+          </div>
+
+        </div>
+      }
+    </div>
+
+  }
+
+</div>
