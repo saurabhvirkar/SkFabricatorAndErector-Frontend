@@ -5,6 +5,7 @@ import { CountUpDirective } from '../../../../shared/directives/count-up.directi
 import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reveal.directive';
 import { WeldSeamDividerComponent } from '../../../../shared/components/weld-seam-divider/weld-seam-divider.component';
 import { SlotImageComponent } from '../../../../shared/components/slot-image/slot-image.component';
+import { ClientShowcaseComponent } from '../../../../shared/components/client-showcase/client-showcase.component';
 import { PageImageService } from '../../../../app/core/services/page-image.service';
 import { COMPANY_DETAILS, COMPANY_STATS, CORE_SERVICES, WHY_CHOOSE_US } from '../../../../app/core/data/company-content';
 
@@ -17,7 +18,8 @@ import { COMPANY_DETAILS, COMPANY_STATS, CORE_SERVICES, WHY_CHOOSE_US } from '..
     CountUpDirective,
     ScrollRevealDirective,
     WeldSeamDividerComponent,
-    SlotImageComponent
+    SlotImageComponent,
+    ClientShowcaseComponent
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']

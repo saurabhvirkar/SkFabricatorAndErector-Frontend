@@ -1,0 +1,69 @@
+<section class="py-16 bg-[#101820] text-white border-t border-slate-800 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-10 space-y-2">
+      <div class="font-display font-bold text-xs uppercase tracking-widest text-[#F5A623]">
+        Trusted Industrial Partners
+      </div>
+      <h2 class="font-display font-extrabold text-2xl sm:text-4xl text-white uppercase tracking-wider">
+        OUR VALUED CLIENTELE & INDUSTRY PARTNERS
+      </h2>
+      <p class="text-slate-400 text-xs sm:text-sm font-sans">
+        Proudly serving leading enterprise manufacturers, chemical processing plants, and infrastructure leaders across Maharashtra and India.
+      </p>
+    </div>
+
+    <!-- Loading Skeleton -->
+    @if (isLoading()) {
+      <div class="flex justify-center items-center py-12 space-x-3 text-slate-400">
+        <span class="w-6 h-6 border-2 border-[#F5A623] border-t-transparent rounded-full animate-spin"></span>
+        <span class="text-xs font-display font-bold uppercase tracking-wider">Loading Partner Showcase...</span>
+      </div>
+    } @else if (clients().length === 0) {
+      <!-- Empty State -->
+      <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-8 text-center max-w-md mx-auto space-y-3">
+        <span class="material-symbols-outlined text-4xl text-[#F5A623]">business</span>
+        <h3 class="font-display font-bold text-base text-white uppercase">Industry Leaders & Partners</h3>
+        <p class="text-xs text-slate-400">Collaborating with tier-1 automotive, pharmaceutical, and heavy engineering corporations.</p>
+      </div>
+    } @else {
+      <!-- Infinite Horizontal Auto-Scroll Ticker Wrapper -->
+      <div class="showcase-ticker-container relative w-full overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 p-4 sm:p-6 shadow-2xl backdrop-blur-sm">
+        
+        <!-- Left & Right Gradient Vignette Fade Mask -->
+        <div class="absolute top-0 bottom-0 left-0 w-16 bg-gradient-to-r from-[#101820] to-transparent z-20 pointer-events-none"></div>
+        <div class="absolute top-0 bottom-0 right-0 w-16 bg-gradient-to-l from-[#101820] to-transparent z-20 pointer-events-none"></div>
+
+        <!-- Horizontal Scrolling Content Track -->
+        <div class="showcase-horizontal-track flex items-center gap-6 sm:gap-8 w-max">
+          @for (client of displayClients(); track $index) {
+            <div class="client-card bg-slate-800/90 hover:bg-slate-800 border border-slate-700/60 hover:border-[#F5A623]/60 rounded-xl p-3 sm:p-4 flex items-center gap-4 transition-all duration-300 shadow-md group shrink-0 min-w-[220px] sm:min-w-[260px]">
+              <!-- Client Logo Container -->
+              <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-lg bg-white p-1.5 flex items-center justify-center shrink-0 border border-slate-200 shadow-inner overflow-hidden">
+                <img
+                  [src]="client.imageUrl || 'assets/images/placeholder.jpg'"
+                  [alt]="client.name"
+                  (error)="handleImageError($event)"
+                  loading="lazy"
+                  class="w-full h-full object-contain group-hover:scale-105 transition-transform"
+                />
+              </div>
+              <!-- Client Name & Info -->
+              <div class="min-w-0 flex-1">
+                <h3 class="font-display font-bold text-xs sm:text-sm text-white group-hover:text-[#F5A623] transition-colors truncate">
+                  {{ client.name }}
+                </h3>
+                <span class="text-[10px] sm:text-[11px] font-sans text-slate-400 block truncate mt-0.5">
+                  Certified Partner
+                </span>
+              </div>
+            </div>
+          }
+        </div>
+
+      </div>
+    }
+
+  </div>
+</section>
