@@ -24,9 +24,9 @@ import { PageImageService } from '../../../app/core/services/page-image.service'
             [class]="imgClass || 'w-full h-full object-cover'"
           />
         } @else {
-          <div class="photo-placeholder-tag border border-dashed border-[#F5A623]/40 bg-slate-900/80 px-3 py-1.5 rounded-lg flex items-center gap-2">
-            <span class="material-symbols-outlined text-xs text-[#F5A623]">photo_camera</span>
-            <span class="text-[10px] font-display font-bold uppercase text-[#F5A623] tracking-wider">
+          <div class="photo-placeholder-tag border border-dashed border-[#F5A623]/40 bg-slate-900/80 px-2.5 py-1 rounded-lg flex items-center justify-center gap-1.5 max-w-[90%] text-center">
+            <span class="material-symbols-outlined text-xs text-[#F5A623] shrink-0">photo_camera</span>
+            <span class="text-[10px] font-display font-bold uppercase text-[#F5A623] tracking-wider truncate" [title]="slot() ? slot()!.label : slotKey">
               [PHOTO NEEDED: {{ slot() ? slot()!.label : slotKey }}]
             </span>
           </div>
