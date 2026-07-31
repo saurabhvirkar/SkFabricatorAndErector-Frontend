@@ -145,6 +145,29 @@
       }
     </div>
 
+    <!-- File Upload -->
+    <div>
+      <label class="block font-display font-bold text-xs uppercase text-slate-700 mb-1">
+        Attach Drawing/Specification (PDF, DOCX, CAD)
+      </label>
+      <div class="relative">
+        <input
+          type="file"
+          (change)="onFileSelected($event)"
+          class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+          formControlName="file"
+          accept=".pdf,.doc,.docx,.dwg,.dxf,.step,.stp"
+        />
+        <div class="flex items-center space-x-2 px-4 py-2.5 rounded-lg border border-slate-300 text-xs font-sans text-slate-500 bg-white">
+          <span class="material-symbols-outlined text-slate-400">upload_file</span>
+          <span>{{ selectedFile ? selectedFile.name : 'Select a file (Max 20MB)' }}</span>
+        </div>
+      </div>
+      @if (inquiryForm.get('file')?.hasError('maxSize')) {
+        <span class="text-[10px] text-rose-500 mt-1 block">File size cannot exceed 20MB.</span>
+      }
+    </div>
+
     <!-- Submit Button -->
     <div class="pt-2">
       <button

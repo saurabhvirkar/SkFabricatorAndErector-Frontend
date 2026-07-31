@@ -19,6 +19,7 @@ export class InquiryFormComponent {
   services = CORE_SERVICES;
   submissionStatus = signal<'idle' | 'loading' | 'success' | 'error'>('idle');
   responseMessage = signal('');
+  selectedFile: File | null = null;
 
   inquiryForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
@@ -26,8 +27,22 @@ export class InquiryFormComponent {
     email: ['', [Validators.required, Validators.email]],
     phone: ['', [Validators.required, Validators.pattern(/^[0-9+\s-]{8,15}$/)]],
     serviceInterested: ['', Validators.required],
-    message: ['', [Validators.required, Validators.minLength(10)]]
+    message: ['', [Validators.required, Validators.minLength(10)]],
+    file: [null]
   });
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      if (file.size > 20 * 1024 * 1024) {
+        this.inquiryForm.get('file')?.setErrors({ 'maxSize': true });
+      } else {
+        this.selectedFile = file;
+        this.inquiryForm.get('file')?.setErrors(null);
+      }
+    }
+  }
 
   onSubmit(): void {
     if (this.inquiryForm.invalid) {
@@ -41,27 +56,32 @@ export class InquiryFormComponent {
     this.responseMessage.set('');
 
     const val = this.inquiryForm.value;
-    const payload: Inquiry = {
-      name: val.name!,
-      email: val.email!,
-      phone: val.phone!,
-      subject: `Inquiry for ${val.serviceInterested || 'General Industrial Work'} (${val.companyName || 'Private'})`,
-      category: val.serviceInterested || 'General',
-      preferredContact: 'Phone/Email',
-      message: val.message!
-    };
+    const formData = new FormData();
+    formData.append('name', val.name!);
+    formData.append('email', val.email!);
+    formData.append('phone', val.phone!);
+    formData.append('subject', `Inquiry for ${val.serviceInterested || 'General Industrial Work'} (${val.companyName || 'Private'})`);
+    formData.append('category', val.serviceInterested || 'General');
+    formData.append('preferredContact', 'Phone/Email');
+    formData.append('message', val.message!);
+    
+    if (this.selectedFile) {
+      formData.append('file', this.selectedFile, this.selectedFile.name);
+    }
 
-    this.inquiryService.submitInquiry(payload).subscribe({
+    this.inquiryService.submitInquiry(formData).subscribe({
       next: () => {
         this.submissionStatus.set('success');
         this.responseMessage.set('Thank you for reaching out! Your engineering inquiry has been registered. Our estimator will contact you within 24 business hours.');
         this.inquiryForm.reset();
+        this.selectedFile = null;
       },
       error: () => {
         // Fallback for demonstration if API endpoint isn't live locally
         this.submissionStatus.set('success');
         this.responseMessage.set('Inquiry submitted successfully! Our engineering team will review your specifications shortly.');
         this.inquiryForm.reset();
+        this.selectedFile = null;
       }
     });
   }

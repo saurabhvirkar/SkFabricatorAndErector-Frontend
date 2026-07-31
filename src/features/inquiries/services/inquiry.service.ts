@@ -17,7 +17,7 @@ export class InquiryService {
     return this.apiService.delete<void>(`inquiry/${id}`);
   }
 
-  submitInquiry(inquiryData: Inquiry): Observable<Inquiry> {
+  submitInquiry(inquiryData: FormData): Observable<Inquiry> {
     return this.apiService.post<Inquiry>('inquiry', inquiryData);
   }
 }
