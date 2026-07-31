@@ -4,7 +4,6 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CORE_SERVICES, ServiceItem, COMPANY_DETAILS } from '../../../../app/core/data/company-content';
 import { ServiceService } from '../../services/service.service';
 import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reveal.directive';
-import { WeldSeamDividerComponent } from '../../../../shared/components/weld-seam-divider/weld-seam-divider.component';
 import { SlotImageComponent } from '../../../../shared/components/slot-image/slot-image.component';
 import { PageImageService } from '../../../../app/core/services/page-image.service';
 
@@ -19,7 +18,6 @@ export interface ExtendedServiceItem extends ServiceItem {
     CommonModule,
     RouterLink,
     ScrollRevealDirective,
-    WeldSeamDividerComponent,
     SlotImageComponent
   ],
   templateUrl: './our-services.component.html',

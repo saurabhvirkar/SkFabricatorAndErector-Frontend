@@ -1,0 +1,213 @@
+// =============================================================
+//  _page-themes.scss
+//  Per-page visual identity system.
+//  Each page root class defines its own CSS custom properties +
+//  structural motifs. Typography, spacing, and component shapes
+//  are NEVER changed here — background/texture/divider/motif only.
+//
+//  Usage: add class="page--[name]" to each feature's top <main>
+// =============================================================
+
+// ── Shared SVG motifs (inline data URIs) ────────────────────
+
+// Blueprint grid: 40px grid, slate lines @ ~5% opacity
+$blueprint-grid-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cdefs%3E%3Cpattern id='g' width='40' height='40' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 40 0 L 0 0 0 40' fill='none' stroke='%230B4C8C' stroke-width='0.6'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='40' height='40' fill='url(%23g)'/%3E%3C/svg%3E");
+
+// ── Page 1: HOME ─────────────────────────────────────────────
+.page--home {
+  --page-bg:             #F8F9FB;
+  --page-band-alt:       #FFFFFF;
+  --page-band-primary:   #F6F8FA;
+
+  background-color: var(--page-bg);
+
+  // Alternating section band colours
+  section.band-white   { background-color: var(--page-band-alt); }
+  section.band-tint    { background-color: var(--page-band-primary); }
+
+  // Blueprint micro-texture only on "Why Choose Us" section
+  .why-choose-us-section {
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: $blueprint-grid-svg;
+      background-size: 40px 40px;
+      background-repeat: repeat;
+      opacity: 0.045;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    > * { position: relative; z-index: 1; }
+  }
+}
+
+// ── Page 2: OUR SERVICES ─────────────────────────────────────
+.page--services {
+  --page-bg:           #F3F6F8;   // cooler off-white
+  --page-accent-left:  4px solid;
+
+  background-color: var(--page-bg);
+
+  // Pipe-flange divider: replaces weld-seam visual identity
+  // Applied as a wrapper around app-weld-seam-divider on services page
+  .pipe-flange-divider {
+    position: relative;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    overflow: visible;
+
+    &::before {
+      // Main horizontal rule
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, #cbd5e1 12%, #94a3b8 50%, #cbd5e1 88%, transparent 100%);
+    }
+
+    // Bolt dots via repeating gradient overlay
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 10px;
+      margin-top: -5px;
+      background-image: radial-gradient(circle, #94a3b8 2.5px, transparent 2.5px);
+      background-size: 80px 10px;
+      background-repeat: repeat-x;
+      background-position: 40px center;
+    }
+  }
+
+  // Amber left-edge accent on service detail hero block
+  .service-detail-hero {
+    border-left: 4px solid;
+    border-image: linear-gradient(180deg, #F5A623 0%, #E8871E 100%) 1;
+    border-image-slice: 1;
+  }
+}
+
+// ── Page 3: PROJECTS / GALLERY ───────────────────────────────
+.page--projects {
+  --page-bg:           #F5F4F2;   // warm light grey — neutral canvas for photos
+
+  background-color: var(--page-bg);
+
+  // Sticky filter bar with subtle shadow (only on this page)
+  .project-filter-bar {
+    position: sticky;
+    top: var(--header-height, 72px);
+    z-index: 30;
+    background: rgba(245, 244, 242, 0.96);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 2px 12px 0 rgba(16, 24, 32, 0.07),
+                0 1px 3px 0 rgba(16, 24, 32, 0.05);
+    padding-top: 0.875rem;
+    padding-bottom: 0.875rem;
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+
+    @media (min-width: 640px) {
+      margin-left: -1.75rem;
+      margin-right: -1.75rem;
+      padding-left: 1.75rem;
+      padding-right: 1.75rem;
+    }
+
+    @media (min-width: 1024px) {
+      margin-left: -2rem;
+      margin-right: -2rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+}
+
+// ── Page 4: ABOUT ────────────────────────────────────────────
+.page--about {
+  --page-bg:           #F8F9FB;
+  --page-glow-color:   rgba(11, 76, 140, 0.055);
+
+  background-color: var(--page-bg);
+
+  // Soft radial light-blue glow behind the Focus/Goal/Mission card row
+  .about-directives-section {
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120%;
+      height: 140%;
+      background: radial-gradient(
+        ellipse 80% 60% at 50% 0%,
+        var(--page-glow-color) 0%,
+        transparent 70%
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    > * { position: relative; z-index: 1; }
+  }
+
+  // Slightly wider reading margins on editorial prose blocks
+  .editorial-prose {
+    max-width: 68ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// ── Page 5: CONTACT ──────────────────────────────────────────
+.page--contact {
+  --page-bg:           #FFFFFF;
+  --page-panel-tint:   rgba(11, 76, 140, 0.045);   // #0B4C8C @ ~4.5%
+
+  background-color: var(--page-bg);
+
+  // Split-panel: right details column gets a blue tint panel
+  .contact-details-panel {
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: var(--page-panel-tint);
+      border-radius: inherit;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    > * { position: relative; z-index: 1; }
+  }
+}
+
+// ── Reduced motion overrides ──────────────────────────────────
+@media (prefers-reduced-motion: reduce) {
+  .page--home .why-choose-us-section::before,
+  .page--about .about-directives-section::before,
+  .page--contact .contact-details-panel::before {
+    display: none;
+  }
+}

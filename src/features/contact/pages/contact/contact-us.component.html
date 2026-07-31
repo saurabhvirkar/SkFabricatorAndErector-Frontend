@@ -1,4 +1,4 @@
-<main class="min-h-screen page-top-offset bg-[#F8F9FB] pb-24">
+<main class="min-h-screen page-top-offset page--contact pb-24">
 
   <!-- Header Banner -->
   <section class="bg-gradient-to-b from-[#F8F9FB] via-white to-[#F8F9FB] text-slate-900 py-16 border-b border-slate-200/80 relative overflow-hidden">
@@ -22,8 +22,8 @@
     
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
       
-      <!-- Left Column: Contact Cards & Map (5 cols) -->
-      <div class="lg:col-span-5 space-y-8" appReveal>
+      <!-- Left Column: Contact Cards & Map (5 cols) — tinted blue panel -->
+      <div class="lg:col-span-5 space-y-8 contact-details-panel rounded-2xl p-2 lg:p-4" appReveal>
         
         <!-- Corporate Info Card -->
         <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm space-y-6">
@@ -79,7 +79,7 @@
 
       </div>
 
-      <!-- Right Column: Interactive Inquiry Form (7 cols) -->
+      <!-- Right Column: Interactive Inquiry Form (7 cols) — clean white -->
       <div class="lg:col-span-7" appReveal [delayMs]="150">
         <app-inquiry-form></app-inquiry-form>
       </div>

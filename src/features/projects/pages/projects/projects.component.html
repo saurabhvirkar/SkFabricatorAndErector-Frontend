@@ -1,4 +1,4 @@
-<main class="min-h-screen page-top-offset bg-[#F8F9FB] pb-24">
+<main class="min-h-screen page-top-offset page--projects pb-24">
 
   <!-- Page Header -->
   <section class="bg-gradient-to-b from-[#F8F9FB] via-white to-[#F8F9FB] text-slate-900 py-16 border-b border-slate-200/80 relative overflow-hidden">
@@ -20,8 +20,8 @@
 
   <div class="app-container py-12">
     
-    <!-- Category Filter Chips Bar -->
-    <div class="flex items-center justify-center flex-wrap gap-2.5 mb-12">
+    <!-- Category Filter Chips Bar (sticky on Projects — unique to this page) -->
+    <div class="project-filter-bar flex items-center justify-center flex-wrap gap-2.5 mb-12">
       @for (cat of categories; track cat.key) {
         <button
           (click)="setCategory(cat.key)"
