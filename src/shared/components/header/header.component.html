@@ -1,35 +1,29 @@
 <header
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-white/10"
-  [class.bg-[#0B4C8C]/95]="isScrolled()"
-  [class.backdrop-blur-md]="isScrolled()"
-  [class.shadow-xl]="isScrolled()"
-  [class.bg-gradient-to-b]="!isScrolled()"
-  [class.from-[#101820]/90]="!isScrolled()"
-  [class.to-transparent]="!isScrolled()"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-sm"
 >
   <!-- Top Bar (Desktop Only, Collapses on Scroll) -->
   <div
-    class="top-bar text-xs border-b border-white/10 py-2 transition-all duration-300 hidden md:block"
+    class="top-bar text-xs border-b border-slate-200/80 py-2 transition-all duration-300 hidden md:block bg-slate-50 text-slate-600"
     [class.hidden]="isScrolled()"
   >
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center text-slate-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center text-slate-600">
       <div class="flex items-center space-x-6">
-        <a [href]="'tel:' + company.phonePrimary" class="flex items-center hover:text-[#F5A623] transition-colors">
-          <span class="material-symbols-outlined text-sm mr-1.5 text-[#F5A623]">call</span>
+        <a [href]="'tel:' + company.phonePrimary" class="flex items-center hover:text-[#0B4C8C] transition-colors">
+          <span class="material-symbols-outlined text-sm mr-1.5 text-[#0B4C8C]">call</span>
           <span>{{ company.phonePrimary }}</span>
         </a>
-        <a [href]="'mailto:' + company.email" class="flex items-center hover:text-[#F5A623] transition-colors">
-          <span class="material-symbols-outlined text-sm mr-1.5 text-[#F5A623]">mail</span>
+        <a [href]="'mailto:' + company.email" class="flex items-center hover:text-[#0B4C8C] transition-colors">
+          <span class="material-symbols-outlined text-sm mr-1.5 text-[#0B4C8C]">mail</span>
           <span>{{ company.email }}</span>
         </a>
-        <span class="flex items-center text-slate-400">
-          <span class="material-symbols-outlined text-sm mr-1.5 text-[#F5A623]">location_on</span>
+        <span class="flex items-center text-slate-500">
+          <span class="material-symbols-outlined text-sm mr-1.5 text-[#0B4C8C]">location_on</span>
           <span>Wakad Road, Thergaon, Pune-33</span>
         </span>
       </div>
 
-      <div class="flex items-center space-x-3 text-slate-300">
-        <span class="text-[11px] font-semibold uppercase tracking-wider text-[#F5A623]">Certified Industrial Contractor</span>
+      <div class="flex items-center space-x-3 text-slate-600">
+        <span class="text-[11px] font-semibold uppercase tracking-wider text-[#0B4C8C]">Certified Industrial Contractor</span>
       </div>
     </div>
   </div>
@@ -40,14 +34,14 @@
       
       <!-- Brand Logo -->
       <a routerLink="/" class="flex items-center gap-2 sm:gap-3 group focus:outline-none" aria-label="SK Fabricator & Erector Home">
-        <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-gradient-to-br from-[#0B4C8C] to-[#073563] border border-[#F5A623]/40 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+        <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-gradient-to-br from-[#0B4C8C] to-[#073563] border border-[#F5A623]/40 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
           <span class="font-display font-extrabold text-lg sm:text-xl text-[#F5A623]">SK</span>
         </div>
         <div class="flex flex-col leading-tight">
-          <span class="font-display font-bold text-base sm:text-lg text-white tracking-wide group-hover:text-[#F5A623] transition-colors">
+          <span class="font-display font-bold text-base sm:text-lg text-slate-900 tracking-wide group-hover:text-[#0B4C8C] transition-colors">
             SK FABRICATOR & ERECTOR
           </span>
-          <span class="text-[9px] sm:text-[10px] uppercase font-semibold tracking-widest text-[#F5A623]">
+          <span class="text-[9px] sm:text-[10px] uppercase font-semibold tracking-widest text-[#0B4C8C]">
             {{ company.tagline }}
           </span>
         </div>
@@ -65,8 +59,8 @@
             >
               <a
                 [routerLink]="item.link"
-                routerLinkActive="text-[#F5A623]"
-                class="px-4 py-2 rounded-md font-display font-bold text-base text-slate-200 hover:text-[#F5A623] transition-colors flex items-center gap-1 cursor-pointer uppercase tracking-wider"
+                routerLinkActive="text-[#0B4C8C] font-bold"
+                class="px-4 py-2 rounded-md font-display font-bold text-base text-slate-700 hover:text-[#0B4C8C] transition-colors flex items-center gap-1 cursor-pointer uppercase tracking-wider"
               >
                 <span>{{ item.label }}</span>
                 <span class="material-symbols-outlined text-sm transition-transform" [class.rotate-180]="isMegaMenuOpen()">expand_more</span>
@@ -75,12 +69,12 @@
               <!-- Mega Menu Dropdown Flyout -->
               @if (isMegaMenuOpen()) {
                 <div
-                  class="absolute top-full right-0 lg:-right-12 xl:right-0 w-[calc(100vw-2rem)] sm:w-[640px] md:w-[720px] max-w-[92vw] max-h-[80vh] overflow-y-auto bg-[#101820] border border-slate-700/80 rounded-xl shadow-2xl p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 z-50 animate-fade-in-up"
+                  class="absolute top-full right-0 lg:-right-12 xl:right-0 w-[calc(100vw-2rem)] sm:w-[640px] md:w-[720px] max-w-[92vw] max-h-[80vh] overflow-y-auto bg-white border border-slate-200 rounded-xl shadow-2xl p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 z-50 animate-fade-in-up"
                   tabindex="-1"
                 >
-                  <div class="col-span-1 sm:col-span-2 pb-2 border-b border-slate-800 flex justify-between items-center">
-                    <span class="font-display font-bold text-xs sm:text-sm uppercase tracking-wider text-[#F5A623]">Industrial Solutions & Services</span>
-                    <a routerLink="/our-services" (click)="closeMegaMenu()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1 shrink-0">
+                  <div class="col-span-1 sm:col-span-2 pb-2 border-b border-slate-100 flex justify-between items-center">
+                    <span class="font-display font-bold text-xs sm:text-sm uppercase tracking-wider text-[#0B4C8C]">Industrial Solutions & Services</span>
+                    <a routerLink="/our-services" (click)="closeMegaMenu()" class="text-xs text-slate-500 hover:text-[#0B4C8C] flex items-center gap-1 shrink-0 font-semibold">
                       <span>View All Services</span>
                       <span class="material-symbols-outlined text-xs">arrow_forward</span>
                     </a>
@@ -90,16 +84,16 @@
                     <a
                       [routerLink]="['/our-services', svc.slug]"
                       (click)="closeMegaMenu()"
-                      class="flex items-start gap-3 p-2.5 sm:p-3 rounded-lg hover:bg-slate-800/80 transition-colors group/svc"
+                      class="flex items-start gap-3 p-2.5 sm:p-3 rounded-lg hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-all group/svc"
                     >
-                      <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-md bg-[#0B4C8C]/50 border border-[#0B4C8C] flex items-center justify-center text-[#F5A623] shrink-0 group-hover/svc:bg-[#F5A623] group-hover/svc:text-[#101820] transition-colors">
+                      <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-md bg-[#0B4C8C]/10 border border-[#0B4C8C]/20 flex items-center justify-center text-[#0B4C8C] shrink-0 group-hover/svc:bg-[#0B4C8C] group-hover/svc:text-white transition-colors">
                         <span class="material-symbols-outlined text-lg sm:text-xl">{{ svc.iconName }}</span>
                       </div>
                       <div class="min-w-0">
-                        <div class="font-display font-bold text-xs sm:text-sm text-white group-hover/svc:text-[#F5A623] transition-colors truncate">
+                        <div class="font-display font-bold text-xs sm:text-sm text-slate-900 group-hover/svc:text-[#0B4C8C] transition-colors truncate">
                           {{ svc.title }}
                         </div>
-                        <p class="text-[11px] sm:text-xs text-slate-400 line-clamp-1 mt-0.5 font-sans font-normal">
+                        <p class="text-[11px] sm:text-xs text-slate-500 line-clamp-1 mt-0.5 font-sans font-normal">
                           {{ svc.teaser }}
                         </p>
                       </div>
@@ -111,9 +105,9 @@
           } @else {
             <a
               [routerLink]="item.link"
-              routerLinkActive="text-[#F5A623] font-bold"
+              routerLinkActive="text-[#0B4C8C] font-bold"
               [routerLinkActiveOptions]="{exact: item.link === '/'}"
-              class="px-4 py-2 rounded-md font-display font-bold text-base text-slate-200 hover:text-[#F5A623] transition-colors uppercase tracking-wider"
+              class="px-4 py-2 rounded-md font-display font-bold text-base text-slate-700 hover:text-[#0B4C8C] transition-colors uppercase tracking-wider"
             >
               {{ item.label }}
             </a>
@@ -125,7 +119,7 @@
           href="/api/company-profile/download-pdf"
           download="SK-Fabricator-Company-Profile.pdf"
           target="_blank"
-          class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#0B4C8C] hover:bg-[#073563] text-white font-display font-bold text-xs uppercase tracking-wider border border-white/20 transition-all shadow-md ml-3"
+          class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#0B4C8C] hover:bg-[#073563] text-white font-display font-bold text-xs uppercase tracking-wider border border-[#0B4C8C] transition-all shadow-sm ml-3"
           title="Download Official Company Profile PDF"
         >
           <span class="material-symbols-outlined text-base text-[#F5A623]">download</span>
@@ -146,7 +140,7 @@
         <button
           (click)="toggleMenu()"
           type="button"
-          class="w-10 h-10 rounded-lg bg-slate-800/80 border border-slate-700 text-slate-200 flex items-center justify-center hover:text-[#F5A623] focus:outline-none"
+          class="w-10 h-10 rounded-lg bg-slate-100 border border-slate-200 text-slate-700 flex items-center justify-center hover:text-[#0B4C8C] focus:outline-none"
           [attr.aria-expanded]="isMenuOpen()"
           aria-label="Toggle Navigation Drawer"
         >
@@ -162,12 +156,12 @@
   <!-- Mobile Slide-In Navigation Drawer -->
   @if (isMenuOpen()) {
     <div
-      class="lg:hidden bg-[#101820] border-t border-slate-800 px-4 pt-4 pb-6 space-y-3 shadow-2xl animate-fade-in-up max-h-[85vh] overflow-y-auto"
+      class="lg:hidden bg-white border-t border-slate-200 px-4 pt-4 pb-6 space-y-3 shadow-2xl animate-fade-in-up max-h-[85vh] overflow-y-auto text-slate-800"
     >
       @for (item of navItems; track item.link) {
         @if (item.hasDropdown) {
           <div class="space-y-2 py-1">
-            <div class="font-display font-bold text-xs uppercase text-[#F5A623] px-3 tracking-wider">
+            <div class="font-display font-bold text-xs uppercase text-[#0B4C8C] px-3 tracking-wider">
               Solutions & Services
             </div>
             <div class="grid grid-cols-1 gap-1 pl-2">
@@ -175,9 +169,9 @@
                 <a
                   [routerLink]="['/our-services', svc.slug]"
                   (click)="toggleMenu()"
-                  class="flex items-center gap-3 px-3 py-2 rounded-md text-sm text-slate-300 hover:bg-slate-800 hover:text-[#F5A623]"
+                  class="flex items-center gap-3 px-3 py-2 rounded-md text-sm text-slate-700 hover:bg-slate-100 hover:text-[#0B4C8C]"
                 >
-                  <span class="material-symbols-outlined text-lg text-[#F5A623]">{{ svc.iconName }}</span>
+                  <span class="material-symbols-outlined text-lg text-[#0B4C8C]">{{ svc.iconName }}</span>
                   <span>{{ svc.title }}</span>
                 </a>
               }
@@ -189,19 +183,19 @@
             (click)="toggleMenu()"
             routerLinkActive="bg-[#0B4C8C] text-white font-bold"
             [routerLinkActiveOptions]="{exact: item.link === '/'}"
-            class="block px-4 py-3 rounded-lg font-display font-bold text-base text-slate-200 hover:bg-slate-800 hover:text-[#F5A623] uppercase tracking-wider"
+            class="block px-4 py-3 rounded-lg font-display font-bold text-base text-slate-700 hover:bg-slate-100 hover:text-[#0B4C8C] uppercase tracking-wider"
           >
             {{ item.label }}
           </a>
         }
       }
 
-      <div class="pt-4 border-t border-slate-800 space-y-2">
+      <div class="pt-4 border-t border-slate-200 space-y-2">
         <a
           href="/api/company-profile/download-pdf"
           download="SK-Fabricator-Company-Profile.pdf"
           target="_blank"
-          class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#0B4C8C] text-white font-display font-bold text-sm uppercase tracking-wider border border-white/20"
+          class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#0B4C8C] text-white font-display font-bold text-sm uppercase tracking-wider border border-[#0B4C8C]"
         >
           <span class="material-symbols-outlined text-lg text-[#F5A623]">download</span>
           <span>Download Profile (PDF)</span>

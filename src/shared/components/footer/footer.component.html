@@ -1,6 +1,6 @@
-<footer class="bg-[#101820] text-slate-300 border-t-2 border-[#0B4C8C] relative overflow-hidden">
+<footer class="bg-slate-100 text-slate-700 border-t-2 border-[#0B4C8C] relative overflow-hidden">
   <!-- Subtle Industrial Grid Overlay -->
-  <div class="absolute inset-0 bg-[radial-gradient(#5A6B78_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none"></div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -12,23 +12,23 @@
             <span class="font-display font-black text-lg text-[#F5A623]">SK</span>
           </div>
           <div>
-            <div class="font-display font-bold text-lg text-white tracking-wider">
+            <div class="font-display font-bold text-lg text-slate-900 tracking-wider">
               SK FABRICATOR & ERECTOR
             </div>
-            <div class="text-[10px] font-semibold text-[#F5A623] tracking-widest uppercase">
+            <div class="text-[10px] font-semibold text-[#0B4C8C] tracking-widest uppercase">
               {{ company.tagline }}
             </div>
           </div>
         </div>
 
-        <p class="text-xs text-slate-400 leading-relaxed">
+        <p class="text-xs text-slate-600 leading-relaxed">
           Leading EPC contractor specialized in heavy industrial piping, structural steel erection, pressure vessels, plant turnarounds, and thermal insulation works.
         </p>
 
         <div class="pt-2">
           <a
             routerLink="/contact-us"
-            class="inline-flex items-center gap-2 text-xs font-display font-bold text-[#F5A623] hover:text-white uppercase tracking-wider transition-colors"
+            class="inline-flex items-center gap-2 text-xs font-display font-bold text-[#0B4C8C] hover:text-[#073563] uppercase tracking-wider transition-colors"
           >
             <span>Request Technical Proposal</span>
             <span class="material-symbols-outlined text-sm">arrow_forward</span>
@@ -38,7 +38,7 @@
 
       <!-- Col 2: Industrial Solutions -->
       <div>
-        <h3 class="font-display font-bold text-sm uppercase text-[#F5A623] tracking-wider mb-4 border-b border-slate-800 pb-2">
+        <h3 class="font-display font-bold text-sm uppercase text-[#0B4C8C] tracking-wider mb-4 border-b border-slate-200 pb-2">
           Our Solutions
         </h3>
         <ul class="space-y-2 text-xs">
@@ -46,9 +46,9 @@
             <li>
               <a
                 [routerLink]="['/our-services', svc.slug]"
-                class="hover:text-[#F5A623] transition-colors flex items-center gap-2 group text-slate-300"
+                class="hover:text-[#0B4C8C] transition-colors flex items-center gap-2 group text-slate-600"
               >
-                <span class="material-symbols-outlined text-[#0B4C8C] group-hover:text-[#F5A623] text-sm transition-colors">chevron_right</span>
+                <span class="material-symbols-outlined text-[#0B4C8C] group-hover:text-[#073563] text-sm transition-colors">chevron_right</span>
                 <span>{{ svc.title }}</span>
               </a>
             </li>
@@ -58,41 +58,41 @@
 
       <!-- Col 3: Quick Navigation -->
       <div>
-        <h3 class="font-display font-bold text-sm uppercase text-[#F5A623] tracking-wider mb-4 border-b border-slate-800 pb-2">
+        <h3 class="font-display font-bold text-sm uppercase text-[#0B4C8C] tracking-wider mb-4 border-b border-slate-200 pb-2">
           Quick Links
         </h3>
         <ul class="space-y-2.5 text-xs">
-          <li><a routerLink="/" class="hover:text-[#F5A623] transition-colors flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#0B4C8C]"></span><span>Home</span></a></li>
-          <li><a routerLink="/about" class="hover:text-[#F5A623] transition-colors flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#0B4C8C]"></span><span>About Us & Safety Policy</span></a></li>
-          <li><a routerLink="/our-services" class="hover:text-[#F5A623] transition-colors flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#0B4C8C]"></span><span>Services Catalog</span></a></li>
-          <li><a routerLink="/projects" class="hover:text-[#F5A623] transition-colors flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#0B4C8C]"></span><span>Project Gallery & Portfolio</span></a></li>
-          <li><a href="/api/company-profile/download-pdf" download="SK-Company-Profile.pdf" target="_blank" class="hover:text-[#F5A623] transition-colors flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#F5A623]"></span><span class="text-[#F5A623] font-semibold">Download Profile (PDF)</span></a></li>
-          <li><a routerLink="/contact-us" class="hover:text-[#F5A623] transition-colors flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#0B4C8C]"></span><span>Inquiry & Location Map</span></a></li>
+          <li><a routerLink="/" class="hover:text-[#0B4C8C] transition-colors flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#0B4C8C]"></span><span>Home</span></a></li>
+          <li><a routerLink="/about" class="hover:text-[#0B4C8C] transition-colors flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#0B4C8C]"></span><span>About Us & Safety Policy</span></a></li>
+          <li><a routerLink="/our-services" class="hover:text-[#0B4C8C] transition-colors flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#0B4C8C]"></span><span>Services Catalog</span></a></li>
+          <li><a routerLink="/projects" class="hover:text-[#0B4C8C] transition-colors flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#0B4C8C]"></span><span>Project Gallery & Portfolio</span></a></li>
+          <li><a href="/api/company-profile/download-pdf" download="SK-Company-Profile.pdf" target="_blank" class="hover:text-[#0B4C8C] transition-colors flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#0B4C8C]"></span><span class="text-[#0B4C8C] font-semibold">Download Profile (PDF)</span></a></li>
+          <li><a routerLink="/contact-us" class="hover:text-[#0B4C8C] transition-colors flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#0B4C8C]"></span><span>Inquiry & Location Map</span></a></li>
         </ul>
       </div>
 
       <!-- Col 4: Corporate Contact Details -->
       <div>
-        <h3 class="font-display font-bold text-sm uppercase text-[#F5A623] tracking-wider mb-4 border-b border-slate-800 pb-2">
+        <h3 class="font-display font-bold text-sm uppercase text-[#0B4C8C] tracking-wider mb-4 border-b border-slate-200 pb-2">
           Contact Details
         </h3>
-        <address class="not-italic space-y-3 text-xs text-slate-300">
+        <address class="not-italic space-y-3 text-xs text-slate-600">
           <div class="flex items-start gap-2.5">
-            <span class="material-symbols-outlined text-[#F5A623] text-base shrink-0 mt-0.5">location_on</span>
+            <span class="material-symbols-outlined text-[#0B4C8C] text-base shrink-0 mt-0.5">location_on</span>
             <span class="leading-snug">{{ company.address }}</span>
           </div>
 
           <div class="flex items-center gap-2.5">
-            <span class="material-symbols-outlined text-[#F5A623] text-base shrink-0">call</span>
+            <span class="material-symbols-outlined text-[#0B4C8C] text-base shrink-0">call</span>
             <div class="flex flex-col">
-              <a [href]="'tel:' + company.phonePrimary" class="hover:text-white transition-colors">{{ company.phonePrimary }}</a>
-              <a [href]="'tel:' + company.phoneSecondary" class="hover:text-white transition-colors">{{ company.phoneSecondary }}</a>
+              <a [href]="'tel:' + company.phonePrimary" class="hover:text-[#0B4C8C] transition-colors">{{ company.phonePrimary }}</a>
+              <a [href]="'tel:' + company.phoneSecondary" class="hover:text-[#0B4C8C] transition-colors">{{ company.phoneSecondary }}</a>
             </div>
           </div>
 
           <div class="flex items-center gap-2.5">
-            <span class="material-symbols-outlined text-[#F5A623] text-base shrink-0">mail</span>
-            <a [href]="'mailto:' + company.email" class="hover:text-white transition-colors">{{ company.email }}</a>
+            <span class="material-symbols-outlined text-[#0B4C8C] text-base shrink-0">mail</span>
+            <a [href]="'mailto:' + company.email" class="hover:text-[#0B4C8C] transition-colors">{{ company.email }}</a>
           </div>
         </address>
       </div>
@@ -100,9 +100,9 @@
     </div>
 
     <!-- Bottom Copyright Strip -->
-    <div class="mt-12 pt-6 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-400 gap-4">
+    <div class="mt-12 pt-6 border-t border-slate-200 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-4">
       <div>
-        &copy; {{ currentYear }} <span class="text-slate-200 font-semibold">{{ company.legalName }}</span>. All Rights Reserved.
+        &copy; {{ currentYear }} <span class="text-slate-900 font-semibold">{{ company.legalName }}</span>. All Rights Reserved.
       </div>
       <div class="flex items-center space-x-6 text-[11px]">
         <span>Quality Management Certified</span>

@@ -94,9 +94,9 @@ img, video, iframe, canvas, svg {
 }
 
 .btn-outline-steel {
-  background: transparent;
-  color: #FFFFFF;
-  border: 2px solid rgba(255, 255, 255, 0.35);
+  background: #FFFFFF;
+  color: #0B4C8C;
+  border: 2px solid #0B4C8C;
   font-family: 'Barlow Condensed', 'Oswald', sans-serif;
   font-size: 1.125rem;
   font-weight: 700;
@@ -111,11 +111,13 @@ img, video, iframe, canvas, svg {
   gap: 0.6rem;
   cursor: pointer;
   text-decoration: none;
+  box-shadow: 0 2px 8px rgba(11, 76, 140, 0.1);
 
   &:hover {
-    border-color: #F5A623;
-    color: #F5A623;
-    background: rgba(245, 166, 35, 0.08);
+    border-color: #073563;
+    color: #FFFFFF;
+    background: #0B4C8C;
+    box-shadow: 0 4px 14px rgba(11, 76, 140, 0.25);
   }
 }
 

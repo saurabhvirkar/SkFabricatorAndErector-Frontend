@@ -1,35 +1,37 @@
-<main class="w-full overflow-hidden">
+<main class="w-full overflow-hidden bg-[#F8F9FB]">
 
   <!-- 1. HERO SECTION -->
-  <section class="relative min-h-[90vh] flex items-center justify-center pt-28 pb-20 bg-[#101820] text-white overflow-hidden">
+  <section class="relative min-h-[85vh] flex items-center justify-center pt-28 pb-20 bg-gradient-to-b from-[#F8F9FB] via-white to-slate-50 text-slate-900 overflow-hidden border-b border-slate-200/80">
     <!-- Dynamic Hero Background Slot -->
     <div class="absolute inset-0 z-0">
       <app-slot-image
         slotKey="home.hero.background"
-        imgClass="w-full h-full object-cover opacity-35"
+        imgClass="w-full h-full object-cover opacity-10 mix-blend-multiply"
       ></app-slot-image>
-      <div class="absolute inset-0 bg-gradient-to-r from-[#101820]/90 via-[#0B4C8C]/80 to-[#101820]/95"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-white/95 via-blue-50/70 to-slate-50/90"></div>
     </div>
 
-    <!-- Subtle Structural Grid Lines -->
-    <div class="absolute inset-0 bg-[linear-gradient(to_right,#5A6B78_1px,transparent_1px),linear-gradient(to_bottom,#5A6B78_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-15 pointer-events-none"></div>
+    <!-- Recreated Light Geometric Structural Grid Pattern & Ambient Glow Orbs -->
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#cbd5e1_1px,transparent_1px),linear-gradient(to_bottom,#cbd5e1_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,#000_65%,transparent_100%)] opacity-35 pointer-events-none"></div>
+    <div class="absolute top-1/4 left-1/3 w-96 h-96 bg-[#0B4C8C]/5 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-[#F5A623]/10 rounded-full blur-3xl pointer-events-none"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center md:text-left grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
       
       <div class="lg:col-span-8 space-y-6" appReveal>
         <!-- Eyebrow Tag -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0B4C8C]/80 border border-[#F5A623]/40 text-[#F5A623] text-xs font-display font-bold uppercase tracking-widest shadow-md">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0B4C8C]/10 border border-[#0B4C8C]/30 text-[#0B4C8C] text-xs font-display font-bold uppercase tracking-widest shadow-sm">
           <span class="w-2 h-2 rounded-full bg-[#F5A623] animate-ping"></span>
           <span>{{ company.tagline }}</span>
         </div>
 
         <!-- Main Industrial Headline -->
-        <h1 class="font-display font-extrabold text-3xl sm:text-5xl lg:text-6xl text-white uppercase tracking-tight leading-[1.1]">
-          Industrial Piping, Structural Fabrication & Plant Maintenance <span class="text-[#F5A623]">— Built to Run.</span>
+        <h1 class="font-display font-extrabold text-3xl sm:text-5xl lg:text-6xl text-slate-900 uppercase tracking-tight leading-[1.1]">
+          Industrial Piping, Structural Fabrication & Plant Maintenance <span class="text-[#0B4C8C]">— Built to Run.</span>
         </h1>
 
         <!-- Executive Subtitle -->
-        <p class="text-slate-300 text-base sm:text-lg max-w-2xl font-sans leading-relaxed">
+        <p class="text-slate-600 text-base sm:text-lg max-w-2xl font-sans leading-relaxed">
           {{ company.heroHeadline }}
         </p>
 
@@ -45,7 +47,7 @@
             target="_blank"
             class="btn-outline-steel flex items-center gap-2"
           >
-            <span class="material-symbols-outlined text-[#F5A623]">download</span>
+            <span class="material-symbols-outlined text-[#0B4C8C]">download</span>
             <span>Download Company Profile (PDF)</span>
           </a>
         </div>
@@ -53,34 +55,34 @@
 
       <!-- Quick Trust Card -->
       <div class="lg:col-span-4" appReveal [delayMs]="200">
-        <div class="bg-slate-900/90 border border-slate-700/80 rounded-2xl p-6 shadow-2xl backdrop-blur-md space-y-4">
-          <div class="flex items-center gap-3 border-b border-slate-800 pb-4">
-            <div class="w-10 h-10 rounded-lg bg-[#0B4C8C] flex items-center justify-center text-[#F5A623]">
+        <div class="bg-white/90 border border-slate-200/90 rounded-2xl p-6 shadow-xl backdrop-blur-md space-y-4 text-slate-800">
+          <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
+            <div class="w-10 h-10 rounded-lg bg-[#0B4C8C] flex items-center justify-center text-[#F5A623] shadow-md">
               <span class="material-symbols-outlined text-2xl">verified_user</span>
             </div>
             <div>
-              <div class="font-display font-bold text-base text-white">ISO Compliant Contractor</div>
-              <div class="text-xs text-slate-400">Pune / Wakad Headquartered</div>
+              <div class="font-display font-bold text-base text-slate-900">ISO Compliant Contractor</div>
+              <div class="text-xs text-slate-500">Pune / Wakad Headquartered</div>
             </div>
           </div>
 
-          <div class="space-y-2 text-xs text-slate-300">
+          <div class="space-y-2 text-xs text-slate-600">
             <div class="flex items-center justify-between">
-              <span class="text-slate-400">Direct Contact:</span>
-              <span class="font-semibold text-white">+91 9130 01 2070</span>
+              <span class="text-slate-500">Direct Contact:</span>
+              <span class="font-semibold text-slate-900">+91 9130 01 2070</span>
             </div>
             <div class="flex items-center justify-between">
-              <span class="text-slate-400">Secondary Line:</span>
-              <span class="font-semibold text-white">+91 9552 03 4884</span>
+              <span class="text-slate-500">Secondary Line:</span>
+              <span class="font-semibold text-slate-900">+91 9552 03 4884</span>
             </div>
             <div class="flex items-center justify-between">
-              <span class="text-slate-400">Email Inquiry:</span>
-              <span class="font-semibold text-[#F5A623]">skfabricator2070@gmail.com</span>
+              <span class="text-slate-500">Email Inquiry:</span>
+              <span class="font-semibold text-[#0B4C8C]">skfabricator2070@gmail.com</span>
             </div>
           </div>
 
-          <div class="pt-2 border-t border-slate-800 flex items-center justify-between">
-            <a routerLink="/about" class="text-xs font-display font-bold text-[#F5A623] hover:underline flex items-center gap-1 uppercase tracking-wider">
+          <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+            <a routerLink="/about" class="text-xs font-display font-bold text-[#0B4C8C] hover:underline flex items-center gap-1 uppercase tracking-wider">
               <span>Read Safety Policy</span>
               <span class="material-symbols-outlined text-xs">arrow_forward</span>
             </a>
@@ -88,9 +90,9 @@
               href="/assets/pdf/sk-company-profile.pdf"
               download="SK-Fabricator-Company-Profile.pdf"
               target="_blank"
-              class="text-xs font-display font-bold text-slate-300 hover:text-white flex items-center gap-1"
+              class="text-xs font-display font-bold text-slate-600 hover:text-[#0B4C8C] flex items-center gap-1"
             >
-              <span class="material-symbols-outlined text-xs text-[#F5A623]">picture_as_pdf</span>
+              <span class="material-symbols-outlined text-xs text-[#0B4C8C]">picture_as_pdf</span>
               <span>PDF</span>
             </a>
           </div>
@@ -101,9 +103,9 @@
   </section>
 
   <!-- 2. LIVE STAT COUNTER STRIP -->
-  <section class="bg-[#0B4C8C] text-white py-10 border-y border-[#F5A623]/30 shadow-inner relative z-20">
+  <section class="bg-gradient-to-r from-[#0B4C8C] via-[#073563] to-[#0B4C8C] text-white py-10 shadow-md relative z-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/15">
         @for (st of stats; track st.label) {
           <div class="pt-4 md:pt-0 px-2 space-y-1" appReveal>
             <div class="flex items-center justify-center gap-2 text-[#F5A623] mb-1">
@@ -129,7 +131,7 @@
   <app-weld-seam-divider></app-weld-seam-divider>
 
   <!-- 3. SERVICES SHOWCASE GRID (PDF Areas of Excellence) -->
-  <section class="py-20 bg-[#F6F8FA]">
+  <section class="py-20 bg-[#F8F9FB]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-3xl mx-auto mb-16 space-y-3" appReveal>
@@ -147,7 +149,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         @for (svc of services; track svc.slug; let i = $index) {
           <div
-            class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+            class="bg-white rounded-2xl border border-slate-200/90 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
             appReveal
             [delayMs]="i * 80"
           >
@@ -205,17 +207,17 @@
   <app-weld-seam-divider></app-weld-seam-divider>
 
   <!-- 4. WHY CHOOSE US (PDF Safety + Features) -->
-  <section class="py-20 bg-[#101820] text-white">
+  <section class="py-20 bg-[#F8F9FB] text-slate-900 border-t border-slate-200/80">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-3xl mx-auto mb-16 space-y-3" appReveal>
-        <div class="font-display font-bold text-xs uppercase tracking-widest text-[#F5A623]">
+        <div class="font-display font-bold text-xs uppercase tracking-widest text-[#0B4C8C]">
           Engineering Advantages
         </div>
-        <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white uppercase tracking-wider">
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 uppercase tracking-wider">
           WHY HIRING SK FABRICATOR & ERECTOR MAKES THE DIFFERENCE
         </h2>
-        <p class="text-slate-400 text-sm">
+        <p class="text-slate-600 text-sm">
           Built on precision workmanship, guaranteed safety standards, and faster record project completion times.
         </p>
       </div>
@@ -223,18 +225,18 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         @for (item of whyUs; track item.title; let i = $index) {
           <div
-            class="bg-slate-900/90 border border-slate-800 rounded-xl p-6 space-y-4 hover:border-[#F5A623]/50 transition-all group"
+            class="bg-white border border-slate-200/90 rounded-xl p-6 space-y-4 hover:border-[#0B4C8C]/50 hover:shadow-xl transition-all group"
             appReveal
             [delayMs]="i * 60"
           >
-            <div class="w-full h-32 rounded-lg bg-slate-950 overflow-hidden relative">
+            <div class="w-full h-32 rounded-lg bg-slate-900 overflow-hidden relative">
               <app-slot-image [slotKey]="whyUsSlots[i] || 'home.whyus.icon.customize-service'"></app-slot-image>
             </div>
             <div>
-              <h3 class="font-display font-bold text-lg text-white group-hover:text-[#F5A623] transition-colors">
+              <h3 class="font-display font-bold text-lg text-slate-900 group-hover:text-[#0B4C8C] transition-colors">
                 {{ item.title }}
               </h3>
-              <p class="text-xs text-slate-400 font-sans leading-relaxed mt-1">
+              <p class="text-xs text-slate-600 font-sans leading-relaxed mt-1">
                 {{ item.desc }}
               </p>
             </div>
