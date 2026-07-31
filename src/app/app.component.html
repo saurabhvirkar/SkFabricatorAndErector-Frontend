@@ -1,10 +1,32 @@
 <div class="min-h-screen flex flex-col relative">
-  <!-- TASK A / Requirement 2: Global Route Loading Progress Bar (~3px tall, brand gradient) -->
-  <div
-    class="route-progress-bar fixed top-0 left-0 right-0 h-[3px] z-[100] pointer-events-none"
-    [class.active]="routeLoadingService.isLoading()"
-    aria-hidden="true"
-  ></div>
+
+  <!-- ════════════════════════════════════════════════════
+       BEAUTIFUL BRANDED PAGE TRANSITION OVERLAY
+       Shows a frosted-glass center card with dual-ring
+       spinner + SK logo mark during every route change.
+       ════════════════════════════════════════════════════ -->
+  @if (routeLoadingService.isLoading()) {
+    <div class="nav-loader-overlay" aria-live="polite" aria-label="Loading page…" role="status">
+
+      <!-- Top progress bar with glowing dot -->
+      <div class="nav-loader-topbar">
+        <div class="nav-loader-topbar-glow"></div>
+      </div>
+
+      <!-- Center branded spinner card -->
+      <div class="nav-loader-card">
+        <!-- Dual-ring spinner -->
+        <div class="nav-spinner">
+          <div class="nav-spinner-ring nav-spinner-ring--outer"></div>
+          <div class="nav-spinner-ring nav-spinner-ring--inner"></div>
+          <!-- SK Brand mark in centre -->
+          <div class="nav-spinner-brand">SK</div>
+        </div>
+        <p class="nav-loader-label">Loading…</p>
+      </div>
+
+    </div>
+  }
 
   <!-- Public Header (Rendered only on non-admin routes) -->
   @if (!isAdminRoute()) {

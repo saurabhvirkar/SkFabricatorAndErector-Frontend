@@ -1,55 +1,197 @@
-.route-progress-bar {
-  background: linear-gradient(90deg, #F5A623 0%, #E8871E 100%);
-  transform-origin: 0% 50%;
-  transform: scaleX(0);
-  opacity: 0;
-  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1), opacity 200ms ease;
+// ══════════════════════════════════════════════════════════════
+//  BRANDED PAGE TRANSITION OVERLAY
+//  Dual-ring spinner + SK logo + top progress bar
+//  Pure CSS — zero JS animation loops — GPU composited only
+// ══════════════════════════════════════════════════════════════
 
-  &.active {
-    opacity: 1;
-    animation: progressPulse 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  }
+// ── Fullscreen frosted overlay ────────────────────────────────
+.nav-loader-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;         // never blocks clicks
+
+  // Subtle background dimming (barely perceptible — keeps page visible)
+  background: rgba(248, 249, 251, 0.55);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+
+  // Fade in
+  animation: overlayFadeIn 150ms ease forwards;
 }
 
-@keyframes progressPulse {
-  0% {
-    transform: scaleX(0.1);
-  }
-  50% {
-    transform: scaleX(0.75);
-  }
-  100% {
-    transform: scaleX(0.95);
-  }
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-/* Requirement 1: Lightweight Smooth Page Transition Animation */
+// ── Top progress bar with animated glowing dot ────────────────
+.nav-loader-topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #F5A623 30%,
+    #E8871E 60%,
+    #0B4C8C 100%
+  );
+  background-size: 300% 100%;
+  animation: topbarSlide 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.nav-loader-topbar-glow {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 80px;
+  height: 8px;
+  background: radial-gradient(ellipse at right, rgba(245, 166, 35, 0.9) 0%, transparent 70%);
+  filter: blur(3px);
+}
+
+@keyframes topbarSlide {
+  0%   { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+// ── Centered branded spinner card ─────────────────────────────
+.nav-loader-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  // Glass card
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(11, 76, 140, 0.12);
+  border-radius: 20px;
+  padding: 28px 36px;
+  box-shadow:
+    0 8px 32px rgba(11, 76, 140, 0.12),
+    0 2px 8px  rgba(11, 76, 140, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+  animation: cardPop 200ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes cardPop {
+  from { transform: translate(-50%, -50%) scale(0.88); opacity: 0; }
+  to   { transform: translate(-50%, -50%) scale(1);    opacity: 1; }
+}
+
+// ── Dual-ring spinner ─────────────────────────────────────────
+.nav-spinner {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-spinner-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: transparent;
+}
+
+// Outer ring — primary blue, spins clockwise
+.nav-spinner-ring--outer {
+  border-width: 3px;
+  border-top-color: #0B4C8C;
+  border-right-color: rgba(11, 76, 140, 0.25);
+  animation: spinCW 900ms linear infinite;
+}
+
+// Inner ring — amber accent, spins counter-clockwise
+.nav-spinner-ring--inner {
+  inset: 10px;
+  border-width: 2.5px;
+  border-top-color: #F5A623;
+  border-left-color: rgba(245, 166, 35, 0.25);
+  animation: spinCCW 700ms linear infinite;
+}
+
+@keyframes spinCW  { to { transform: rotate(360deg);  } }
+@keyframes spinCCW { to { transform: rotate(-360deg); } }
+
+// ── SK brand mark in centre ───────────────────────────────────
+.nav-spinner-brand {
+  font-family: 'Barlow Condensed', 'Oswald', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: #0B4C8C;
+  line-height: 1;
+  user-select: none;
+}
+
+// ── Label text beneath spinner ────────────────────────────────
+.nav-loader-label {
+  font-family: 'Barlow Condensed', 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4B5563;
+  margin: 0;
+  animation: labelPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes labelPulse {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1;   }
+}
+
+// ══════════════════════════════════════════════════════════════
+//  PAGE TRANSITION ANIMATION
+//  Fade + very subtle upward slide on new page entry
+// ══════════════════════════════════════════════════════════════
 .page-transition-wrapper {
-  animation: pageFadeSlideIn 300ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  will-change: transform, opacity;
+  animation: pageFadeIn 320ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  will-change: opacity, transform;
 }
 
-@keyframes pageFadeSlideIn {
-  0% {
-    opacity: 0.4;
-    transform: translateY(6px);
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
   }
-  100% {
+  to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
+// ══════════════════════════════════════════════════════════════
+//  REDUCED MOTION FALLBACK
+//  Instantly shows/hides overlay, disables all animations
+// ══════════════════════════════════════════════════════════════
 @media (prefers-reduced-motion: reduce) {
-  .route-progress-bar {
+  .nav-loader-overlay,
+  .nav-loader-card,
+  .nav-loader-topbar,
+  .nav-spinner-ring--outer,
+  .nav-spinner-ring--inner,
+  .nav-loader-label {
     animation: none !important;
-    transition: opacity 100ms ease !important;
-    transform: scaleX(1) !important;
-
-    &.active {
-      opacity: 1;
-    }
+    transition: none !important;
   }
+
+  .nav-loader-overlay { opacity: 1; }
+  .nav-loader-card    { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  .nav-loader-topbar  { background-position: 50% 0; }
 
   .page-transition-wrapper {
     animation: none !important;
