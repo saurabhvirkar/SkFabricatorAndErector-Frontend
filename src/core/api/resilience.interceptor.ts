@@ -1,9 +1,10 @@
 import { HttpInterceptorFn, HttpRequest, HttpHandlerFn, HttpEvent, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable, timer, throwError, of, TimeoutError } from 'rxjs';
-import { retry, catchError, timeout } from 'rxjs/operators';
+import { retry, catchError, timeout, tap } from 'rxjs/operators';
 
-/** Structured Fault Data Payload */
+/** Structured Fault Data Telemetry Payload */
 export interface FaultData {
+  correlationId: string;
   url: string;
   method: string;
   status: number;
@@ -51,21 +52,45 @@ class ClientCircuitBreaker {
 
 const circuitBreaker = new ClientCircuitBreaker();
 
+function generateCorrelationId(): string {
+  return 'corr-' + Math.random().toString(36).substring(2, 11) + '-' + Date.now().toString(36);
+}
+
 /**
- * Angular 21 Comprehensive Resilient HTTP Interceptor
+ * Angular 21 Comprehensive Enterprise Resilient HTTP Interceptor
  * Implements:
- * 1. Wait and Retry + Exponential Backoff + Jitter
- * 2. Timeout & TimeoutReject handling (15s request cap)
- * 3. Client-Side Circuit Breaker & Broken Circuit protection
- * 4. Fault Data structured logging
- * 5. Safe Fallback handling for idempotent reads
+ * 1. Correlation ID Header Propagation (X-Correlation-ID)
+ * 2. Client-Side Offline Detection (navigator.onLine)
+ * 3. Request Classification (Only retries GET/HEAD/OPTIONS idempotent reads)
+ * 4. Wait & Retry + Exponential Backoff + Jitter
+ * 5. Request Timeout (15s cap)
+ * 6. Client-Side Circuit Breaker & Broken Circuit protection
+ * 7. Safe Fallback handling exclusively for GET read-only requests
+ * 8. Enriched Fault Data structured logging
  */
 export const resilienceInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> => {
   const isIdempotent = ['GET', 'HEAD', 'OPTIONS'].includes(req.method.toUpperCase());
 
-  // 1. Circuit Breaker Check
+  // 1. Attach X-Correlation-ID for end-to-end distributed tracing
+  const correlationId = req.headers.get('X-Correlation-ID') || generateCorrelationId();
+  const clonedReq = req.clone({
+    headers: req.headers.set('X-Correlation-ID', correlationId)
+  });
+
+  // 2. Client Offline Detection (Avoid retrying when client has no network)
+  if (typeof window !== 'undefined' && !navigator.onLine) {
+    console.warn(`[ResilienceInterceptor] Client is offline. Aborting request ${req.url}`);
+    if (isIdempotent) {
+      console.warn(`[Fallback] Delivering offline fallback response for GET ${req.url}`);
+      return of(new HttpResponse({ status: 200, body: [] }));
+    }
+    return throwError(() => new Error('[Offline] No internet connection available.'));
+  }
+
+  // 3. Circuit Breaker Check
   if (circuitBreaker.getState() === 'OPEN') {
     const faultData: FaultData = {
+      correlationId,
       url: req.url,
       method: req.method,
       status: 503,
@@ -78,7 +103,7 @@ export const resilienceInterceptor: HttpInterceptorFn = (req: HttpRequest<unknow
 
     console.error('[CircuitBreaker] Request rejected: Circuit is currently BROKEN/OPEN.', faultData);
 
-    // Fallback response for GET requests when circuit is open
+    // Fallback response ONLY for read-only GET requests
     if (isIdempotent) {
       console.warn(`[Fallback] Delivering empty fallback array for GET ${req.url}`);
       return of(new HttpResponse({ status: 200, body: [] }));
@@ -87,9 +112,10 @@ export const resilienceInterceptor: HttpInterceptorFn = (req: HttpRequest<unknow
     return throwError(() => new Error(`[BrokenCircuitException] Service unavailable: Circuit is OPEN for ${req.url}`));
   }
 
-  // 2. Request execution with Timeout (15s) and Retry with Exponential Backoff
-  return next(req).pipe(
-    timeout(15000), // Request Timeout
+  // 4. Request execution with Timeout (15s) and Retry with Exponential Backoff
+  return next(clonedReq).pipe(
+    timeout(15000), // 15s Request Timeout
+    tap(() => circuitBreaker.recordSuccess()),
     retry({
       count: isIdempotent ? 3 : 0,
       delay: (error: HttpErrorResponse | TimeoutError, retryCount: number) => {
@@ -116,6 +142,7 @@ export const resilienceInterceptor: HttpInterceptorFn = (req: HttpRequest<unknow
         const totalDelay = backoffDelay + jitter;
 
         const faultData: FaultData = {
+          correlationId,
           url: req.url,
           method: req.method,
           status,
@@ -138,6 +165,7 @@ export const resilienceInterceptor: HttpInterceptorFn = (req: HttpRequest<unknow
       const status = error instanceof HttpErrorResponse ? error.status : 408;
 
       const faultData: FaultData = {
+        correlationId,
         url: req.url,
         method: req.method,
         status,
