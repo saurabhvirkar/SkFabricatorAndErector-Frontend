@@ -1,8 +1,57 @@
-/* Styles for the main App component, mainly layout adjustments */
-:host {
-  display: block;
+.route-progress-bar {
+  background: linear-gradient(90deg, #F5A623 0%, #E8871E 100%);
+  transform-origin: 0% 50%;
+  transform: scaleX(0);
+  opacity: 0;
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1), opacity 200ms ease;
+
+  &.active {
+    opacity: 1;
+    animation: progressPulse 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
 }
 
-main {
-  padding-top: 3rem; /* Adjust based on header's initial height */
+@keyframes progressPulse {
+  0% {
+    transform: scaleX(0.1);
+  }
+  50% {
+    transform: scaleX(0.75);
+  }
+  100% {
+    transform: scaleX(0.95);
+  }
+}
+
+/* Requirement 1: Lightweight Smooth Page Transition Animation */
+.page-transition-wrapper {
+  animation: pageFadeSlideIn 300ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes pageFadeSlideIn {
+  0% {
+    opacity: 0.4;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-progress-bar {
+    animation: none !important;
+    transition: opacity 100ms ease !important;
+    transform: scaleX(1) !important;
+
+    &.active {
+      opacity: 1;
+    }
+  }
+
+  .page-transition-wrapper {
+    animation: none !important;
+  }
 }

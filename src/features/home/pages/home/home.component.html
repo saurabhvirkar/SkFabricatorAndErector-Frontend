@@ -1,7 +1,7 @@
-<main class="w-full overflow-hidden bg-[#F8F9FB]">
+<main class="w-full overflow-hidden bg-[#F8F9FB] page-top-offset">
 
   <!-- 1. HERO SECTION -->
-  <section class="relative min-h-[85vh] flex items-center justify-center pt-28 pb-20 bg-gradient-to-b from-[#F8F9FB] via-white to-slate-50 text-slate-900 overflow-hidden border-b border-slate-200/80">
+  <section class="relative min-h-[85vh] flex items-center justify-center pb-20 bg-gradient-to-b from-[#F8F9FB] via-white to-slate-50 text-slate-900 overflow-hidden border-b border-slate-200/80">
     <!-- Dynamic Hero Background Slot -->
     <div class="absolute inset-0 z-0">
       <app-slot-image
@@ -16,7 +16,7 @@
     <div class="absolute top-1/4 left-1/3 w-96 h-96 bg-[#0B4C8C]/5 rounded-full blur-3xl pointer-events-none"></div>
     <div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-[#F5A623]/10 rounded-full blur-3xl pointer-events-none"></div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center md:text-left grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <div class="app-container relative z-10 text-center md:text-left grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
       
       <div class="lg:col-span-8 space-y-6" appReveal>
         <!-- Eyebrow Tag -->
@@ -26,7 +26,7 @@
         </div>
 
         <!-- Main Industrial Headline -->
-        <h1 class="font-display font-extrabold text-3xl sm:text-5xl lg:text-6xl text-slate-900 uppercase tracking-tight leading-[1.1]">
+        <h1 class="font-display hero-heading text-slate-900 uppercase">
           Industrial Piping, Structural Fabrication & Plant Maintenance <span class="text-[#0B4C8C]">— Built to Run.</span>
         </h1>
 
@@ -104,7 +104,7 @@
 
   <!-- 2. LIVE STAT COUNTER STRIP -->
   <section class="bg-gradient-to-r from-[#0B4C8C] via-[#073563] to-[#0B4C8C] text-white py-10 shadow-md relative z-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="app-container">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/15">
         @for (st of stats; track st.label) {
           <div class="pt-4 md:pt-0 px-2 space-y-1" appReveal>
@@ -132,13 +132,13 @@
 
   <!-- 3. SERVICES SHOWCASE GRID (PDF Areas of Excellence) -->
   <section class="py-20 bg-[#F8F9FB]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="app-container">
       
       <div class="text-center max-w-3xl mx-auto mb-16 space-y-3" appReveal>
         <div class="font-display font-bold text-xs uppercase tracking-widest text-[#0B4C8C]">
           Areas of Excellence
         </div>
-        <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-[#101820] uppercase tracking-wider">
+        <h2 class="font-display section-heading text-[#101820] uppercase">
           INDUSTRIAL FABRICATION & ERECTION SERVICES
         </h2>
         <p class="text-slate-600 text-sm sm:text-base">
@@ -208,13 +208,13 @@
 
   <!-- 4. WHY CHOOSE US (PDF Safety + Features) -->
   <section class="py-20 bg-[#F8F9FB] text-slate-900 border-t border-slate-200/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="app-container">
       
       <div class="text-center max-w-3xl mx-auto mb-16 space-y-3" appReveal>
         <div class="font-display font-bold text-xs uppercase tracking-widest text-[#0B4C8C]">
           Engineering Advantages
         </div>
-        <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 uppercase tracking-wider">
+        <h2 class="font-display section-heading text-slate-900 uppercase">
           WHY HIRING SK FABRICATOR & ERECTOR MAKES THE DIFFERENCE
         </h2>
         <p class="text-slate-600 text-sm">
@@ -252,14 +252,14 @@
 
   <!-- 6. COMPANY PROFILE PDF DOWNLOAD BANNER -->
   <section class="py-16 bg-gradient-to-r from-[#0B4C8C] via-[#073563] to-[#101820] text-white border-t border-[#F5A623]/30 shadow-2xl relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+    <div class="app-container relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
       
       <div class="lg:col-span-8 space-y-4 text-center md:text-left">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F5A623]/20 border border-[#F5A623]/40 text-[#F5A623] text-xs font-display font-bold uppercase tracking-widest">
           <span class="material-symbols-outlined text-sm">picture_as_pdf</span>
           <span>Official Corporate Documentation</span>
         </div>
-        <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white uppercase tracking-wider">
+        <h2 class="font-display section-heading text-white uppercase">
           DOWNLOAD OUR COMPLETE COMPANY PROFILE
         </h2>
         <p class="text-slate-200 text-sm sm:text-base font-sans max-w-2xl">

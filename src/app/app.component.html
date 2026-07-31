@@ -1,12 +1,21 @@
-<div class="min-h-screen flex flex-col">
+<div class="min-h-screen flex flex-col relative">
+  <!-- TASK A / Requirement 2: Global Route Loading Progress Bar (~3px tall, brand gradient) -->
+  <div
+    class="route-progress-bar fixed top-0 left-0 right-0 h-[3px] z-[100] pointer-events-none"
+    [class.active]="routeLoadingService.isLoading()"
+    aria-hidden="true"
+  ></div>
+
   <!-- Public Header (Rendered only on non-admin routes) -->
   @if (!isAdminRoute()) {
     <app-header></app-header>
   }
 
-  <!-- Main Content Area with Router Outlet -->
+  <!-- Main Content Area with Router Outlet & Smooth Page Transition -->
   <main class="flex-grow">
-    <router-outlet></router-outlet>
+    <div [attr.data-route]="currentUrl()" class="page-transition-wrapper">
+      <router-outlet></router-outlet>
+    </div>
   </main>
 
   <!-- Public Footer (Rendered only on non-admin routes) -->

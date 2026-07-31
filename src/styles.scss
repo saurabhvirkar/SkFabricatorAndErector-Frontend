@@ -30,6 +30,28 @@
   }
 }
 
+/* ===================================================
+   FIXED HEADER OFFSET UTILITY
+   Mobile:  nav only = 64px (h-16)
+   Desktop: top bar (36px) + nav (80px) = 116px (h-20)
+   When scrolled, top bar hides → desktop = 80px
+   Safe approach: use the largest possible value per viewport
+   =================================================== */
+:root {
+  --header-height: 72px;           /* mobile: nav h-16 + small buffer */
+}
+@media (min-width: 768px) {
+  :root {
+    --header-height: 120px;        /* desktop: top bar (36px) + nav (80px) + border */
+  }
+}
+
+/* Global page wrapper that all page <main>/<div> must use */
+.page-top-offset {
+  padding-top: var(--header-height);
+}
+
+
 html {
   width: 100%;
   max-width: 100vw;
@@ -51,6 +73,27 @@ body {
 img, video, iframe, canvas, svg {
   max-width: 100%;
   height: auto;
+}
+
+/* Material Symbols Icon FOUC & Overflow Prevention */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'liga';
+  font-display: block;
+  overflow: hidden;
 }
 
 /* Industrial Display Headline Class */
