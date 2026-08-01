@@ -59,7 +59,7 @@ function generateCorrelationId(): string {
 /**
  * Angular 21 Comprehensive Enterprise Resilient HTTP Interceptor
  * Implements:
- * 1. Correlation ID Header Propagation (X-Correlation-ID)
+ * 1. Correlation ID Header Propagation (Correlation-Id)
  * 2. Client-Side Offline Detection (navigator.onLine)
  * 3. Request Classification (Only retries GET/HEAD/OPTIONS idempotent reads)
  * 4. Wait & Retry + Exponential Backoff + Jitter
@@ -71,10 +71,10 @@ function generateCorrelationId(): string {
 export const resilienceInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> => {
   const isIdempotent = ['GET', 'HEAD', 'OPTIONS'].includes(req.method.toUpperCase());
 
-  // 1. Attach X-Correlation-ID for end-to-end distributed tracing
-  const correlationId = req.headers.get('X-Correlation-ID') || generateCorrelationId();
+  // 1. Attach Correlation-Id for end-to-end distributed tracing
+  const correlationId = req.headers.get('Correlation-Id') || generateCorrelationId();
   const clonedReq = req.clone({
-    headers: req.headers.set('X-Correlation-ID', correlationId)
+    headers: req.headers.set('Correlation-Id', correlationId)
   });
 
   // 2. Client Offline Detection (Avoid retrying when client has no network)
