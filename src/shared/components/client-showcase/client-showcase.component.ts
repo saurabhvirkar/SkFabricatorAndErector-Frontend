@@ -15,6 +15,7 @@ export class ClientShowcaseComponent implements OnInit {
 
   clients = signal<ClientDetails[]>([]);
   isLoading = signal<boolean>(true);
+  failedImages = signal<Set<number>>(new Set<number>());
 
   // Duplicated client list for seamless infinite loop scroll without jumps
   displayClients = computed(() => {
@@ -37,10 +38,21 @@ export class ClientShowcaseComponent implements OnInit {
     });
   }
 
-  handleImageError(event: Event): void {
-    const imgElement = event.target as HTMLImageElement;
-    if (imgElement) {
-      imgElement.src = 'assets/images/placeholder.jpg';
+  handleImageError(clientId: number): void {
+    if (!clientId) return;
+    this.failedImages.update((set) => {
+      const newSet = new Set(set);
+      newSet.add(clientId);
+      return newSet;
+    });
+  }
+
+  getInitials(name: string): string {
+    if (!name) return 'CL';
+    const parts = name.trim().split(/\s+/);
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[1][0]).toUpperCase();
     }
+    return name.substring(0, 2).toUpperCase();
   }
 }

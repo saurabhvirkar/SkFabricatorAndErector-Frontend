@@ -40,10 +40,29 @@ export class AdminClientsComponent implements OnInit {
   clients = signal<ClientDetails[]>([]);
   isLoading = signal(true);
   hasError = signal(false);
+  failedImages = signal<Set<number>>(new Set<number>());
 
   filterText = signal('');
   sortColumn = signal<string>('name');
   sortDirection = signal<'asc' | 'desc'>('asc');
+
+  handleImageError(clientId: number): void {
+    if (!clientId) return;
+    this.failedImages.update((set) => {
+      const newSet = new Set(set);
+      newSet.add(clientId);
+      return newSet;
+    });
+  }
+
+  getInitials(name: string): string {
+    if (!name) return 'CL';
+    const parts = name.trim().split(/\s+/);
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[1][0]).toUpperCase();
+    }
+    return name.substring(0, 2).toUpperCase();
+  }
 
   page = signal(1);
   pageSize = signal(5);
