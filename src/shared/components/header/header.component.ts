@@ -4,6 +4,8 @@ import { Router, RouterLink, RouterLinkActive, NavigationEnd } from '@angular/ro
 import { filter, Subject, takeUntil } from 'rxjs';
 import { CORE_SERVICES, COMPANY_DETAILS } from '../../../app/core/data/company-content';
 
+import { CompanyPdfService } from '../../../app/core/services/company-pdf.service';
+
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -13,7 +15,12 @@ import { CORE_SERVICES, COMPANY_DETAILS } from '../../../app/core/data/company-c
 })
 export class HeaderComponent implements AfterViewInit, OnDestroy {
   private readonly router = inject(Router);
+  readonly pdfService = inject(CompanyPdfService);
   private readonly destroy$ = new Subject<void>();
+
+  downloadPdf(): void {
+    this.pdfService.downloadPdf();
+  }
 
   @ViewChild('desktopNavContainer') desktopNavContainer?: ElementRef<HTMLElement>;
   @ViewChild('mobileNavContainer') mobileNavContainer?: ElementRef<HTMLElement>;

@@ -41,15 +41,14 @@
             <span class="material-symbols-outlined">dataset</span>
             <span>View Our Work</span>
           </a>
-          <a
-            href="/api/company-profile/download-pdf"
-            download="SK-Fabricator-Company-Profile.pdf"
-            target="_blank"
-            class="btn-outline-steel flex items-center gap-2"
+          <button
+            type="button"
+            (click)="downloadPdf()"
+            class="btn-outline-steel flex items-center gap-2 cursor-pointer"
           >
             <span class="material-symbols-outlined text-[#0B4C8C]">download</span>
             <span>Download Company Profile (PDF)</span>
-          </a>
+          </button>
         </div>
       </div>
 
@@ -268,15 +267,14 @@
       </div>
 
       <div class="lg:col-span-4 flex justify-center lg:justify-end">
-        <a
-          href="/api/company-profile/download-pdf"
-          download="SK-Fabricator-Company-Profile.pdf"
-          target="_blank"
-          class="btn-amber !py-3.5 !px-7 !text-base shadow-xl flex items-center gap-3 group"
+        <button
+          type="button"
+          (click)="downloadPdf()"
+          class="btn-amber !py-3.5 !px-7 !text-base shadow-xl flex items-center gap-3 group cursor-pointer"
         >
           <span class="material-symbols-outlined text-2xl group-hover:translate-y-0.5 transition-transform">download</span>
           <span>Download PDF Profile</span>
-        </a>
+        </button>
       </div>
 
     </div>

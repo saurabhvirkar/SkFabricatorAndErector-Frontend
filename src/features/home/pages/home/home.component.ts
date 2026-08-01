@@ -7,6 +7,7 @@ import { WeldSeamDividerComponent } from '../../../../shared/components/weld-sea
 import { SlotImageComponent } from '../../../../shared/components/slot-image/slot-image.component';
 import { ClientShowcaseComponent } from '../../../../shared/components/client-showcase/client-showcase.component';
 import { PageImageService } from '../../../../app/core/services/page-image.service';
+import { CompanyPdfService } from '../../../../app/core/services/company-pdf.service';
 import { COMPANY_DETAILS, COMPANY_STATS, CORE_SERVICES, WHY_CHOOSE_US } from '../../../../app/core/data/company-content';
 
 @Component({
@@ -26,6 +27,7 @@ import { COMPANY_DETAILS, COMPANY_STATS, CORE_SERVICES, WHY_CHOOSE_US } from '..
 })
 export class HomeComponent implements OnInit {
   private readonly pageImageService = inject(PageImageService);
+  private readonly pdfService = inject(CompanyPdfService);
 
   company = COMPANY_DETAILS;
   stats = COMPANY_STATS;
@@ -43,5 +45,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.pageImageService.loadAllSlots().subscribe();
+  }
+
+  downloadPdf(): void {
+    this.pdfService.downloadPdf();
   }
 }

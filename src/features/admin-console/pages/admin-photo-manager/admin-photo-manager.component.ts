@@ -35,6 +35,10 @@ export class AdminPhotoManagerComponent implements OnInit {
   activeTab = signal<PageTab>('All');
   filterQuery = signal('');
 
+  downloadPdf(): void {
+    this.pdfService.downloadPdf();
+  }
+
   pages: PageTab[] = ['All', 'Home', 'Services', 'Projects', 'About', 'Contact'];
 
   filteredSlots = computed(() => {
