@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { Observable, tap, catchError, of } from 'rxjs';
 import { ApiClientService } from '../../../core/api/api-client.service';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 export interface PdfInfo {
   exists: boolean;
