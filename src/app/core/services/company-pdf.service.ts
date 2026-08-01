@@ -30,35 +30,18 @@ export class CompanyPdfService {
   }
 
   downloadPdf(): void {
-    const downloadUrl = this.pdfDownloadUrl;
+    // Append timestamp cache-buster so newly uploaded files are downloaded immediately without stale browser cache
+    const cacheBuster = `t=${Date.now()}`;
+    const directUrl = `${this.pdfDownloadUrl}?${cacheBuster}`;
 
-    fetch(downloadUrl, { method: 'GET' })
-      .then((res) => {
-        if (res.ok) {
-          return res.blob();
-        }
-        throw new Error('API PDF not available');
-      })
-      .then((blob) => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'SK-Fabricator-Company-Profile.pdf';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-      })
-      .catch(() => {
-        // Seamless fallback to bundled local PDF asset if server endpoint returns 404/error
-        const a = document.createElement('a');
-        a.href = this.fallbackAssetPdfUrl;
-        a.download = 'SK-Fabricator-Company-Profile.pdf';
-        a.target = '_blank';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      });
+    const a = document.createElement('a');
+    a.href = directUrl;
+    a.download = 'SK-Fabricator-Company-Profile.pdf';
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   }
 
   getPdfInfo(): Observable<PdfInfo> {
