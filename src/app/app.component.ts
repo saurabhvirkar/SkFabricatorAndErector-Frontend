@@ -5,6 +5,7 @@ import { HeaderComponent } from '../shared/components/header/header.component';
 import { FooterComponent } from '../shared/components/footer/footer.component';
 import { PageImageService } from './core/services/page-image.service';
 import { RouteLoadingService } from './core/services/route-loading.service';
+import { LogoComponent } from '../shared/components/logo/logo.component';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ import { RouteLoadingService } from './core/services/route-loading.service';
   imports: [
     RouterOutlet,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LogoComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']

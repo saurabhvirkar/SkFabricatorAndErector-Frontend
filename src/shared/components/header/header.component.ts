@@ -5,11 +5,12 @@ import { filter, Subject, takeUntil } from 'rxjs';
 import { CORE_SERVICES, COMPANY_DETAILS } from '../../../app/core/data/company-content';
 
 import { CompanyPdfService } from '../../../app/core/services/company-pdf.service';
+import { LogoComponent } from '../logo/logo.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, LogoComponent],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
