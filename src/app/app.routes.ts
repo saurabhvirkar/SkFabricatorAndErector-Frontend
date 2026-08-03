@@ -7,8 +7,18 @@ export const routes: Routes = [
     loadComponent: () => import('../features/home/pages/home/home.component').then(m => m.HomeComponent)
   },
   {
-    path: 'login',
+    path: 'ops/sec-portal',
     loadComponent: () => import('../features/authentication/pages/login/admin-login.component').then(m => m.AdminLoginComponent)
+  },
+  {
+    path: 'admin/login',
+    redirectTo: 'ops/sec-portal',
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    redirectTo: 'ops/sec-portal',
+    pathMatch: 'full'
   },
   {
     path: 'ops/adminportal',

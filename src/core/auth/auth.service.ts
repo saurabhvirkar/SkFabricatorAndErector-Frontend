@@ -123,7 +123,7 @@ export class AuthService {
     this.isLoggedInSubject.next(false);
     this.currentUserRoleSubject.next(null);
     this.api.post('account/logout', {}, { withCredentials: true }).subscribe({ error: () => {} });
-    this.router.navigate(['/login']);
+    this.router.navigate(['/ops/sec-portal']);
   }
 
   private initSilentRefresh(): void {

@@ -1,27 +1,171 @@
 
-<div class="flex items-center justify-center min-h-screen bg-gray-100">
-  <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md animate-fade-in-up">
-    <h2 class="text-2xl font-bold text-center text-gray-900">Admin Login</h2>
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-      <div class="space-y-4">
-        <div class="animate-fade-in-up animation-delay-100">
-          <label for="email" class="text-sm font-medium text-gray-700">Email</label>
-          <input id="email" type="email" formControlName="email" required
-                 class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+<div class="min-h-screen bg-gradient-to-br from-[#0A192F] via-[#0B4C8C] to-[#073563] relative overflow-hidden flex items-center justify-center p-4 sm:p-6 lg:p-8">
+  
+  <!-- Subtle Industrial Grid Overlay -->
+  <div class="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:28px_28px] opacity-10 pointer-events-none"></div>
+
+  <!-- Ambient Light Orbs -->
+  <div class="absolute -top-32 -left-32 w-96 h-96 bg-[#F5A623]/20 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-[#0B4C8C]/40 rounded-full blur-3xl pointer-events-none"></div>
+
+  <!-- Central Command Container -->
+  <div class="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+    
+    <!-- Left Column: Industrial Brand Showcase (Desktop Only) -->
+    <div class="hidden lg:flex lg:col-span-6 flex-col justify-between space-y-8 text-white p-6">
+      
+      <div class="space-y-6">
+        <!-- Logo Branding Header -->
+        <div class="inline-flex items-center gap-4 bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/20 shadow-lg">
+          <app-logo variant="white" size="md" altText="SK Fabricator Logo"></app-logo>
+          <div>
+            <div class="font-display font-black text-lg text-white tracking-wider">
+              SK FABRICATOR & ERECTOR
+            </div>
+            <div class="text-[10px] font-bold text-[#F5A623] tracking-widest uppercase">
+              Management Portal
+            </div>
+          </div>
         </div>
-        <div class="animate-fade-in-up animation-delay-200">
-          <label for="password" class="text-sm font-medium text-gray-700">Password</label>
-          <input id="password" type="password" formControlName="password" required
-                 class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+
+        <div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F5A623]/20 border border-[#F5A623]/40 text-[#F5A623] text-[11px] font-display font-extrabold uppercase tracking-widest mb-3">
+            <span class="material-symbols-outlined text-xs">verified_user</span>
+            <span>Authorized Operations Portal</span>
+          </span>
+          <h1 class="font-display font-black text-3xl xl:text-4xl text-white uppercase tracking-tight leading-tight">
+            CENTRALIZED MANAGEMENT SYSTEM
+          </h1>
+          <p class="text-slate-200 text-xs sm:text-sm font-sans leading-relaxed mt-2">
+            Control center for heavy industrial piping catalog, structural steel projects, photo gallery updates, client inquiries, and executive staff management.
+          </p>
         </div>
       </div>
-      @if (responseMessage(); as message) {
-        <p class="mt-4 text-sm text-center text-red-600 animate-fade-in-up animation-delay-300">{{ message }}</p>
-      }
-      <button type="submit" [disabled]="loginForm.invalid"
-              class="w-full px-4 py-2 mt-6 font-semibold text-white bg-indigo-600 rounded-md hover:bg-indigo-700 disabled:bg-gray-400 animate-fade-in-up animation-delay-400">
-        Sign In
-      </button>
-    </form>
+
+      <!-- Feature Badges -->
+      <div class="grid grid-cols-2 gap-3 pt-4 border-t border-white/15 text-xs font-display">
+        <div class="p-3 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
+          <span class="material-symbols-outlined text-[#F5A623]">shield_lock</span>
+          <span class="text-slate-200 font-medium">256-Bit Encrypted</span>
+        </div>
+        <div class="p-3 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
+          <span class="material-symbols-outlined text-[#F5A623]">admin_panel_settings</span>
+          <span class="text-slate-200 font-medium">Role-Based Access</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Column: Glassmorphism Login Card -->
+    <div class="lg:col-span-6 w-full max-w-md mx-auto">
+      <div class="bg-white/95 backdrop-blur-xl border border-white/40 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
+        
+        <!-- Mobile Logo & Card Header -->
+        <div class="text-center space-y-2">
+          <div class="flex justify-center mb-2">
+            <app-logo variant="color" size="lg" altText="SK Fabricator Logo"></app-logo>
+          </div>
+          <h2 class="font-display font-black text-xl sm:text-2xl text-[#101820] uppercase tracking-wide">
+            ADMIN PORTAL SIGN IN
+          </h2>
+          <p class="text-xs text-slate-500 font-sans">
+            Enter your credentials to manage SK Fabricator & Erector platform.
+          </p>
+        </div>
+
+        <!-- Login Form -->
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="space-y-4">
+          
+          <!-- Email Input Field -->
+          <div class="space-y-1">
+            <label for="email" class="block text-xs font-display font-bold text-slate-700 uppercase tracking-wider">
+              Admin Email Address
+            </label>
+            <div class="relative">
+              <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-lg">mail</span>
+              <input
+                id="email"
+                type="email"
+                formControlName="email"
+                placeholder="admin@skfabricator.com"
+                required
+                class="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm bg-slate-50 border border-slate-300 rounded-xl font-sans text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0B4C8C] focus:border-[#0B4C8C] transition-all"
+              />
+            </div>
+            @if (loginForm.get('email')?.touched && loginForm.get('email')?.invalid) {
+              <span class="text-[11px] text-red-600 font-medium pl-1">Please enter a valid email address.</span>
+            }
+          </div>
+
+          <!-- Password Input Field -->
+          <div class="space-y-1">
+            <div class="flex justify-between items-center">
+              <label for="password" class="block text-xs font-display font-bold text-slate-700 uppercase tracking-wider">
+                Account Password
+              </label>
+            </div>
+            <div class="relative">
+              <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-lg">lock</span>
+              <input
+                id="password"
+                [type]="showPassword() ? 'text' : 'password'"
+                formControlName="password"
+                placeholder="••••••••••••"
+                required
+                class="w-full pl-10 pr-10 py-2.5 text-xs sm:text-sm bg-slate-50 border border-slate-300 rounded-xl font-sans text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0B4C8C] focus:border-[#0B4C8C] transition-all"
+              />
+              <button
+                type="button"
+                (click)="togglePasswordVisibility()"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer p-1"
+                aria-label="Toggle Password Visibility"
+              >
+                <span class="material-symbols-outlined text-lg">{{ showPassword() ? 'visibility_off' : 'visibility' }}</span>
+              </button>
+            </div>
+            @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
+              <span class="text-[11px] text-red-600 font-medium pl-1">Password is required.</span>
+            }
+          </div>
+
+          <!-- Error Feedback Alert -->
+          @if (responseMessage(); as message) {
+            <div class="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-sans flex items-center gap-2">
+              <span class="material-symbols-outlined text-base shrink-0">error</span>
+              <span>{{ message }}</span>
+            </div>
+          }
+
+          <!-- Submit Button -->
+          <button
+            type="submit"
+            [disabled]="loginForm.invalid || isSubmitting()"
+            class="w-full py-3 px-6 rounded-xl bg-gradient-to-r from-[#0B4C8C] via-[#073563] to-[#0B4C8C] text-white font-display font-bold text-xs sm:text-sm uppercase tracking-wider hover:opacity-95 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md cursor-pointer flex items-center justify-center gap-2 mt-4"
+          >
+            @if (isSubmitting()) {
+              <span class="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin"></span>
+              <span>Authenticating...</span>
+            } @else {
+              <span class="material-symbols-outlined text-base">login</span>
+              <span>Sign In To Console</span>
+            }
+          </button>
+
+        </form>
+
+        <!-- Card Footer -->
+        <div class="pt-4 border-t border-slate-100 text-center space-y-2">
+          <a
+            routerLink="/"
+            class="inline-flex items-center gap-1.5 text-xs font-display font-bold text-[#0B4C8C] hover:text-[#F5A623] transition-colors uppercase tracking-wider"
+          >
+            <span class="material-symbols-outlined text-sm">arrow_back</span>
+            <span>Return to Public Website</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </div>

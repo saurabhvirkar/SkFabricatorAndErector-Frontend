@@ -16,7 +16,7 @@ export const authGuard: CanActivateFn = (route) => {
   return authService.currentUserRole$.pipe(
     map(role => {
       if (!role) {
-        return router.createUrlTree(['/login']);
+        return router.createUrlTree(['/ops/sec-portal']);
       }
       if (
         expectedRoles.length === 0 ||
@@ -25,7 +25,7 @@ export const authGuard: CanActivateFn = (route) => {
       ) {
         return true;
       }
-      return router.createUrlTree(['/login']);
+      return router.createUrlTree(['/ops/sec-portal']);
     })
   );
 };
