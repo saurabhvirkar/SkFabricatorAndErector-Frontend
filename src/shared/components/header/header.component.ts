@@ -46,6 +46,7 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     { label: 'About Us', link: '/about' },
     { label: 'Solutions', link: '/our-services', hasDropdown: true },
     { label: 'Projects', link: '/projects' },
+    { label: 'Gallery', link: '/gallery' },
     { label: 'Contact Us', link: '/contact-us' }
   ];
 

@@ -1,66 +1,132 @@
-<div class="gallery-page min-w-full page-top-offset">
-  <header class="bg-gray-900 text-white py-10 animate-bg-pan">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-3 animate-fade-in-down">SK Fabricator & Erector — Work Gallery</h1>
-      <p class="text-sm sm:text-base text-gray-300 max-w-2xl mx-auto animate-fade-in-up animation-delay-300">
-        Visual proof of our capabilities and successful project execution across multiple industrial disciplines.
-      </p>
-    </div>
-  </header>
-  
-  <main class="py-8 bg-gray-50">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-center flex-wrap gap-2.5 mb-8 animate-fade-in-up animation-delay-500" role="tablist" aria-label="Gallery Category Filters">
+<main class="page-top-offset min-h-screen bg-[#F8F9FB] pb-16">
+
+  <!-- 1. COMPACT TOP TOOLBAR & CATEGORY FILTER BAR (NO BIG HEADER BANNER) -->
+  <section class="bg-white/90 backdrop-blur-md border-b border-slate-200 sticky top-16 z-30 shadow-xs py-3.5">
+    <div class="app-container flex flex-col md:flex-row items-center justify-between gap-4">
+      
+      <!-- Minimal Page Title Label -->
+      <div class="flex items-center gap-2.5">
+        <span class="w-3 h-3 rounded-full bg-[#0B4C8C] animate-pulse"></span>
+        <h1 class="font-display font-extrabold text-base sm:text-lg text-[#101820] uppercase tracking-wider">
+          PROJECT PHOTO GALLERY
+        </h1>
+        <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-600">
+          {{ images().length }} Photos
+        </span>
+      </div>
+
+      <!-- Compact Category Filter Pills -->
+      <div class="flex items-center flex-wrap gap-1.5 sm:gap-2">
         @for (category of categories; track category) {
           <button
             type="button"
-            role="tab"
-            [attr.aria-selected]="activeFilter() === category"
             (click)="setFilter(category)"
-            [class]="[
-                'px-5 py-2 rounded-full font-semibold text-xs transition-all duration-200 border-2',
-                activeFilter() === category
-                  ? 'bg-blue-600 text-white border-blue-600 shadow-md transform scale-105'
-                  : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-100 hover:border-gray-300'
-            ].join(' ')">
-            {{ category }}
+            class="px-3.5 py-1.5 rounded-full font-display font-bold text-xs uppercase tracking-wider transition-all duration-200 cursor-pointer border flex items-center gap-1.5"
+            [class.bg-[#0B4C8C]]="activeFilter() === category"
+            [class.text-white]="activeFilter() === category"
+            [class.border-[#0B4C8C]]="activeFilter() === category"
+            [class.shadow-md]="activeFilter() === category"
+            [class.bg-slate-100/80]="activeFilter() !== category"
+            [class.text-slate-700]="activeFilter() !== category"
+            [class.border-slate-200]="activeFilter() !== category"
+            [class.hover:bg-slate-200]="activeFilter() !== category"
+          >
+            <span class="w-1.5 h-1.5 rounded-full" [class.bg-[#F5A623]]="activeFilter() === category" [class.bg-slate-400]="activeFilter() !== category"></span>
+            <span>{{ category }}</span>
           </button>
         }
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        @for (image of images(); track image.id) {
-          <div class="rounded-xl shadow-lg overflow-hidden relative group cursor-pointer hover:shadow-2xl transition duration-300 animate-gallery-item"
-               (click)="openLightbox(image)">
-            <img [src]="image.url" alt="Gallery Image" loading="lazy"
-                 class="w-full h-64 object-cover transition duration-500 group-hover:scale-105">
-            
-            <div class="absolute inset-0 bg-gray-900/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-              <div class="text-white text-center p-4">
-                <p class="text-lg font-bold">View Image</p>
+    </div>
+  </section>
+
+  <!-- 2. ANIMATED FLUID GALLERY GRID -->
+  <section class="py-8 app-container">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 items-stretch">
+      @for (image of images(); track image.id; let i = $index) {
+        <div
+          class="bg-slate-900 rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group cursor-pointer relative flex flex-col h-64 sm:h-72"
+          appReveal
+          [delayMs]="(i % 8) * 45"
+          (click)="openLightbox(image)"
+        >
+          <!-- Animated Image Stage -->
+          <img
+            [src]="image.url"
+            alt="SK Industrial Execution Photo"
+            loading="lazy"
+            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+          />
+
+          <!-- Category Badge Tag -->
+          <div class="absolute top-3 left-3 z-10">
+            <span class="px-2.5 py-1 rounded-md bg-slate-950/80 backdrop-blur-md border border-slate-700 text-[#F5A623] text-[10px] font-display font-bold uppercase tracking-wider shadow-sm">
+              {{ image.category || 'Industrial' }}
+            </span>
+          </div>
+
+          <!-- Animated Hover Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0B4C8C]/90 via-[#073563]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
+            <div class="text-white text-center space-y-1 transform translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
+              <div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/40 flex items-center justify-center mx-auto text-white shadow-lg">
+                <span class="material-symbols-outlined text-2xl">zoom_in</span>
+              </div>
+              <div class="font-display font-bold text-xs uppercase tracking-wider pt-1">
+                View Full Photo
               </div>
             </div>
           </div>
-        } @empty {
-          <div class="col-span-full text-center py-10 text-gray-500 text-sm">
-            No images found in the '{{ activeFilter() }}' category.
-          </div>
-        }
-      </div>
-    </div>
-  </main>
 
-  @if (selectedImage()) {
-    <div class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 animate-fade-in" (click)="closeLightbox()">
-      <div class="max-w-4xl max-h-full overflow-hidden relative">
-        <button (click)="closeLightbox()" class="absolute top-4 right-4 text-white text-3xl font-bold z-50 p-2 bg-black/50 rounded-full hover:bg-opacity-80 transition duration-300" aria-label="Close Lightbox">
-          &times;
-        </button>
-        <img [src]="selectedImage()?.url" alt="Lightbox Image" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl animate-zoom-in" (click)="$event.stopPropagation()">
-        <div class="absolute bottom-0 left-0 right-0 bg-black/60 text-white p-4 text-center rounded-b-lg">
-          <p class="text-lg font-semibold">Image Preview</p>
         </div>
+      } @empty {
+        <div class="col-span-full text-center py-16 bg-white rounded-2xl border border-slate-200 text-slate-500 space-y-2">
+          <span class="material-symbols-outlined text-4xl text-[#0B4C8C]">photo_library</span>
+          <div class="font-display font-bold text-base text-slate-800">No Photos Found in '{{ activeFilter() }}'</div>
+          <p class="text-xs text-slate-500">Upload jobsite photos from the Admin Console to feature them in this category.</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- 3. FULLSCREEN LIGHTBOX MODAL -->
+  @if (selectedImage()) {
+    <div
+      class="fixed inset-0 bg-slate-950/95 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6"
+      (click)="closeLightbox()"
+    >
+      <div class="relative max-w-5xl max-h-[90vh] w-full flex flex-col items-center justify-center" (click)="$event.stopPropagation()">
+        
+        <!-- Close Button -->
+        <button
+          type="button"
+          (click)="closeLightbox()"
+          class="absolute -top-12 right-0 sm:top-2 sm:right-2 text-white w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 flex items-center justify-center transition-colors cursor-pointer z-50"
+          aria-label="Close Lightbox"
+        >
+          <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+
+        <!-- Main Lightbox Image -->
+        <div class="rounded-2xl overflow-hidden border border-slate-700 shadow-2xl bg-black max-h-[80vh] flex items-center justify-center">
+          <img
+            [src]="selectedImage()?.url"
+            alt="SK Industrial Jobsite Photo"
+            class="max-w-full max-h-[80vh] object-contain"
+          />
+        </div>
+
+        <!-- Lightbox Footer Details -->
+        <div class="mt-3 bg-slate-900/90 border border-slate-800 text-white px-5 py-2.5 rounded-xl text-center flex items-center gap-3">
+          <span class="px-2 py-0.5 rounded bg-[#F5A623]/20 border border-[#F5A623]/40 text-[#F5A623] text-[10px] font-display font-bold uppercase tracking-wider">
+            {{ selectedImage()?.category || 'Industrial' }}
+          </span>
+          <span class="text-xs font-display font-semibold text-slate-200">
+            SK Fabricator & Erector — Project Portfolio Execution
+          </span>
+        </div>
+
       </div>
     </div>
   }
-</div>
+
+</main>
