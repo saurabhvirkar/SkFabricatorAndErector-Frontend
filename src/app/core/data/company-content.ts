@@ -299,3 +299,51 @@ export const PROJECT_GALLERY: ProjectItem[] = [
     photoPlaceholder: 'PHOTO NEEDED: Vertical SS Chemical Storage Vessels'
   }
 ];
+
+export interface LeadershipMemberItem {
+  id: number;
+  name: string;
+  role: string;
+  details: string;
+  badge: string;
+  icon: string;
+  quote?: string;
+  tags?: string[];
+  email?: string;
+  linkedInUrl?: string;
+  imageUrl?: string;
+}
+
+export const COMPANY_LEADERSHIP: LeadershipMemberItem[] = [
+  {
+    id: 1,
+    name: 'Mr. Sudhakar Kale',
+    role: 'Managing Director / Founder',
+    badge: 'Founder & Managing Director',
+    icon: 'workspace_premium',
+    quote: 'Precision engineering is built on safety, integrity, and relentless commitment to quality execution.',
+    tags: ['20+ Yrs Industrial Vision', 'Turnkey EPC Strategist', 'Safety & Compliance Leader'],
+    details: 'Founder & Managing Director leading SK Fabricator & Erector with 20+ years of industrial engineering excellence, guiding high-pressure piping, structural steel, and major plant turnaround projects across India.',
+    email: 'skfabricator2070@gmail.com'
+  },
+  {
+    id: 2,
+    name: 'Mr. Shripad Kale',
+    role: 'General Manager / Operations Head',
+    badge: 'General Manager & Operations Head',
+    icon: 'engineering',
+    tags: ['Plant Turnarounds', 'Jobsite Safety Control', 'Supply Chain Management'],
+    details: 'General Manager & Operations Head driving seamless project execution, resource allocation, plant shutdown turnarounds, and zero-incident safety compliance on every site.',
+    email: 'skfabricator2070@gmail.com'
+  },
+  {
+    id: 3,
+    name: 'Ganesh Dhanorkar',
+    role: 'Project Manager / Design & Engineering',
+    badge: 'Project Manager & Engineering Head',
+    icon: 'architecture',
+    tags: ['CAD Detailing & Modeling', 'ASME / IS Code Verification', 'Onsite Engineering'],
+    details: 'Project Manager leading structural CAD detailing, pressure vessel design verification, ASME/IS code compliance, and client technical consultations.',
+    email: 'skfabricator2070@gmail.com'
+  }
+];

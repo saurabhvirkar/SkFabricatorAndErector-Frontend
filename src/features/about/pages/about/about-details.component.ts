@@ -1,8 +1,9 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { COMPANY_DETAILS } from '../../../../app/core/data/company-content';
+import { COMPANY_DETAILS, COMPANY_LEADERSHIP, LeadershipMemberItem } from '../../../../app/core/data/company-content';
 import { GalleryService } from '../../../gallery/services/gallery.service';
+import { TeamService } from '../../../team/services/team.service';
 import { GalleryImage } from '../../../gallery/models/gallery-image.model';
 import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reveal.directive';
 import { WeldSeamDividerComponent } from '../../../../shared/components/weld-seam-divider/weld-seam-divider.component';
@@ -25,9 +26,11 @@ import { PageImageService } from '../../../../app/core/services/page-image.servi
 export class AboutDetailsComponent implements OnInit {
   private readonly galleryService = inject(GalleryService);
   private readonly pageImageService = inject(PageImageService);
+  private readonly teamService = inject(TeamService);
 
   company = COMPANY_DETAILS;
   infrastructurePhotos = signal<GalleryImage[]>([]);
+  leadership = signal<LeadershipMemberItem[]>(COMPANY_LEADERSHIP);
 
   focusGoalMission = [
     {
@@ -91,6 +94,37 @@ export class AboutDetailsComponent implements OnInit {
         }
       },
       error: () => {}
+    });
+
+    this.loadLeadership();
+  }
+
+  private loadLeadership(): void {
+    this.teamService.getTeamMembers().subscribe({
+      next: (members) => {
+        if (members && members.length > 0) {
+          const mapped: LeadershipMemberItem[] = members.map((m, index) => {
+            const fallback = COMPANY_LEADERSHIP[index] || COMPANY_LEADERSHIP[0];
+            return {
+              id: m.id,
+              name: m.name,
+              role: m.role,
+              details: m.details || fallback.details,
+              badge: index === 0 ? 'Founder & Managing Director' : index === 1 ? 'General Manager & Operations Head' : 'Project Manager & Engineering Head',
+              icon: index === 0 ? 'workspace_premium' : index === 1 ? 'engineering' : 'architecture',
+              quote: fallback.quote,
+              tags: fallback.tags,
+              email: m.email || 'skfabricator2070@gmail.com',
+              linkedInUrl: m.linkedInUrl,
+              imageUrl: m.imageUrl
+            };
+          });
+          this.leadership.set(mapped);
+        }
+      },
+      error: () => {
+        this.leadership.set(COMPANY_LEADERSHIP);
+      }
     });
   }
 }
