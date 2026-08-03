@@ -70,14 +70,14 @@ export type LogoSize = 'sm' | 'md' | 'lg' | 'nav' | 'custom';
       border: none !important;
       border-radius: 0 !important;
       background: transparent !important;
-      /* Precise contour drop shadow following transparent PNG pixels, NOT a square box */
-      filter: drop-shadow(0 2px 6px rgba(11, 76, 140, 0.22));
+      /* Minimal, subtle contour drop shadow */
+      filter: drop-shadow(0 1px 2px rgba(11, 76, 140, 0.12));
       transition: transform 200ms ease, filter 200ms ease;
     }
 
-    /* Dark Background Variant: Add soft white contour highlight around internal PNG content */
+    /* Dark Background Variant: Soft low-intensity contour highlight */
     .logo-variant-white .logo-img {
-      filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.95)) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
+      filter: drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.7)) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
     }
 
     /* Task 4 — Entrance Animation */
@@ -96,15 +96,15 @@ export type LogoSize = 'sm' | 'md' | 'lg' | 'nav' | 'custom';
       }
     }
 
-    /* Task 4 — Hover / Tap Interactive Animation (Contour Drop Shadow Boost) */
+    /* Task 4 — Hover / Tap Interactive Animation */
     .logo-interactive:hover .logo-img,
     .logo-interactive:active .logo-img {
-      transform: scale(1.05);
-      filter: drop-shadow(0 4px 10px rgba(11, 76, 140, 0.35));
+      transform: scale(1.03);
+      filter: drop-shadow(0 2px 4px rgba(11, 76, 140, 0.18));
     }
 
     .logo-variant-white.logo-interactive:hover .logo-img {
-      filter: drop-shadow(0 0 5px rgba(255, 255, 255, 1)) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.8));
+      filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.9)) drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
     }
 
     /* Respect prefers-reduced-motion */
