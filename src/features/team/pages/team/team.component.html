@@ -1,40 +1,40 @@
 <div class="team-page min-w-full page-top-offset bg-[#F8F9FB]">
   <!-- Page Header -->
-  <header class="bg-gradient-to-b from-[#F8F9FB] via-white to-[#F8F9FB] text-slate-900 py-12 border-b border-slate-200/80">
+  <header class="bg-gradient-to-b from-[#F8F9FB] via-white to-[#F8F9FB] text-slate-900 py-8 md:py-10 border-b border-slate-200/80">
     <div class="app-container text-center">
       <h1 class="font-display page-banner-heading text-slate-900 uppercase">SK Fabricator & Erector — Meet Our Skilled Team</h1>
-      <p class="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
+      <p class="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto mt-2">
         Backed by efficient Engineers, Supervisors, and Welding Specialists committed to achieving perfection.
       </p>
     </div>
   </header>
   
   <!-- Team Grid -->
-  <main class="py-12 bg-gray-50">
+  <main class="py-8 md:py-10 bg-gray-50">
     <div class="app-container">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6">
         @for (member of teamMembers(); track member.id) {
-          <div class="group bg-white rounded-xl shadow-lg text-center transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl animate-team-card">
-            <div class="relative h-36 bg-blue-200 rounded-t-xl">
+          <div class="group bg-white rounded-xl shadow-md text-center transition-all duration-300 transform hover:-translate-y-1.5 hover:shadow-xl animate-team-card">
+            <div class="relative h-32 bg-blue-100 rounded-t-xl">
               <img [src]="member.imageUrl || 'assets/images/placeholder.jpg'" [alt]="member.name" loading="lazy"
-                    class="w-28 h-28 object-cover rounded-full mx-auto absolute -bottom-14 left-1/2 transform -translate-x-1/2 border-4 border-white shadow-lg">
+                    class="w-24 h-24 object-cover rounded-full mx-auto absolute -bottom-12 left-1/2 transform -translate-x-1/2 border-4 border-white shadow-md">
             </div>
-            <div class="pt-16 p-5">
-              <h2 class="text-lg font-bold text-gray-900">{{ member.name }}</h2>
-              <p class="text-xs font-semibold text-blue-600 mb-2">{{ member.role }}</p>
-              <p class="text-gray-600 text-xs mb-3">
+            <div class="pt-14 p-4">
+              <h2 class="text-base font-bold text-gray-900">{{ member.name }}</h2>
+              <p class="text-xs font-semibold text-blue-600 mb-1.5">{{ member.role }}</p>
+              <p class="text-gray-600 text-xs mb-2.5">
                 {{ member.details || 'Dedicated to providing integrated solutions and maximizing project value.' }}
               </p>
-              <div class="flex justify-center space-x-3">
+              <div class="flex justify-center space-x-2.5">
                 @if (member.email) {
                   <a [href]="'mailto:' + member.email" class="text-gray-400 hover:text-blue-600 transition-colors flex items-center space-x-1 min-w-0" [title]="member.email">
-                    <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12.713l-11.985-9.713h23.97l-11.985 9.713zm0 2.574l-12-9.725v15.438h24v-15.438l-12 9.725z"/></svg>
-                    <span class="text-xs truncate max-w-[140px] sm:max-w-[160px] inline-block">{{ member.email }}</span>
+                    <svg class="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12.713l-11.985-9.713h23.97l-11.985 9.713zm0 2.574l-12-9.725v15.438h24v-15.438l-12 9.725z"/></svg>
+                    <span class="text-[11px] truncate max-w-[130px] sm:max-w-[150px] inline-block">{{ member.email }}</span>
                   </a>
                 }
                 @if (member.linkedInUrl) {
                   <a [href]="member.linkedInUrl" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-blue-600 transition-colors" aria-label="LinkedIn profile">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                   </a>
                 }
               </div>
@@ -46,14 +46,14 @@
   </main>
   
   <!-- Join Our Team Section -->
-  <section class="bg-white py-12">
+  <section class="bg-white py-8 md:py-10">
     <div class="app-container">
-      <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-8 rounded-xl text-center shadow-lg text-white animate-fade-in-up">
-        <h3 class="text-2xl font-extrabold mb-2">Looking to Join Our Team?</h3>
-        <p class="text-sm text-blue-100 mb-5 max-w-xl mx-auto">
+      <div class="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 sm:p-7 rounded-xl text-center shadow-lg text-white animate-fade-in-up">
+        <h3 class="text-xl sm:text-2xl font-extrabold mb-1.5">Looking to Join Our Team?</h3>
+        <p class="text-xs sm:text-sm text-blue-100 mb-4 max-w-xl mx-auto">
           We are always looking for professional engineers and welding specialists. Contact us to become part of our success story.
         </p>
-        <a href="/contact-us" class="inline-block px-6 py-2.5 text-sm font-semibold text-blue-600 bg-white rounded-lg hover:bg-gray-100 transition-transform duration-300 transform hover:scale-105 shadow-md">
+        <a href="/contact-us" class="inline-block px-5 py-2 text-xs sm:text-sm font-semibold text-blue-600 bg-white rounded-lg hover:bg-gray-100 transition-transform duration-300 transform hover:scale-105 shadow-md">
           Get in Touch
         </a>
       </div>

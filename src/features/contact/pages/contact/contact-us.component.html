@@ -1,7 +1,7 @@
-<main class="min-h-screen page-top-offset page--contact pb-24">
+<main class="min-h-screen page-top-offset page--contact pb-16">
 
   <!-- Header Banner -->
-  <section class="bg-gradient-to-b from-[#F8F9FB] via-white to-[#F8F9FB] text-slate-900 py-16 border-b border-slate-200/80 relative overflow-hidden">
+  <section class="bg-gradient-to-b from-[#F8F9FB] via-white to-[#F8F9FB] text-slate-900 py-10 md:py-12 border-b border-slate-200/80 relative overflow-hidden">
     <div class="app-container text-center relative z-10" appReveal>
       <div class="font-display font-bold text-xs uppercase tracking-widest text-[#0B4C8C] mb-2">
         Get In Touch
@@ -18,23 +18,23 @@
   <!-- Weld Seam Divider -->
   <app-weld-seam-divider></app-weld-seam-divider>
 
-  <div class="app-container py-16">
+  <div class="app-container py-8 md:py-10">
     
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
       
       <!-- Left Column: Contact Cards & Map (5 cols) — tinted blue panel -->
-      <div class="lg:col-span-5 space-y-8 contact-details-panel rounded-2xl p-2 lg:p-4" appReveal>
+      <div class="lg:col-span-5 space-y-5 contact-details-panel rounded-2xl p-2 lg:p-3" appReveal>
         
         <!-- Corporate Info Card -->
-        <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm space-y-6">
-          <h3 class="font-display font-bold text-xl text-[#101820] border-b border-slate-100 pb-3 uppercase">
+        <div class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-sm space-y-4">
+          <h3 class="font-display font-bold text-lg sm:text-xl text-[#101820] border-b border-slate-100 pb-3 uppercase">
             Head Office & Works
           </h3>
 
-          <div class="space-y-4 text-xs text-slate-700 font-sans">
+          <div class="space-y-3.5 text-xs text-slate-700 font-sans">
             <div class="flex items-start gap-3">
-              <div class="w-9 h-9 rounded-lg bg-[#0B4C8C]/10 text-[#0B4C8C] flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-lg">location_on</span>
+              <div class="w-8 h-8 rounded-lg bg-[#0B4C8C]/10 text-[#0B4C8C] flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-base">location_on</span>
               </div>
               <div>
                 <div class="font-display font-bold text-slate-900 uppercase">Address</div>
@@ -43,8 +43,8 @@
             </div>
 
             <div class="flex items-start gap-3">
-              <div class="w-9 h-9 rounded-lg bg-[#0B4C8C]/10 text-[#0B4C8C] flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-lg">call</span>
+              <div class="w-8 h-8 rounded-lg bg-[#0B4C8C]/10 text-[#0B4C8C] flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-base">call</span>
               </div>
               <div>
                 <div class="font-display font-bold text-slate-900 uppercase">Phone Lines</div>
@@ -56,8 +56,8 @@
             </div>
 
             <div class="flex items-start gap-3">
-              <div class="w-9 h-9 rounded-lg bg-[#0B4C8C]/10 text-[#0B4C8C] flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-lg">mail</span>
+              <div class="w-8 h-8 rounded-lg bg-[#0B4C8C]/10 text-[#0B4C8C] flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-base">mail</span>
               </div>
               <div>
                 <div class="font-display font-bold text-slate-900 uppercase">Direct Email</div>
@@ -68,11 +68,11 @@
         </div>
 
         <!-- Embedded Interactive Map -->
-        <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm space-y-3">
-          <h4 class="font-display font-bold text-sm uppercase text-[#101820] tracking-wider px-2">
+        <div class="bg-white rounded-2xl p-3.5 sm:p-4 border border-slate-200 shadow-sm space-y-2.5">
+          <h4 class="font-display font-bold text-xs sm:text-sm uppercase text-[#101820] tracking-wider px-1">
             Location Map — Pune
           </h4>
-          <div class="rounded-xl overflow-hidden h-64 border border-slate-200">
+          <div class="rounded-xl overflow-hidden h-56 sm:h-60 border border-slate-200">
             <app-map></app-map>
           </div>
         </div>

@@ -1,7 +1,7 @@
-<main class="min-h-screen page-top-offset page--projects pb-24">
+<main class="min-h-screen page-top-offset page--projects pb-16">
 
   <!-- Page Header -->
-  <section class="bg-gradient-to-b from-[#F8F9FB] via-white to-[#F8F9FB] text-slate-900 py-16 border-b border-slate-200/80 relative overflow-hidden">
+  <section class="bg-gradient-to-b from-[#F8F9FB] via-white to-[#F8F9FB] text-slate-900 py-10 md:py-12 border-b border-slate-200/80 relative overflow-hidden">
     <div class="app-container text-center relative z-10" appReveal>
       <div class="font-display font-bold text-xs uppercase tracking-widest text-[#0B4C8C] mb-2">
         Project Execution Portfolio
@@ -18,15 +18,15 @@
   <!-- Weld Seam Divider -->
   <app-weld-seam-divider></app-weld-seam-divider>
 
-  <div class="app-container py-12">
+  <div class="app-container py-8 md:py-10">
     
     <!-- Category Filter Chips Bar (sticky on Projects — unique to this page) -->
-    <div class="project-filter-bar flex items-center justify-center flex-wrap gap-2.5 mb-12">
+    <div class="project-filter-bar flex items-center justify-center flex-wrap gap-2 md:gap-2.5 mb-6 md:mb-8">
       @for (cat of categories; track cat.key) {
         <button
           (click)="setCategory(cat.key)"
           type="button"
-          class="px-5 py-2.5 rounded-full font-display font-bold text-xs uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-sm"
+          class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full font-display font-bold text-xs uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-sm"
           [class.bg-[#0B4C8C]]="activeCategory() === cat.key"
           [class.text-white]="activeCategory() === cat.key"
           [class.shadow-md]="activeCategory() === cat.key"
@@ -43,7 +43,7 @@
     </div>
 
     <!-- Filterable FLIP Masonry Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
       @for (proj of filteredProjects(); track proj.id; let i = $index) {
         <div
           (click)="openLightbox(i)"
@@ -52,7 +52,7 @@
           [delayMs]="i * 50"
         >
           <!-- Image Box & Photo Badge -->
-          <div class="relative h-64 bg-slate-900 overflow-hidden flex items-center justify-center">
+          <div class="relative h-56 sm:h-60 bg-slate-900 overflow-hidden flex items-center justify-center">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent z-10 group-hover:opacity-75 transition-opacity"></div>
             
             <app-slot-image
@@ -63,8 +63,8 @@
 
             <!-- Hover Zoom Icon -->
             <div class="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-              <div class="w-12 h-12 rounded-full bg-[#F5A623] text-[#101820] flex items-center justify-center shadow-lg transform scale-75 group-hover:scale-100 transition-transform">
-                <span class="material-symbols-outlined text-2xl">zoom_in</span>
+              <div class="w-11 h-11 rounded-full bg-[#F5A623] text-[#101820] flex items-center justify-center shadow-lg transform scale-75 group-hover:scale-100 transition-transform">
+                <span class="material-symbols-outlined text-xl">zoom_in</span>
               </div>
             </div>
 
@@ -77,8 +77,8 @@
           </div>
 
           <!-- Project Metadata -->
-          <div class="p-6 space-y-2">
-            <h3 class="font-display font-bold text-lg text-[#101820] group-hover:text-[#0B4C8C] transition-colors">
+          <div class="p-4 sm:p-5 space-y-2">
+            <h3 class="font-display font-bold text-base sm:text-lg text-[#101820] group-hover:text-[#0B4C8C] transition-colors">
               {{ proj.title }}
             </h3>
             <p class="text-xs text-slate-600 font-sans line-clamp-2 leading-relaxed">

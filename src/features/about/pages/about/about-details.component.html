@@ -1,7 +1,7 @@
-<main class="min-h-screen page-top-offset page--about pb-24">
+<main class="min-h-screen page-top-offset page--about pb-16">
 
   <!-- Header Banner -->
-  <section class="bg-gradient-to-b from-[#F8F9FB] via-white to-[#F8F9FB] text-slate-900 py-16 border-b border-slate-200/80 relative overflow-hidden">
+  <section class="bg-gradient-to-b from-[#F8F9FB] via-white to-[#F8F9FB] text-slate-900 py-10 md:py-12 border-b border-slate-200/80 relative overflow-hidden">
     <div class="app-container text-center relative z-10" appReveal>
       <div class="font-display font-bold text-xs uppercase tracking-widest text-[#0B4C8C] mb-2">
         Corporate Overview & Philosophy
@@ -16,38 +16,38 @@
   </section>
 
   <!-- 1. INTRODUCTION BLOCK -->
-  <section class="py-16 app-container">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+  <section class="py-10 md:py-12 app-container">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 items-center">
       
-      <div class="lg:col-span-7 space-y-6" appReveal>
+      <div class="lg:col-span-7 space-y-5" appReveal>
         <div class="font-display font-bold text-xs uppercase tracking-widest text-[#0B4C8C]">
           Welcome to SK Fabricator & Erector
         </div>
-        <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-[#101820] uppercase leading-tight">
+        <h2 class="font-display font-extrabold text-2xl sm:text-3xl lg:text-4xl text-[#101820] uppercase leading-tight">
           Pioneering High-Precision Industrial Engineering
         </h2>
-        <p class="text-slate-700 text-base leading-relaxed font-sans">
+        <p class="text-slate-700 text-sm sm:text-base leading-relaxed font-sans">
           {{ company.introText }}
         </p>
-        <p class="text-slate-600 text-sm leading-relaxed font-sans">
+        <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-sans">
           {{ company.infrastructureText }}
         </p>
 
         <!-- Key Advantages Chips -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4">
-          <div class="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-slate-200 shadow-sm">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
+          <div class="flex items-center gap-2.5 p-2.5 rounded-xl bg-white border border-slate-200 shadow-sm">
             <span class="material-symbols-outlined text-[#0B4C8C] shrink-0">verified</span>
             <span class="text-xs font-display font-bold uppercase tracking-wider text-slate-800">Top-Notch Fabrication Equipment</span>
           </div>
-          <div class="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-2.5 p-2.5 rounded-xl bg-white border border-slate-200 shadow-sm">
             <span class="material-symbols-outlined text-[#0B4C8C] shrink-0">engineering</span>
             <span class="text-xs font-display font-bold uppercase tracking-wider text-slate-800">Professional Engineers & Detailers</span>
           </div>
-          <div class="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-2.5 p-2.5 rounded-xl bg-white border border-slate-200 shadow-sm">
             <span class="material-symbols-outlined text-[#0B4C8C] shrink-0">local_fire_department</span>
             <span class="text-xs font-display font-bold uppercase tracking-wider text-slate-800">Certified Welding Specialists</span>
           </div>
-          <div class="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-2.5 p-2.5 rounded-xl bg-white border border-slate-200 shadow-sm">
             <span class="material-symbols-outlined text-[#0B4C8C] shrink-0">speed</span>
             <span class="text-xs font-display font-bold uppercase tracking-wider text-slate-800">Faster Record Completion</span>
           </div>
@@ -56,7 +56,7 @@
 
       <!-- Infrastructure Box -->
       <div class="lg:col-span-5" appReveal [delayMs]="200">
-        <div class="relative h-96 bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden shadow-xl">
+        <div class="relative h-80 sm:h-96 bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden shadow-xl">
           <app-slot-image
             slotKey="about.intro.photo"
             [fallbackUrl]="infrastructurePhotos().length > 0 ? infrastructurePhotos()[0].url : undefined"
@@ -72,10 +72,10 @@
   <app-weld-seam-divider></app-weld-seam-divider>
 
   <!-- 2. STACKED OFFSET CARDS: FOCUS, GOAL, MISSION -->
-  <section class="py-20 text-slate-900 border-t border-slate-200/80 about-directives-section">
+  <section class="py-10 md:py-12 text-slate-900 border-t border-slate-200/80 about-directives-section">
     <div class="app-container">
       
-      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3" appReveal>
+      <div class="text-center max-w-3xl mx-auto mb-8 md:mb-10 space-y-2.5" appReveal>
         <div class="font-display font-bold text-xs uppercase tracking-widest text-[#0B4C8C]">
           Core Directives
         </div>
@@ -84,22 +84,22 @@
         </h2>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 md:gap-6 items-stretch">
         @for (item of focusGoalMission; track item.title; let i = $index) {
           <div
-            class="bg-white rounded-2xl p-8 border border-slate-200/90 shadow-sm space-y-4 flex flex-col justify-between transition-all duration-300 hover:border-[#0B4C8C]/60 hover:shadow-xl group {{ item.offsetClass }}"
+            class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/90 shadow-sm space-y-3.5 flex flex-col justify-between transition-all duration-300 hover:border-[#0B4C8C]/60 hover:shadow-xl group {{ item.offsetClass }}"
             appReveal
             [delayMs]="i * 100"
           >
-            <div class="space-y-4">
-              <div class="w-14 h-14 rounded-xl bg-[#0B4C8C] text-[#F5A623] flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
-                <span class="material-symbols-outlined text-3xl">{{ item.icon }}</span>
+            <div class="space-y-3.5">
+              <div class="w-12 h-12 rounded-xl bg-[#0B4C8C] text-[#F5A623] flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
+                <span class="material-symbols-outlined text-2xl">{{ item.icon }}</span>
               </div>
               <div>
                 <div class="font-display font-bold text-xs text-[#0B4C8C] uppercase tracking-widest">
                   {{ item.subtitle }}
                 </div>
-                <h3 class="font-display font-extrabold text-2xl text-slate-900 uppercase tracking-wider mt-1">
+                <h3 class="font-display font-extrabold text-xl sm:text-2xl text-slate-900 uppercase tracking-wider mt-1">
                   {{ item.title }}
                 </h3>
               </div>
@@ -118,25 +118,25 @@
   <app-weld-seam-divider></app-weld-seam-divider>
 
   <!-- 3. SAFETY / QUALITY / DELIVERY TRIANGLE -->
-  <section class="py-20 app-container">
-    <div class="text-center max-w-3xl mx-auto mb-16 space-y-3" appReveal>
+  <section class="py-10 md:py-12 app-container">
+    <div class="text-center max-w-3xl mx-auto mb-8 md:mb-10 space-y-2.5" appReveal>
       <div class="font-display font-bold text-xs uppercase tracking-widest text-[#0B4C8C]">
         Safety First Principle
       </div>
-      <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-[#101820] uppercase tracking-wider">
+      <h2 class="font-display font-extrabold text-2xl sm:text-3xl lg:text-4xl text-[#101820] uppercase tracking-wider">
         SERVICE, QUALITY & DELIVERY TRIANGLE
       </h2>
-      <p class="text-slate-600 text-sm font-sans">
+      <p class="text-slate-600 text-xs sm:text-sm font-sans">
         At SK Fabricator & Erector, safety comes first in everything we do. Our goal is an incident and injury-free workplace without compromising quality or timeline commitments.
       </p>
     </div>
 
     <!-- Interactive Re-created SVG Triangle Hub -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 items-center">
       
       <!-- SVG Graphic Stage (5 cols) -->
       <div class="lg:col-span-5 flex items-center justify-center" appReveal>
-        <div class="relative w-72 h-72 flex items-center justify-center">
+        <div class="relative w-64 h-64 sm:w-72 sm:h-72 flex items-center justify-center">
           <!-- Overlapping Nodes SVG -->
           <svg class="w-full h-full" viewBox="0 0 200 200">
             <defs>
@@ -173,18 +173,18 @@
       </div>
 
       <!-- Triad Text Columns (7 cols) -->
-      <div class="lg:col-span-7 space-y-6">
+      <div class="lg:col-span-7 space-y-4">
         @for (item of safetyTriad; track item.title; let i = $index) {
           <div
-            class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex items-start gap-4 hover:border-[#0B4C8C] transition-colors"
+            class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm flex items-start gap-3.5 hover:border-[#0B4C8C] transition-colors"
             appReveal
             [delayMs]="i * 80"
           >
-            <div class="w-12 h-12 rounded-xl bg-[#0B4C8C]/10 border border-[#0B4C8C]/30 flex items-center justify-center text-[#0B4C8C] shrink-0">
-              <span class="material-symbols-outlined text-2xl">{{ item.icon }}</span>
+            <div class="w-10 h-10 rounded-xl bg-[#0B4C8C]/10 border border-[#0B4C8C]/30 flex items-center justify-center text-[#0B4C8C] shrink-0">
+              <span class="material-symbols-outlined text-xl">{{ item.icon }}</span>
             </div>
-            <div class="space-y-2">
-              <h3 class="font-display font-extrabold text-lg text-[#101820] uppercase tracking-wider">
+            <div class="space-y-1.5">
+              <h3 class="font-display font-extrabold text-base sm:text-lg text-[#101820] uppercase tracking-wider">
                 {{ item.title }}
               </h3>
               <ul class="space-y-1">
@@ -203,7 +203,7 @@
     </div>
 
     <!-- Bottom Action CTA -->
-    <div class="mt-16 text-center" appReveal>
+    <div class="mt-10 text-center" appReveal>
       <a routerLink="/contact-us" class="btn-amber">
         <span class="material-symbols-outlined">request_quote</span>
         <span>Discuss Your Project Requirements</span>

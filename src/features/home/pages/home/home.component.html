@@ -101,23 +101,23 @@
     </div>
   </section>
 
-  <!-- 2. LIVE STAT COUNTER STRIP -->
-  <section class="bg-gradient-to-r from-[#0B4C8C] via-[#073563] to-[#0B4C8C] text-white py-10 shadow-md relative z-20">
+  <!-- 2. LIVE STAT COUNTER STRIP (Compact & Slim Industrial Bar) -->
+  <section class="bg-gradient-to-r from-[#0B4C8C] via-[#073563] to-[#0B4C8C] text-white py-4 md:py-5 shadow-md relative z-20">
     <div class="app-container">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/15">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-white/15">
         @for (st of stats; track st.label) {
-          <div class="pt-4 md:pt-0 px-2 space-y-1" appReveal>
-            <div class="flex items-center justify-center gap-2 text-[#F5A623] mb-1">
-              <span class="material-symbols-outlined text-2xl">{{ st.icon }}</span>
+          <div class="pt-2 md:pt-0 px-2 flex flex-col items-center justify-center space-y-0.5" appReveal>
+            <div class="flex items-center justify-center gap-1.5 text-[#F5A623]">
+              <span class="material-symbols-outlined text-xl">{{ st.icon }}</span>
+              <span
+                class="font-display font-black text-2xl sm:text-3xl text-white tracking-tight"
+                [appCountUp]="st.value"
+                [suffix]="st.suffix"
+              >
+                0
+              </span>
             </div>
-            <div
-              class="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight"
-              [appCountUp]="st.value"
-              [suffix]="st.suffix"
-            >
-              0
-            </div>
-            <div class="font-display font-bold text-xs uppercase tracking-widest text-slate-200">
+            <div class="font-display font-bold text-[11px] uppercase tracking-widest text-slate-200">
               {{ st.label }}
             </div>
           </div>
@@ -130,10 +130,10 @@
   <app-weld-seam-divider></app-weld-seam-divider>
 
   <!-- 3. SERVICES SHOWCASE GRID (PDF Areas of Excellence) -->
-  <section class="py-20 bg-[#F8F9FB]">
+  <section class="py-10 md:py-12 bg-[#F8F9FB]">
     <div class="app-container">
       
-      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3" appReveal>
+      <div class="text-center max-w-3xl mx-auto mb-8 md:mb-10 space-y-2.5" appReveal>
         <div class="font-display font-bold text-xs uppercase tracking-widest text-[#0B4C8C]">
           Areas of Excellence
         </div>
@@ -145,7 +145,7 @@
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
         @for (svc of services; track svc.slug; let i = $index) {
           <div
             class="bg-white rounded-2xl border border-slate-200/90 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
@@ -154,7 +154,7 @@
           >
             <div>
               <!-- Visual Header / Dynamic Slot Image -->
-              <div class="relative h-48 bg-slate-900 flex items-center justify-center overflow-hidden">
+              <div class="relative h-44 bg-slate-900 flex items-center justify-center overflow-hidden">
                 <app-slot-image
                   [slotKey]="'services.' + svc.slug + '.card'"
                   imgClass="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 relative z-0"
@@ -168,7 +168,7 @@
               </div>
 
               <!-- Card Content -->
-              <div class="p-4 sm:p-6 space-y-3">
+              <div class="p-4 sm:p-5 space-y-2.5">
                 <h3 class="font-display font-bold text-lg sm:text-xl text-[#101820] group-hover:text-[#0B4C8C] transition-colors">
                   {{ svc.title }}
                 </h3>
@@ -179,7 +179,7 @@
             </div>
 
             <!-- Card Footer Link -->
-            <div class="px-4 sm:px-6 pb-6 pt-2 border-t border-slate-100">
+            <div class="px-4 sm:px-5 pb-5 pt-2 border-t border-slate-100">
               <a
                 [routerLink]="['/our-services', svc.slug]"
                 class="font-display font-bold text-xs uppercase text-[#0B4C8C] group-hover:text-[#F5A623] transition-colors flex items-center gap-1 tracking-wider"
@@ -192,7 +192,7 @@
         }
       </div>
 
-      <div class="mt-12 text-center">
+      <div class="mt-8 md:mt-10 text-center">
         <a routerLink="/our-services" class="btn-amber">
           <span>Explore All 7 Services</span>
           <span class="material-symbols-outlined">arrow_forward</span>
@@ -205,42 +205,130 @@
   <!-- WELD SEAM DIVIDER -->
   <app-weld-seam-divider></app-weld-seam-divider>
 
-  <!-- 4. WHY CHOOSE US (PDF Safety + Features) -->
-  <section class="py-20 bg-[#F8F9FB] text-slate-900 border-t border-slate-200/80 why-choose-us-section">
-    <div class="app-container">
+  <!-- 4. WHY CHOOSE US (Engineering Advantages & Capabilities Showcase — Light Corporate Theme) -->
+  <section class="py-10 md:py-12 bg-gradient-to-b from-[#F8F9FB] via-white to-slate-50 text-slate-900 border-t border-b border-slate-200/80 relative overflow-hidden why-choose-us-section">
+    
+    <!-- Light Structural Grid Pattern & Ambient Glow -->
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#cbd5e1_1px,transparent_1px),linear-gradient(to_bottom,#cbd5e1_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,#000_65%,transparent_100%)] opacity-25 pointer-events-none"></div>
+
+    <div class="app-container relative z-10">
       
-      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3" appReveal>
-        <div class="font-display font-bold text-xs uppercase tracking-widest text-[#0B4C8C]">
-          Engineering Advantages
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-8 md:mb-10 space-y-2.5" appReveal>
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0B4C8C]/10 border border-[#0B4C8C]/25 text-[#0B4C8C] text-xs font-display font-bold uppercase tracking-widest">
+          <span class="material-symbols-outlined text-sm">precision_manufacturing</span>
+          <span>Engineering Advantages & Execution Integrity</span>
         </div>
         <h2 class="font-display section-heading text-slate-900 uppercase">
           WHY HIRING SK FABRICATOR & ERECTOR MAKES THE DIFFERENCE
         </h2>
-        <p class="text-slate-600 text-sm">
-          Built on precision workmanship, guaranteed safety standards, and faster record project completion times.
+        <p class="text-slate-600 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed font-sans">
+          Built on certified engineering precision, zero-compromise safety protocols, and record on-time plant completion.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        @for (item of whyUs; track item.title; let i = $index) {
-          <div
-            class="bg-white border border-slate-200/90 rounded-xl p-6 space-y-4 hover:border-[#0B4C8C]/50 hover:shadow-xl transition-all group"
-            appReveal
-            [delayMs]="i * 60"
-          >
-            <div class="w-full h-32 rounded-lg bg-slate-900 overflow-hidden relative">
-              <app-slot-image [slotKey]="whyUsSlots[i] || 'home.whyus.icon.customize-service'"></app-slot-image>
+      <!-- Split Layout: Executive Summary (4 cols) + 6 Feature Pillar Cards (8 cols) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 md:gap-6 items-stretch">
+        
+        <!-- Left Column: Executive Summary Card (4 cols) — Signature Deep Blue -->
+        <div class="lg:col-span-4" appReveal>
+          <div class="h-full bg-gradient-to-br from-[#0B4C8C] via-[#073563] to-[#0B4C8C] text-white rounded-2xl p-5 sm:p-6 border border-[#0B4C8C] shadow-xl flex flex-col justify-between relative overflow-hidden group">
+            
+            <!-- Structural Accent Top Line -->
+            <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#F5A623] via-[#E8871E] to-[#F5A623]"></div>
+
+            <div class="space-y-5">
+              <div class="flex items-center justify-between border-b border-white/15 pb-3.5">
+                <div class="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-[#F5A623] shadow-md">
+                  <span class="material-symbols-outlined text-2xl">verified_user</span>
+                </div>
+                <span class="px-3 py-1 rounded-full bg-[#F5A623]/20 text-[#F5A623] text-[10px] font-display font-bold uppercase tracking-widest border border-[#F5A623]/40">
+                  ISO Compliant
+                </span>
+              </div>
+
+              <div>
+                <h3 class="font-display font-extrabold text-xl sm:text-2xl text-white uppercase tracking-wider">
+                  The SK Engineering Edge
+                </h3>
+                <p class="text-xs text-slate-200 font-sans leading-relaxed mt-2">
+                  From drawing detailing & raw material selection to shop pre-assembly, NDT testing, and site erection — we provide single-source industrial contracting.
+                </p>
+              </div>
+
+              <!-- Key Metric Chips -->
+              <div class="space-y-2 pt-1">
+                <div class="flex items-center gap-2.5 p-2.5 rounded-xl bg-white/10 border border-white/15 text-xs">
+                  <span class="material-symbols-outlined text-[#F5A623] text-base">shield</span>
+                  <span class="text-white font-semibold">100% Zero-Incident Safety Record</span>
+                </div>
+                <div class="flex items-center gap-2.5 p-2.5 rounded-xl bg-white/10 border border-white/15 text-xs">
+                  <span class="material-symbols-outlined text-[#F5A623] text-base">precision_manufacturing</span>
+                  <span class="text-white font-semibold">9,500+ MT Heavy Steel Fabricated</span>
+                </div>
+                <div class="flex items-center gap-2.5 p-2.5 rounded-xl bg-white/10 border border-white/15 text-xs">
+                  <span class="material-symbols-outlined text-[#F5A623] text-base">task_alt</span>
+                  <span class="text-white font-semibold">250+ Chemical & Automotive Sites</span>
+                </div>
+              </div>
             </div>
-            <div>
-              <h3 class="font-display font-bold text-lg text-slate-900 group-hover:text-[#0B4C8C] transition-colors">
-                {{ item.title }}
-              </h3>
-              <p class="text-xs text-slate-600 font-sans leading-relaxed mt-1">
-                {{ item.desc }}
-              </p>
+
+            <div class="pt-5 border-t border-white/15 mt-5">
+              <a routerLink="/contact-us" class="btn-amber w-full justify-center text-xs uppercase tracking-wider">
+                <span class="material-symbols-outlined text-base">request_quote</span>
+                <span>Request Consultation</span>
+              </a>
             </div>
+
           </div>
-        }
+        </div>
+
+        <!-- Right Column: 6 Engineering Feature Pillar Cards (8 cols) — Crisp White Cards -->
+        <div class="lg:col-span-8">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+            @for (item of whyUsPillars; track item.title; let i = $index) {
+              <div
+                class="bg-white hover:bg-slate-50/80 border border-slate-200/90 hover:border-[#0B4C8C]/60 rounded-2xl p-4 sm:p-5 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group flex flex-col justify-between space-y-3.5"
+                appReveal
+                [delayMs]="i * 60"
+              >
+                <div class="space-y-2.5">
+                  <!-- Icon Header & Badge -->
+                  <div class="flex items-center justify-between">
+                    <div class="w-10 h-10 rounded-xl bg-[#0B4C8C]/10 border border-[#0B4C8C]/25 text-[#0B4C8C] flex items-center justify-center group-hover:bg-[#0B4C8C] group-hover:text-white transition-all shadow-sm">
+                      <span class="material-symbols-outlined text-xl">{{ item.icon }}</span>
+                    </div>
+                    <span class="text-[10px] font-display font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-slate-100 text-[#0B4C8C] border border-slate-200">
+                      {{ item.badge }}
+                    </span>
+                  </div>
+
+                  <!-- Title -->
+                  <h3 class="font-display font-bold text-base sm:text-lg text-slate-900 group-hover:text-[#0B4C8C] transition-colors uppercase tracking-wide">
+                    {{ item.title }}
+                  </h3>
+
+                  <!-- Description -->
+                  <p class="text-xs text-slate-600 font-sans leading-relaxed">
+                    {{ item.desc }}
+                  </p>
+                </div>
+
+                <!-- Footer Feature Points -->
+                <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-sans">
+                  <span class="flex items-center gap-1.5 text-[#0B4C8C] font-semibold">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#F5A623]"></span>
+                    <span>{{ item.highlight }}</span>
+                  </span>
+                  <span class="material-symbols-outlined text-sm opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-[#0B4C8C]">
+                    arrow_forward
+                  </span>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -249,20 +337,20 @@
   <!-- 5. CLIENT SHOWCASE (Infinite Vertical Logo Ticker) -->
   <app-client-showcase></app-client-showcase>
 
-  <!-- 6. COMPANY PROFILE PDF DOWNLOAD BANNER -->
-  <section class="py-16 bg-gradient-to-r from-[#0B4C8C] via-[#073563] to-[#101820] text-white border-t border-[#F5A623]/30 shadow-2xl relative overflow-hidden">
-    <div class="app-container relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+  <!-- 6. COMPANY PROFILE PDF DOWNLOAD BANNER (Compact & Slim Corporate Banner) -->
+  <section class="py-5 md:py-6 bg-gradient-to-r from-[#0B4C8C] via-[#073563] to-[#101820] text-white border-t border-[#F5A623]/30 shadow-lg relative overflow-hidden">
+    <div class="app-container relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6 items-center">
       
-      <div class="lg:col-span-8 space-y-4 text-center md:text-left">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F5A623]/20 border border-[#F5A623]/40 text-[#F5A623] text-xs font-display font-bold uppercase tracking-widest">
-          <span class="material-symbols-outlined text-sm">picture_as_pdf</span>
+      <div class="lg:col-span-8 space-y-1.5 text-center md:text-left">
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#F5A623]/20 border border-[#F5A623]/40 text-[#F5A623] text-[10px] font-display font-bold uppercase tracking-widest">
+          <span class="material-symbols-outlined text-xs">picture_as_pdf</span>
           <span>Official Corporate Documentation</span>
         </div>
-        <h2 class="font-display section-heading text-white uppercase">
-          DOWNLOAD OUR COMPLETE COMPANY PROFILE
+        <h2 class="font-display font-extrabold text-base sm:text-lg text-white uppercase tracking-wide">
+          DOWNLOAD OUR COMPLETE COMPANY PROFILE (PDF)
         </h2>
-        <p class="text-slate-200 text-sm sm:text-base font-sans max-w-2xl">
-          Get instant access to SK Fabricator & Erector's complete technical capabilities, machine inventory, safety credentials, areas of excellence, and completed project reference portfolio in one high-resolution PDF document.
+        <p class="text-slate-200 text-xs font-sans max-w-2xl leading-relaxed">
+          Access SK Fabricator & Erector's complete technical capabilities, machine inventory, safety credentials, and completed project portfolio.
         </p>
       </div>
 
@@ -270,9 +358,9 @@
         <button
           type="button"
           (click)="downloadPdf()"
-          class="btn-amber !py-3.5 !px-7 !text-base shadow-xl flex items-center gap-3 group cursor-pointer"
+          class="btn-amber !py-2.5 !px-5 !text-xs font-bold tracking-wider flex items-center gap-2 group cursor-pointer shadow-md"
         >
-          <span class="material-symbols-outlined text-2xl group-hover:translate-y-0.5 transition-transform">download</span>
+          <span class="material-symbols-outlined text-base group-hover:translate-y-0.5 transition-transform">download</span>
           <span>Download PDF Profile</span>
         </button>
       </div>

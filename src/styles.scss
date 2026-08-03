@@ -20,6 +20,12 @@
   --color-steel-grey: #5A6B78;
   --color-steel-light: #E2E8F0;
 
+  /* Centralized Enterprise Spacing Tokens (Task 4) */
+  --section-py: 2.75rem;          /* 44px desktop section vertical padding */
+  --banner-py: 2.25rem;           /* 36px desktop page banner padding */
+  --card-p: 1.5rem;               /* 24px card inner padding */
+  --grid-gap: 1.5rem;             /* 24px grid item gap */
+
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 16px;
   color: #101820;
@@ -29,6 +35,10 @@
 @media (max-width: 768px) {
   :root {
     font-size: 15px;
+    --section-py: 1.75rem;        /* 28px mobile section vertical padding */
+    --banner-py: 1.5rem;          /* 24px mobile page banner padding */
+    --card-p: 1.25rem;            /* 20px card inner padding */
+    --grid-gap: 1.25rem;          /* 20px grid item gap */
   }
 }
 
@@ -176,6 +186,23 @@ h3, .h3-title {
     padding-left: 2rem;
     padding-right: 2rem;
   }
+}
+
+/* Tightened Enterprise Spacing & Reading Width Utilities */
+.section-py {
+  padding-top: var(--section-py);
+  padding-bottom: var(--section-py);
+}
+
+.banner-py {
+  padding-top: var(--banner-py);
+  padding-bottom: var(--banner-py);
+}
+
+.reading-container {
+  max-width: 840px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Industrial Signature Buttons */

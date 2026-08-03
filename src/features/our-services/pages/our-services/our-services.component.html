@@ -1,7 +1,7 @@
-<main class="min-h-screen page-top-offset page--services pb-20">
+<main class="min-h-screen page-top-offset page--services pb-16">
 
   <!-- Header Banner -->
-  <section class="bg-gradient-to-b from-[#F8F9FB] via-white to-[#F8F9FB] text-slate-900 py-16 border-b border-slate-200/80 relative overflow-hidden">
+  <section class="bg-gradient-to-b from-[#F8F9FB] via-white to-[#F8F9FB] text-slate-900 py-10 md:py-12 border-b border-slate-200/80 relative overflow-hidden">
     <div class="app-container text-center relative z-10" appReveal>
       <div class="font-display font-bold text-xs uppercase tracking-widest text-[#0B4C8C] mb-2">
         Integrated Engineering Solutions
@@ -20,10 +20,10 @@
 
   <!-- IF SINGLE SERVICE DETAIL VIEW ACTIVE -->
   @if (selectedService(); as svc) {
-    <div class="app-container py-12">
+    <div class="app-container py-8 md:py-10">
       
       <!-- Back Navigation Breadcrumb -->
-      <div class="mb-8 flex items-center justify-between">
+      <div class="mb-6 flex items-center justify-between">
         <a routerLink="/our-services" class="inline-flex items-center gap-2 font-display font-bold text-xs uppercase tracking-wider text-[#0B4C8C] hover:text-[#F5A623] transition-colors">
           <span class="material-symbols-outlined text-sm">arrow_back</span>
           <span>Back to All Solutions</span>
@@ -31,13 +31,13 @@
         <span class="text-xs text-slate-400">Section: Areas of Excellence</span>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
         
         <!-- Main Detail Body (8 cols) -->
-        <div class="lg:col-span-8 space-y-8">
+        <div class="lg:col-span-8 space-y-6">
           
           <!-- Dynamic Slot Image Banner (with amber left-edge detail accent) -->
-          <div class="service-detail-hero relative h-80 bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 flex items-center justify-center shadow-lg">
+          <div class="service-detail-hero relative h-72 sm:h-80 bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 flex items-center justify-center shadow-lg">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent z-10"></div>
             
             <app-slot-image
@@ -46,8 +46,8 @@
               imgClass="w-full h-full object-cover relative z-0"
             ></app-slot-image>
 
-            <div class="absolute bottom-6 left-6 right-6 z-20 text-white">
-              <div class="font-display font-bold text-[#F5A623] text-sm uppercase tracking-widest mb-1">
+            <div class="absolute bottom-5 left-5 right-5 z-20 text-white">
+              <div class="font-display font-bold text-[#F5A623] text-xs sm:text-sm uppercase tracking-widest mb-1">
                 Engineering Specification
               </div>
               <h2 class="font-display font-extrabold text-2xl sm:text-3xl uppercase">
@@ -57,8 +57,8 @@
           </div>
 
           <!-- Description Text -->
-          <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm space-y-6">
-            <h3 class="font-display font-bold text-xl text-[#101820] border-b border-slate-100 pb-3 uppercase">
+          <div class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-sm space-y-5">
+            <h3 class="font-display font-bold text-lg sm:text-xl text-[#101820] border-b border-slate-100 pb-3 uppercase">
               Service Scope & Capabilities
             </h3>
             <p class="text-slate-700 text-sm sm:text-base leading-relaxed font-sans">
@@ -67,13 +67,13 @@
 
             <!-- Bullet Checklist -->
             @if (svc.bullets && svc.bullets.length > 0) {
-              <div class="pt-4 border-t border-slate-100 space-y-4">
-                <h4 class="font-display font-bold text-sm uppercase text-[#0B4C8C] tracking-wider">
+              <div class="pt-4 border-t border-slate-100 space-y-3">
+                <h4 class="font-display font-bold text-xs sm:text-sm uppercase text-[#0B4C8C] tracking-wider">
                   {{ svc.bulletTitle || 'WE HAVE EXPERTISE IN' }}
                 </h4>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   @for (b of svc.bullets; track b) {
-                    <div class="flex items-start gap-2.5 bg-slate-50 p-3.5 rounded-xl border border-slate-200/80">
+                    <div class="flex items-start gap-2.5 bg-slate-50 p-3 rounded-xl border border-slate-200/80">
                       <span class="material-symbols-outlined text-[#F5A623] text-base shrink-0 mt-0.5">check_circle</span>
                       <span class="text-xs font-semibold text-slate-800 leading-snug">{{ b }}</span>
                     </div>
@@ -84,9 +84,9 @@
           </div>
 
           <!-- Quote Callout CTA -->
-          <div class="bg-gradient-to-r from-[#0B4C8C] to-[#073563] rounded-2xl p-8 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
+          <div class="bg-gradient-to-r from-[#0B4C8C] to-[#073563] rounded-2xl p-6 sm:p-7 text-white flex flex-col sm:flex-row items-center justify-between gap-5 shadow-xl">
             <div class="space-y-1 text-center sm:text-left">
-              <h4 class="font-display font-bold text-xl uppercase tracking-wider text-white">Need {{ svc.title }}?</h4>
+              <h4 class="font-display font-bold text-lg sm:text-xl uppercase tracking-wider text-white">Need {{ svc.title }}?</h4>
               <p class="text-xs text-slate-300">Request a technical consultation or line-item bill of quantities quote today.</p>
             </div>
             <a routerLink="/contact-us" class="btn-amber shrink-0">
@@ -99,15 +99,15 @@
 
         <!-- Sidebar Navigation (4 cols) -->
         <div class="lg:col-span-4 space-y-6">
-          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
-            <h4 class="font-display font-bold text-sm uppercase text-[#101820] border-b border-slate-100 pb-3 tracking-wider">
+          <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3">
+            <h4 class="font-display font-bold text-xs sm:text-sm uppercase text-[#101820] border-b border-slate-100 pb-2.5 tracking-wider">
               All 7 Industrial Solutions
             </h4>
-            <div class="space-y-2">
+            <div class="space-y-1.5">
               @for (item of services(); track item.slug) {
                 <a
                   [routerLink]="['/our-services', item.slug]"
-                  class="flex items-center gap-3 p-3 rounded-xl border transition-all text-xs font-display font-bold uppercase tracking-wider group min-w-0"
+                  class="flex items-center gap-2.5 p-2.5 rounded-xl border transition-all text-xs font-display font-bold uppercase tracking-wider group min-w-0"
                   [class.bg-[#0B4C8C]]="item.slug === svc.slug"
                   [class.text-white]="item.slug === svc.slug"
                   [class.border-[#0B4C8C]]="item.slug === svc.slug"
@@ -136,9 +136,9 @@
     </div>
   } @else {
     <!-- OVERVIEW GRID FOR ALL 7 SERVICES -->
-    <div class="app-container py-16">
+    <div class="app-container py-10 md:py-12">
       
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
         @for (svc of services(); track svc.slug; let i = $index) {
           <div
             class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
@@ -146,7 +146,7 @@
             [delayMs]="i * 70"
           >
             <div>
-              <div class="relative h-48 bg-slate-900 flex items-center justify-center overflow-hidden">
+              <div class="relative h-44 bg-slate-900 flex items-center justify-center overflow-hidden">
                 <app-slot-image
                   [slotKey]="'services.' + svc.slug + '.card'"
                   [fallbackUrl]="svc.imageUrl"
@@ -160,8 +160,8 @@
                 </div>
               </div>
 
-              <div class="p-6 space-y-3">
-                <h3 class="font-display font-bold text-xl text-[#101820] group-hover:text-[#0B4C8C] transition-colors">
+              <div class="p-5 space-y-2.5">
+                <h3 class="font-display font-bold text-lg sm:text-xl text-[#101820] group-hover:text-[#0B4C8C] transition-colors">
                   {{ svc.title }}
                 </h3>
                 <p class="text-xs text-slate-600 leading-relaxed font-sans line-clamp-3">
@@ -170,7 +170,7 @@
               </div>
             </div>
 
-            <div class="px-6 pb-6 pt-2 border-t border-slate-100 flex items-center justify-between">
+            <div class="px-5 pb-5 pt-2 border-t border-slate-100 flex items-center justify-between">
               <a
                 [routerLink]="['/our-services', svc.slug]"
                 class="font-display font-bold text-xs uppercase text-[#0B4C8C] group-hover:text-[#F5A623] transition-colors flex items-center gap-1 tracking-wider"
